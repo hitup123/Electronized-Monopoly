@@ -1,9 +1,9 @@
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// Importing Pages
+import HomePage from './Pages/HomePage';
+import LandingPage from './Pages/LandingPage';
 
-import './App.css';
-import React, { useEffect, useState } from 'react';
-import './App.css';
-
-
+import { useState,useEffect } from 'react';
 const App = () => {
   const [data, setData] = useState(null);
 
@@ -29,14 +29,12 @@ const App = () => {
   };
 //should give conflict in app.js
   return (
-    <div>
-      <h1>Monopoly</h1>
-      <p>{data ? 'Yes' : 'noooo'}</p>
-      {data && Object.entries(data).map(([key, value]) => (
-        <p key={key}>{`${key}: ${value}`}</p>
-      ))}
-      <button onClick={sendDataToBackend}>Send Data to Backend</button>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/Landing" element={<LandingPage />} />
+      </Routes>
+    </Router>
   );
 }
 
