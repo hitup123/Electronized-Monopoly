@@ -27,7 +27,7 @@ const App = () => {
       .then(data => console.log(data))
       .catch(error => console.error(error));
   };
-
+//should give conflict in app.js
   return (
     <div>
       <h1>Monopoly</h1>
