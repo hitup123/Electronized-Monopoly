@@ -31,8 +31,8 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/Landing" element={<LandingPage />} />
+        <Route path="/Landing" element={<HomePage />} />
+        <Route path="/" element={<LandingPage />} />
       </Routes>
     </Router>
   );
