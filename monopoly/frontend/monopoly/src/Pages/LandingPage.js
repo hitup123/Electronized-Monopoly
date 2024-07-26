@@ -19,7 +19,7 @@ function LandingPage() {
     const landingcss = {
       backgroundColor: '#D6EFD8',
       display: 'grid',
-      gridTemplateRows: '50% 50%'
+      gridTemplateRows: '50% 20% 30%'
     };
 
     const selectionpanelcss = {
@@ -28,13 +28,30 @@ function LandingPage() {
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'no-wrap',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        gridRow: '3/4'
+
     };
+
+    const playmode = {
+        height: '100px',
+        width: '100%',
+        gridRow: '2/3'
+
+    }
   
     return (
       <div id="page" style={landingcss}>
-        <img alt="monopoly heading" src={icon} style={{ width: '700px', height: 'auto', position: 'relative', left: '50%', translate: '-50% 10%'}} />
+        <img alt="monopoly heading" src={icon} style={{ width: '700px', height: 'auto', position: 'relative', left: '50%', translate: '-50% 10%', gridRow: '1/2'}} />
 
+
+        <div style={playmode}>
+          <select name='mode'>
+            <option value='individual'>Individual</option>
+            <option value='teams'>Teams</option>
+          </select>
+    
+        </div>
         <div id='character_selection_panel' style={selectionpanelcss}>
             <CharacterPanel imageURL={cannon} />
             <CharacterPanel imageURL={car} />
