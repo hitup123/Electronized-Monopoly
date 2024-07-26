@@ -11,4 +11,6 @@ rm -r static/static
 
 
 
+
+# Run the Flask app
 flask run
