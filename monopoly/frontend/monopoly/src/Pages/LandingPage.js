@@ -10,9 +10,7 @@ import hat from '../Images/hat.png';
 import dog from '../Images/dog.png';
 import wheelbarrow from '../Images/wheelbarrow.png';
 import dustbin from '../Images/dustbin.webp';
-import ship from '../Images/ship.webp';
-import iron from '../Images/iron.png';
-import shoe from '../Images/shoe.png';
+import ship from '../Images/ship.webp'
 
 
 
@@ -63,8 +61,6 @@ function LandingPage() {
             <CharacterPanel imageURL={horse} />
             <CharacterPanel imageURL={wheelbarrow} />
             <CharacterPanel imageURL={ship} />
-            <CharacterPanel imageURL={shoe} />
-            <CharacterPanel imageURL={iron} />
         </div>
       </div>
     );
