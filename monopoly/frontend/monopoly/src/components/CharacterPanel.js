@@ -55,12 +55,12 @@ function CharacterPanel({ imageURL }) {
     };
 
     const indicator = {
-        height: '5px',
-        width: '5px',
+        height: '10px',
+        width: '10px',
         borderRadius: '100%',
         position: 'relative',
         left: '50%',
-        translate: '-50% -500%',
+        translate: '-50% -300%',
         backgroundColor: 'white'
     }
 

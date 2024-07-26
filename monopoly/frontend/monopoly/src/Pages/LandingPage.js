@@ -20,7 +20,7 @@ function LandingPage() {
     const landingcss = {
       backgroundColor: '#D6EFD8',
       display: 'grid',
-      gridTemplateRows: '50% 20% 30%'
+      gridTemplateRows: '40% 20% 20% 20%'
     };
 
     const selectionpanelcss = {
@@ -38,6 +38,7 @@ function LandingPage() {
         height: '100px',
         width: '100%',
         gridRow: '2/3',
+        
     }
 
     const dropdown = {
@@ -46,9 +47,33 @@ function LandingPage() {
       translate: '-50%',
       height: '60%',
       width: '20%',
-      borderRadius: '100px',
       textAlign: 'center',
-      fontSize: '30px'
+      fontSize: '30px',
+      backgroundImage: 'linear-gradient(0deg, #B40014 10%, #CE000F 90%)',
+      border: '4px solid #2E2E33',
+      boxShadow: 'inset 0px 10px 30px rgba(255, 255, 255, 0.3)',
+      fontFamily: 'DM Sans, sans-serif',
+      fontOpticalSizing: 'auto',
+      fontWeight: '1000',
+      fontStyle: 'normal',
+      color: 'white',
+    }
+
+    const playbutton = {
+      gridRow: '4/5',
+      height: '50px',
+      width: '250px',
+      border: 'outset #059212 4px',
+      backgroundImage: 'radial-gradient(circle, #9CDBA6 10%, #50B498 90%)',
+      position: 'relative',
+      left: '50%',
+      translate: '-50%',
+      fontFamily: 'DM Sans, sans-serif',
+      fontOpticalSizing: 'auto',
+      fontWeight: '1000',
+      fontStyle: 'normal',
+      fontSize: '20px',
+      color: '#DEF9C4'
     }
   
     return (
@@ -58,8 +83,8 @@ function LandingPage() {
 
         <div style={playmode}>
           <select style={dropdown} name='mode'>
-            <option value='individual'>Individual</option>
-            <option value='teams'>Teams</option>
+            <option value='individual'>INDIVIDUAL</option>
+            <option value='teams'>TEAMS</option>
           </select>
     
         </div>
@@ -76,6 +101,8 @@ function LandingPage() {
             <CharacterPanel imageURL={iron} />  
 
         </div>
+
+        <button style={playbutton}>PLAY</button> 
       </div>
     );
   }
