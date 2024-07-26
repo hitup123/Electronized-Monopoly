@@ -6,7 +6,7 @@ import LandingPage from './Pages/LandingPage';
 import { useState,useEffect } from 'react';
 const App = () => {
   const [data, setData] = useState(null);
-
+ 
   useEffect(() => {
     fetch('/api/data')
       .then(response => response.json())
