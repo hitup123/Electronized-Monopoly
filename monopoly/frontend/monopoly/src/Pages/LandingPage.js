@@ -10,8 +10,9 @@ import hat from '../Images/hat.png';
 import dog from '../Images/dog.png';
 import wheelbarrow from '../Images/wheelbarrow.png';
 import dustbin from '../Images/dustbin.webp';
-import ship from '../Images/ship.webp'
-
+import ship from '../Images/ship.webp';
+import shoe from '../Images/shoe.png';
+import iron from '../Images/iron.png';
 
 
 function LandingPage() {
@@ -36,8 +37,18 @@ function LandingPage() {
     const playmode = {
         height: '100px',
         width: '100%',
-        gridRow: '2/3'
+        gridRow: '2/3',
+    }
 
+    const dropdown = {
+      position: 'relative',
+      left: '50%',
+      translate: '-50%',
+      height: '60%',
+      width: '20%',
+      borderRadius: '100px',
+      textAlign: 'center',
+      fontSize: '30px'
     }
   
     return (
@@ -46,7 +57,7 @@ function LandingPage() {
 
 
         <div style={playmode}>
-          <select name='mode'>
+          <select style={dropdown} name='mode'>
             <option value='individual'>Individual</option>
             <option value='teams'>Teams</option>
           </select>
@@ -61,6 +72,9 @@ function LandingPage() {
             <CharacterPanel imageURL={horse} />
             <CharacterPanel imageURL={wheelbarrow} />
             <CharacterPanel imageURL={ship} />
+            <CharacterPanel imageURL={shoe} />
+            <CharacterPanel imageURL={iron} />  
+
         </div>
       </div>
     );
