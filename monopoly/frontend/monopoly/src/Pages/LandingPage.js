@@ -25,6 +25,16 @@ function sendjson(characterStates) {
       team,
     })),
   };
+  fetch('/api/submit', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(jsonpacket)
+  })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error(error));
   console.log(jsonpacket); // This line is just for testing
 }
 

@@ -27,9 +27,12 @@ def check_db_connection():
         except Exception as e:
             logger.error(f"Database connection failed: {e}")
         return output
-@app.route('/')
+@app.route('/Landing')
 def index():
     return send_from_directory(app.static_folder, 'index.html')
+@app.route('/')
+def landing():
+        return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/<path:path>')
 def static_files(path):
