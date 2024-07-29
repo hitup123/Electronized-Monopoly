@@ -1,11 +1,14 @@
 import React from 'react';
 import './Page.css'
-import PlayerCard from '../components/playerCard';
-import car  from '../Images/car.webp';
-import horse from '../Images/horse.avif';
-import cannon from '../Images/cannon.png';
-import hat from '../Images/hat.png';
+
+import Team from '../components/Team';
 import TransferButton from '../components/TransferButton';
+
+const jsonpacket = {
+  'players': ['cat', 'horse', 'cannon' ]
+}
+
+
 
 function HomePage() {
 
@@ -32,12 +35,11 @@ function HomePage() {
 
   return (
     <div id='page' style={landingpage}>
-      <div style={playercardpanel}>
-      <PlayerCard imageUrl={car}/>
-      </div>
+
+    <Team></Team>
+
       <div style={buttonplate}>
         <TransferButton />
-
       </div>
       
 

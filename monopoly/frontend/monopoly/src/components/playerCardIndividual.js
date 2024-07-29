@@ -2,7 +2,7 @@ import React from 'react';
 
 
 
-function PlayerCard({imageUrl}) {
+function playerCardIndividual({imageUrl}) {
 
   const PlayerCard = {
     backgroundColor: "grey",
@@ -79,4 +79,4 @@ function PlayerCard({imageUrl}) {
   );
 }
 
-export default PlayerCard;
+export default playerCardIndividual;

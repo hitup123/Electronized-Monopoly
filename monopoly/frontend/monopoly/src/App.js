@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // Importing Pages
-import HomePage from './Pages/HomePage';
+import HomePage from './Pages/TeamsHomePage';
 import LandingPage from './Pages/LandingPage';
 
 import { useState,useEffect } from 'react';
@@ -31,7 +31,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/Teams" element={<HomePage />} />
         <Route path="/Landing" element={<LandingPage />} />
       </Routes>
     </Router>
