@@ -27,20 +27,59 @@ function HomePage() {
     alignItems: 'center'
   }
 
-  const buttonplate = {
+  const userinterface = {
     gridRows: '2/3',
-    backgroundColor: 'darkgrey',
-    borderTop: 'outset 5px orangered'
+    display: 'grid',
+    gridTemplateColumns: '60% 40%',
+    borderTop: 'outset 10px orangered',
+  }
+  const buttonplate = {
+    backgroundColor: 'darkgrey', 
+    gridColumns: '1/2'
+  }
+
+  const logscreen = {
+    gridColumns: '2/3',
+    backgroundColor: 'blue',
+    borderTop: 'inset 5px orangered', 
+    borderLeft: 'ridge 20px grey', 
+    padding: '10px',
+    color: 'white',
+  }
+
+  const teamsplatter = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: '20px',
+    padding: '20px'
   }
 
   return (
     <div id='page' style={landingpage}>
 
-    <Team></Team>
+      <div style={teamsplatter}>
+        <Team></Team>
+        <Team></Team>
+        <Team></Team>
+      </div>
+
+    
+
+    <div style={userinterface}>
 
       <div style={buttonplate}>
         <TransferButton />
       </div>
+
+      <div style={logscreen}>
+        <p><span class="material-symbols-outlined">arrow_right</span>Property Sold to Player 1</p>
+        <p><span class="material-symbols-outlined">arrow_right</span>Player 3 is Bankrupt</p>
+        <p><span class="material-symbols-outlined">arrow_right</span>Player 2 builds house on Pall Mall</p>
+        <p><span class="material-symbols-outlined">arrow_right</span>Player 5 pays rent to Player 2</p>
+      </div>
+    </div>
+      
       
 
     </div>
