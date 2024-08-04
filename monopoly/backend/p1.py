@@ -178,6 +178,8 @@ if __name__ == "__main__":
                 elif(index==4):
                         #community chest card
                         # List of British Monopoly Community Chest cards
+                        cursor.execute(f"select id from currentTransaction where type='players_team'")
+                        player_id=cursor.fetchone()[0]
                         community_chest_cards = [
     "Advance to 'Go' (Collect £200)",
     "Bank error in your favor (Collect £200)",
@@ -201,21 +203,33 @@ if __name__ == "__main__":
                         selected_community_card = random.choice(community_chest_cards)
                         
 
-                if selected_community_card == "Advance to 'Go' (Collect £200)":
-                        # Move player to Go and collect £200
-                        cursor.execute(f"update players_team set cash = cash + 200 where id = {player_id}")
-
-                        
-                elif selected_community_card == "Bank error in your favor (Collect £200)":
-                        # Collect £200 due to bank error
-                        pass
-                elif selected_community_card == "Doctor's fees (Pay £50)":
-                        # Pay £50 for doctor's fees
-                        pass
-                # Add more conditions for other Community Chest cards
-                else:
-                        # Handle other Community Chest cards
-                        pass
+                        if selected_community_card == "Advance to 'Go' (Collect £200)":
+                                cursor.execute(f"update players_team set cash = cash + 200 where id = {player_id}")
+                        elif selected_community_card == "Bank error in your favor (Collect £200)":
+                                cursor.execute(f"update players_team set cash = cash + 200 where id = {player_id}")
+                        elif selected_community_card == "Doctor's fees (Pay £50)":
+                                cursor.execute(f"update players_team set cash = cash - 50 where id = {player_id}")
+                        elif selected_community_card == "From sale of stock you get £50":
+                                cursor.execute(f"update players_team set cash = cash + 50 where id = {player_id}")
+                        elif selected_community_card == "Get Out of Jail Free (This card may be kept until needed or traded)":
+        # Assuming there's a column to store the 'Get Out of Jail Free' card
+                                cursor.execute(f"update players_team set get_out_of_jail_free = get_out_of_jail_free + 1 where id = {player_id}")
+                        elif selected_community_card == "Go to Jail (Go directly to Jail, do not pass Go, do not collect £200)":
+        # Assuming there's a column to store the jail status
+                                cursor.execute(f"update players_team set in_jail = 1 where id = {player_id}")
+                        elif selected_community_card == "Holiday Fund matures (Receive £100)":
+                                cursor.execute(f"update players_team set cash = cash + 100 where id = {player_id}")
+                        elif selected_community_card == "Income tax refund (Collect £20)":
+                                cursor.execute(f"update players_team set cash = cash + 20 where id = {player_id}")
+                        elif selected_community_card == "It is your birthday (Collect £10 from each player)":
+        # Assuming there's a way to get all player IDs
+                                cursor.execute("select id from players_team")
+                                all_player_ids = cursor.fetchall()
+                                for pid in all_player_ids:
+                                        cursor.execute(f"update players_team set cash = cash - 10 where id = {pid[0]}")
+                                cursor.execute(f"update players_team set cash = cash + {10 * len(all_player_ids)} where id = {player_id}")
+                        elif selected_community_card == "Life insurance matures (Collect £100)":
+                                cursor.execute(f"update players_team set cash = cash + 100 where id = {player_id}")
         
 
 
