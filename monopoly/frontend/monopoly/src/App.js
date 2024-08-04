@@ -7,10 +7,25 @@ import { useState,useEffect } from 'react';
 const App = () => {
   const [data, setData] = useState(null);
  
-  useEffect(() => {
-    fetch('/api/data')
-      .then(response => response.json())
-      .then(data => setData(data));
+   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/data');
+        const result = await response.json();
+        setData(result);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    // Fetch data immediately
+    fetchData();
+
+    // Fetch data every 1 second
+    const intervalId = setInterval(fetchData, 10000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   const sendDataToBackend = () => {
@@ -27,6 +42,7 @@ const App = () => {
       .then(data => console.log(data))
       .catch(error => console.error(error));
   };
+
 //should give conflict in app.js
   return (
     <Router>
