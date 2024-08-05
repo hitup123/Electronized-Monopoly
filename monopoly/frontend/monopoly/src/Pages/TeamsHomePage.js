@@ -1,6 +1,18 @@
 import React from 'react';
 import './Page.css'
 
+import car from '../Images/car.webp';
+import horse from '../Images/horse.avif';
+import cannon from '../Images/cannon.png';
+import hat from '../Images/hat.png';
+import dog from '../Images/dog.png';
+import wheelbarrow from '../Images/wheelbarrow.png';
+import dustbin from '../Images/dustbin.webp';
+import ship from '../Images/ship.webp';
+import shoe from '../Images/shoe.png';
+import iron from '../Images/iron.png';
+
+
 import Team from '../components/Team';
 import TransferButton from '../components/TransferButton';
 
@@ -29,20 +41,34 @@ function TeamObjects()
 
   const teams = [
     {
-      player: 'iron',
-      playstatus: 'playing',
-      balance: '3425' 
+      player: [
+        {
+          ico: hat
+        },
+        {
+          ico: dog
+        }
+      ],
+      stat: 'playing',
+      balance: '3925' 
     },
     {
-      player: 'horse',
-      status: 'jail',
+      player: [
+        {
+          ico: horse
+        },
+        {
+          ico: iron
+        }
+      ],
+      stat: 'jail',
       balance: '8543' 
     }
   ];
 
   const teamobj = teams.map((element) => {
     return (
-      <Team balance={element.balance}></Team>
+      <Team balance={element.balance} status={element.stat} icons={element.player}></Team>
     )
   });
 

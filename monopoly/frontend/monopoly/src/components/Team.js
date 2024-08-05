@@ -3,18 +3,7 @@ import React from "react";
 import PlayerCardTeam from "./playerCardTeam";
 import Property from "./Property";
 
-import car from '../Images/car.webp';
-import horse from '../Images/horse.avif';
-import cannon from '../Images/cannon.png';
-import hat from '../Images/hat.png';
-import dog from '../Images/dog.png';
-import wheelbarrow from '../Images/wheelbarrow.png';
-import dustbin from '../Images/dustbin.webp';
-import ship from '../Images/ship.webp';
-import shoe from '../Images/shoe.png';
-import iron from '../Images/iron.png';
-
-function PlayerCardTeamObject()
+function PlayerCardTeamObject({icon})
 {
     const playericonplate = {
         display: 'flex',
@@ -25,32 +14,20 @@ function PlayerCardTeamObject()
         gap: '10px',
         alignItems: 'center',
     }
-    const icons =[
-        {
-            p1: car,
-            p2: iron
-        },
-        {
-            p1: horse,
-            p2: cannon
-        },
-        {
-            p1: hat,
-            p2: ship
-        }
-    ];
+    
+    console.log(icon);
 
-    const iconobj = icons.map((element) => {
+    const iconobj = icon.map((element) => {
         return (<>
-            <PlayerCardTeam imageUrl={element.p1}></PlayerCardTeam>
-            <PlayerCardTeam imageUrl={element.p2}></PlayerCardTeam></>
+            <PlayerCardTeam imageUrl={element.ico}></PlayerCardTeam>
+</>
         );
     });
 
     return <div style={playericonplate}>{iconobj}</div>
 }
 
-function Team({balance})
+function Team({balance, status, icons})
 {
     const teamplate = {
         padding: '5px',
@@ -94,11 +71,12 @@ function Team({balance})
         fontWeight: '700',  
 
     }
+    console.log(icons);
 
     return (
         <div style={teamplate}>
             
-            <PlayerCardTeamObject></PlayerCardTeamObject>
+            <PlayerCardTeamObject icon={icons}></PlayerCardTeamObject>
 
             <div style={moneyplate}>
                 <p>{balance}</p>
@@ -113,7 +91,7 @@ function Team({balance})
             </div>
 
             <div style={teamstatus}>
-                <p>PLAYING</p>
+                <p>{status}</p>
             </div>
 
 
