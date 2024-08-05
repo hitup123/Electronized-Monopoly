@@ -5,10 +5,49 @@ import Team from '../components/Team';
 import TransferButton from '../components/TransferButton';
 
 const jsonpacket = {
-  'players': ['cat', 'horse', 'cannon' ]
+  'team1': [['cannon', 'car', 'shoe'],1500,'playing'],
+  'team2': [['dustbin', 'iron'], 1234, 'jail'],
+  'team3': [['ship', 'horse'], 789, 'bankrupt'],
+  'team4':[],
+  'team5':[],
+  'team6':[],
+  'team7':[],
+  'log': 'I am Bankrupt',
 }
 
 
+
+function TeamObjects()
+{
+  const teamsplatter = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: '20px',
+    padding: '20px'
+  }
+
+  const teams = [
+    {
+      player: 'iron',
+      playstatus: 'playing',
+      balance: '3425' 
+    },
+    {
+      player: 'horse',
+      status: 'jail',
+      balance: '8543' 
+    }
+  ];
+
+  const teamobj = teams.map((element) => {
+    return (
+      <Team balance={element.balance}></Team>
+    )
+  });
+
+  return <div style={teamsplatter}>{teamobj}</div>
+}
 
 function HomePage() {
 
@@ -35,7 +74,8 @@ function HomePage() {
   }
   const buttonplate = {
     backgroundColor: 'darkgrey', 
-    gridColumns: '1/2'
+    gridColumns: '1/2',
+    padding: '10px',
   }
 
   const logscreen = {
@@ -47,22 +87,11 @@ function HomePage() {
     color: 'white',
   }
 
-  const teamsplatter = {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: '20px',
-    padding: '20px'
-  }
 
   return (
     <div id='page' style={landingpage}>
 
-      <div style={teamsplatter}>
-        <Team></Team>
-        <Team></Team>
-        <Team></Team>
-      </div>
+      <TeamObjects></TeamObjects>
 
     
 

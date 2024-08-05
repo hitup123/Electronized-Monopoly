@@ -14,6 +14,42 @@ import ship from '../Images/ship.webp';
 import shoe from '../Images/shoe.png';
 import iron from '../Images/iron.png';
 
+function PlayerCardTeamObject()
+{
+    const playericonplate = {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        backgroundColor: 'rgb(255,255,255,0.5)',
+        gridRows: '1/2',
+        gap: '10px',
+        alignItems: 'center',
+    }
+    const icons =[
+        {
+            p1: car,
+            p2: iron
+        },
+        {
+            p1: horse,
+            p2: cannon
+        },
+        {
+            p1: hat,
+            p2: ship
+        }
+    ];
+
+    const iconobj = icons.map((element) => {
+        return (<>
+            <PlayerCardTeam imageUrl={element.p1}></PlayerCardTeam>
+            <PlayerCardTeam imageUrl={element.p2}></PlayerCardTeam></>
+        );
+    });
+
+    return <div style={playericonplate}>{iconobj}</div>
+}
+
 function Team({balance})
 {
     const teamplate = {
@@ -27,15 +63,7 @@ function Team({balance})
         borderRadius: '5px', 
     }
 
-    const playericonplate = {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        backgroundColor: 'rgb(255,255,255,0.5)',
-        gridRows: '1/2',
-        gap: '10px',
-        alignItems: 'center',
-    }
+    
 
     const moneyplate= {
         gridRows: '2/3',
@@ -70,13 +98,10 @@ function Team({balance})
     return (
         <div style={teamplate}>
             
-            <div style={playericonplate}>
-                <PlayerCardTeam imageUrl={car}></PlayerCardTeam>
-                <PlayerCardTeam imageUrl={shoe}></PlayerCardTeam>
-            </div>
+            <PlayerCardTeamObject></PlayerCardTeamObject>
 
             <div style={moneyplate}>
-                <p>1500</p>
+                <p>{balance}</p>
             </div>
 
             <div style={propertyplate}>
