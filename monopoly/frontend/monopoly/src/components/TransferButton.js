@@ -1,17 +1,54 @@
-import React from "react";
+import React, { useState } from 'react';
 
-function TransferButton()
+
+function TransferPanel()
 {
+    return <>
+        <div>
+            <label for="amount">Amount</label>
+            <input type="number" name="amount"></input>
+
+            <button>Confir</button>
+        </div>
+    </>
+}
+
+
+function TransferButton() {
+    const [hovered, setHovered] = useState(false);
+
     const transfer = {
         color: 'white',
-        backgroundColor: 'orange',
-        border: 'outset 10px orangered',
+        backgroundColor: hovered ? 'orangered' : 'orange',
+        border: hovered ? 'outset 10px white' : 'outset 10px orangered',
         height: '70px',
         width: '200px',
-        fontSize: '40px'
-    }
+        fontSize: '40px',
+        transition: 'background-color 0.3s, border-color 0.3s'
+    };
+
+    const handleMouseEnter = () => {
+        setHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+        setHovered(false);
+    };
+
+    const transferprotocol = () => {
+        var value = prompt();
+        alert(value);
+    };
+
     return (
-       <button style={transfer}>Transfer</button>
+       <button
+           style={transfer}
+           onClick={transferprotocol}
+           onMouseEnter={handleMouseEnter}
+           onMouseLeave={handleMouseLeave}
+       >
+           Transfer
+       </button>
     );
 }
 
