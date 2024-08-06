@@ -50,7 +50,21 @@ function TeamObjects()
         }
       ],
       stat: 'playing',
-      balance: '3925' 
+      balance: '3925',
+      property: [
+        {
+          pro: 'Pall Mall'
+        },
+        {
+          pro: 'Whitehall'
+        },
+        {
+          pro: 'Mayfair'
+        },
+        {
+          pro: 'Vine Street'
+        }
+      ] ,
     },
     {
       player: [
@@ -62,13 +76,24 @@ function TeamObjects()
         }
       ],
       stat: 'jail',
-      balance: '8543' 
+      balance: '8543',
+      property: [
+        {
+          pro: 'Bow Street'
+        },
+        {
+          pro: 'Euston Road'
+        },
+        {
+          pro: 'Regent Street'
+        }
+      ]
     }
   ];
 
   const teamobj = teams.map((element) => {
     return (
-      <Team balance={element.balance} status={element.stat} icons={element.player}></Team>
+      <Team balance={element.balance} status={element.stat} icons={element.player} property={element.property }></Team>
     )
   });
 
@@ -124,8 +149,7 @@ function HomePage() {
     <div style={userinterface}>
 
       <div style={buttonplate}>
-        <TransferButton />
-      </div>
+        <TransferButton />      </div>
 
       <div style={logscreen}>
         <p><span class="material-symbols-outlined">arrow_right</span>Property Sold to Player 1</p>

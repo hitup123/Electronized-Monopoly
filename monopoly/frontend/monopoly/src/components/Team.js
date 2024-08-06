@@ -15,7 +15,6 @@ function PlayerCardTeamObject({icon})
         alignItems: 'center',
     }
     
-    console.log(icon);
 
     const iconobj = icon.map((element) => {
         return (<>
@@ -27,7 +26,29 @@ function PlayerCardTeamObject({icon})
     return <div style={playericonplate}>{iconobj}</div>
 }
 
-function Team({balance, status, icons})
+function PropertyObject({property})
+{
+    const propertyplate = {
+        gridRows: '3/4',
+        display: 'flex',
+        justifyContent: 'flex-start',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        padding: '5px',
+    }
+
+    console.log(property);
+
+    const propobj = property.map((element) => {
+        return (<>
+            <Property propertyname={element.pro}></Property>
+        </>)
+    })
+
+    return <div style={propertyplate}>{propobj}</div>
+}
+
+function Team({balance, status, icons, property})
 {
     const teamplate = {
         padding: '5px',
@@ -53,15 +74,6 @@ function Team({balance, status, icons})
         fontSize: '30px' 
     }
 
-    const propertyplate = {
-        gridRows: '3/4',
-        display: 'flex',
-        justifyContent: 'flex-start',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        padding: '5px',
-    }
-
     const teamstatus = {
         gridRows: '4/5',
         backgroundColor: 'lightgreen',
@@ -82,13 +94,7 @@ function Team({balance, status, icons})
                 <p>{balance}</p>
             </div>
 
-            <div style={propertyplate}>
-                <Property propertyname ="Old Kent Road"></Property>
-                <Property propertyname ="Mayfair"></Property>
-                <Property propertyname ="Pall Mall"></Property>
-                <Property propertyname ="Bond Street"></Property>
-                <Property propertyname ="Whitehall"></Property>
-            </div>
+            <PropertyObject property={property}></PropertyObject>
 
             <div style={teamstatus}>
                 <p>{status}</p>
