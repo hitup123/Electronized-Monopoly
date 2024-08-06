@@ -88,11 +88,25 @@ def submit_data():
     if request.method == 'POST':
         data = request.get_json()
         print((data))
-        # start_teams(data)
-        # Process the data received from the frontend
-        # ...
-        # Insert the data into the database
+        if data['gamemode']==1:
+            pass
+            # start_teams(data) #initialize
+        else:
+            pass
+            # start_idv(data)
+       
         #initialize
+        return jsonify({'message': 'Data submitted successfully'})
+    else:
+        return jsonify({'error': 'Method not allowed'})
+    
+
+@app.route('/api/transfer_properties',methods=['POST'])
+def transfer_properties():
+    if request.method == 'POST':
+        data = request.get_json()
+        print((data))
+        #transferproperties()
         return jsonify({'message': 'Data submitted successfully'})
     else:
         return jsonify({'error': 'Method not allowed'})

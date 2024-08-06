@@ -49,7 +49,8 @@ def start_teams(data):
 
     mydb.commit()
     cursor.execute("drop table if exists players")
-
+    cursor.execute("drop table if exists properties")
+    cursor.execute("create table properties as select * from monopolymasterproperties")
     cursor.execute("create table players as select * from monopolymaster.master_teams where 1=2")
     for item  in characters:
         if item['isPressed']: 
@@ -61,3 +62,5 @@ def start_teams(data):
             cursor.execute(f"update table players set cash = {len(x)*1500} where icon={y}")
             cursor.execute(f"update table players set team = {int(x[4])} where icon= {y}")
             mydb.commit()
+def start_idv():
+    pass

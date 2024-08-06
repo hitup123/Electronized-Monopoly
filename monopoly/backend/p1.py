@@ -41,6 +41,8 @@ if __name__ == "__main__":
         # print(f"ID: {id}, Table: {table_name}")
         # cursor.execute(f"insert into currentTransaction (id,type) values({id},'{table_name}')")
         # mydb.commit()
+        cursor.execute("SELECT type FROM cards WHERE id = %s", (id,))
+        result = cursor.fetchone()
         cursor.execute(f"select type from currentTransaction")
         result = cursor.fetchall()
         # print(result)
@@ -54,7 +56,7 @@ if __name__ == "__main__":
         # result = cursor.fetchone()
         # print(result)
         # Close the database connection
-        scan_order=[['properties','players_team'],['action','properties','players_team'],['action','players_team','players_team'],['action','players_team'] ]
+        scan_order=[['properties','players'],['chance','players'] ,['comm','players']]
         actions={'buy/rent/house':1,'other':2}
         if currAction in scan_order:
                 index = scan_order.index(currAction)
@@ -106,14 +108,14 @@ if __name__ == "__main__":
                                                 colors = [x[0] for x in result]
                                                 #code to select what property to build houses on
                                         # mydb.commit()
-                elif(index==1):
-                        #transfer properties
+                # elif(index==1):
+                #         #transfer properties
                         
-                        pass
-                elif(index==2):
-                        #transfer money
-                        pass
-                elif(index==3):
+                #         pass
+                # elif(index==2):
+                #         #transfer money
+                #         pass
+                elif(index==1):
                         # cursor.execute( "select  ")
                         cursor.execute(f"select id from currentTransaction where type='players_team'")
                         player_id=cursor.fetchone()[0]
@@ -175,7 +177,7 @@ if __name__ == "__main__":
                         else:
                                 # Handle other Chance cards
                                 pass
-                elif(index==4):
+                elif(index==3):
                         #community chest card
                         # List of British Monopoly Community Chest cards
                         cursor.execute(f"select id from currentTransaction where type='players_team'")
@@ -232,5 +234,5 @@ if __name__ == "__main__":
                                 cursor.execute(f"update players_team set cash = cash + 100 where id = {player_id}")
         
 
-
+        mydb.commit()
         mydb.close()
