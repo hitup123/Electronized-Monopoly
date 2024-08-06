@@ -106,6 +106,7 @@ def transfer_properties():
     if request.method == 'POST':
         data = request.get_json()
         print((data))
+        
         #transferproperties()
         return jsonify({'message': 'Data submitted successfully'})
     else:

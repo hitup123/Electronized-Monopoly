@@ -41,8 +41,8 @@ if __name__ == "__main__":
         # print(f"ID: {id}, Table: {table_name}")
         # cursor.execute(f"insert into currentTransaction (id,type) values({id},'{table_name}')")
         # mydb.commit()
-        cursor.execute("SELECT type FROM cards WHERE id = %s", (id,))
-        result = cursor.fetchone()
+        # cursor.execute("SELECT type FROM cards WHERE id = %s", (id,))
+        # result = cursor.fetchone()
         cursor.execute(f"select type from currentTransaction")
         result = cursor.fetchall()
         # print(result)
@@ -56,8 +56,8 @@ if __name__ == "__main__":
         # result = cursor.fetchone()
         # print(result)
         # Close the database connection
-        scan_order=[['properties','players'],['chance','players'] ,['comm','players']]
-        actions={'buy/rent/house':1,'other':2}
+        scan_order=[['properties','players'],['chance','players'] ,['comm','players'],['house','properties']]
+        actions={'buy/rent':1,'other':2}
         if currAction in scan_order:
                 index = scan_order.index(currAction)
                 # action=actions[index]
@@ -74,11 +74,12 @@ if __name__ == "__main__":
                                
                                 
                                
-                                if(player_data[3]>property_data[3]):
+                                if(player_data[2]>property_data[3]):
                                         cursor.execute(f"update players_team set cash = cash - {property_data[3]} where id = {player_id[0]}")
                                         cursor.execute(f"update properties set owner_id = {player_data[0]} where id = {property_id[0]}")
                                         # mydb.commit()
                                 else:
+                                        #make api for telling it failed
                                         print("Insufficient balance")
                         elif(property_data[len(property_data)-2]!=player_id[0]):
                                 cursor.execute(f"select house from properties where id={property_id[0]}")
@@ -233,6 +234,6 @@ if __name__ == "__main__":
                         elif selected_community_card == "Life insurance matures (Collect £100)":
                                 cursor.execute(f"update players_team set cash = cash + 100 where id = {player_id}")
         
-
+        
         mydb.commit()
         mydb.close()
