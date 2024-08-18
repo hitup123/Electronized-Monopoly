@@ -7,6 +7,6 @@ mydb = mysql.connector.connect(
 )
 # [(0,0),(0,0)]
 cursor=mydb.cursor()
-cursor.execute(f"select id from currentTransaction where type='players_team'")
-player_id=cursor.fetchone()[0]
-print(player_id)
+cursor.execute(f"select owner_id from properties where color='red'")
+player_id=cursor.fetchall()
+print(player_id[0][0])

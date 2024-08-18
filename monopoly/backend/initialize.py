@@ -31,26 +31,26 @@ def start_teams(data):
 
     # Print the results
     print(f"Number of teams: {number_of_teams}")
-    # cursor.execute("DROP TABLE IF EXISTS teams")
-    # cursor.execute("""
-    # CREATE TABLE teams (
-    #     id int primary key,
-    #     team int
-    # )
-    # """)
-    # for x in teams:
-    #     for y in teams[x]:
-    #         cursor.execute(f"insert into monopoly.teams (id, team) values (select id from monopolymaster.teams where icon={y},'{x}'")
-    #     mydb.commit()
-    # for team, members in teams.items():
-        # print(f"{team}: {members}")
+    cursor.execute("DROP TABLE IF EXISTS teams")
+    cursor.execute("""
+    CREATE TABLE teams (
+        id int primary key,
+        team int
+    )
+    """)
+    for x in teams:
+        for y in teams[x]:
+            cursor.execute(f"insert into monopoly.teams (id, team) values (select id from monopolymaster.teams where icon={y},'{x}'")
+        mydb.commit()
+    for team, members in teams.items():
+        print(f"{team}: {members}")
     cursor.execute("TRUNCATE TABLE currentTransaction")
     cursor.execute("TRUNCATE TABLE log ")
 
     mydb.commit()
     cursor.execute("drop table if exists players")
     cursor.execute("drop table if exists properties")
-    cursor.execute("create table properties as select * from monopolymasterproperties")
+    cursor.execute("create table properties as select * from monopolymaster.masterproperties")
     cursor.execute("create table players as select * from monopolymaster.master_teams where 1=2")
     for item  in characters:
         if item['isPressed']: 
