@@ -71,7 +71,7 @@ def conditions():
                 print("HI1")
                 print(index,actions[index])
 
-                return
+                # return
                 if(index==0):
                         cursor.execute(f"select id from currentTransaction where type='properties'")
                         property_id = cursor.fetchone()
