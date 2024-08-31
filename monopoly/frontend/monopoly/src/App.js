@@ -47,7 +47,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/Teams" element={<HomePage />} />
+        <Route path="/Teams" element={<HomePage />} jspck={data} />
         <Route path="/Landing" element={<LandingPage />} />
       </Routes>
     </Router>

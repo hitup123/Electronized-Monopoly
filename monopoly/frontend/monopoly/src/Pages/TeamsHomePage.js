@@ -100,7 +100,7 @@ function TeamObjects()
   return <div style={teamsplatter}>{teamobj}</div>
 }
 
-function HomePage() {
+function HomePage({jspck}) {
 
   const landingpage = {
     display: 'grid',

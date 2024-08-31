@@ -59,7 +59,7 @@ if com_port:
                 if order==2:
                     conditions()
                     print("out")
-                    # cursor.execute("truncate table currenttransaction")
+                    cursor.execute("delete from currenttransaction")
                     mydb.commit()
                 #     # test()
                 #     pass#add p1.py call
