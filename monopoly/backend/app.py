@@ -1,5 +1,6 @@
 import logging
-# from initialize import start_teams
+
+import initialize
 from flask import Flask, send_from_directory, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
@@ -26,15 +27,17 @@ def check_db_connection():
             
             x = db.session.execute(text('SELECT * from players'))
             output = x.fetchall()
+            x = db.session.execute(text('SELECT * from teams'))
+            icon = x.fetchall()
             # logger.info("Database connection successful. OUTPUT:")
             # print(output)
         except Exception as e:
             logger.error(f"Database connection failed: {e}")
-        return output
+        return output,icon
 @app.route('/Landing')
 def index():
     return send_from_directory(app.static_folder, 'index.html')
-@app.route('/')
+@app.route('/Teams')
 def landing():
         return send_from_directory(app.static_folder, 'index.html')
 
@@ -48,8 +51,10 @@ def get_data():
     # 
     column_names=get_column_names('players')
     # print(column_names)
-    x=check_db_connection()
-    # print(x)
+   # Data from the tables
+    player_data,icon_data =check_db_connection()
+
+# Create JSON packet
     json_packet = {
     'team1': [],
     'team2': [],
@@ -58,15 +63,26 @@ def get_data():
     'team5': [],
     'team6': [],
     'team7': [],
-    'log': 'I am Bankrupt',
+    'log': 'I am Bankrupt'
 }
-    for row in x:
-        data = dict(zip(column_names, [convert_bytes(item) for item in row]))
-        team_key = f"team{data['team']}"
-        if team_key in json_packet and isinstance(json_packet[team_key], list) and len(json_packet[team_key]) == 0:
-            json_packet[team_key] = [[data['icon']], data['cash'], 'playing' if data['bankrupt'] == 0 else 'bankrupt', 'NULL' if data['in_jail']==0 else 'in jail',data['propertiesOwned'] if data['propertiesOwned']!=None else 'NULL']
-        elif team_key in json_packet:
-            json_packet[team_key][0].append(data['icon'])
+
+# Process player_data
+    for player in player_data:
+        cash, in_jail, jail_free_cards, propertiesOwned, bankrupt, team = player
+        team_key = f"team{team}"
+        if team_key in json_packet:
+        # Filter icons for the current team
+            icons = [icon[2] for icon in icon_data if icon[1] == team]
+            json_packet[team_key] = [
+            icons,
+            cash,
+            'playing' if bankrupt == 0 else 'bankrupt',
+            'NULL' if in_jail == 0 else 'in jail',
+            propertiesOwned if propertiesOwned is not None else 'NULL'
+        ]
+
+# print(json_packet)
+
     # data=[dict(zip(column_names,item )) for item in converted_data]
 
 
@@ -88,9 +104,9 @@ def submit_data():
     if request.method == 'POST':
         data = request.get_json()
         print((data))
-        if data['gamemode']==1:
-            pass
-            # start_teams(data) #initialize
+        if data['GameMode']==1:
+            # pass
+            initialize.start_teams(data) #initialize
         else:
             pass
             # start_idv(data)
