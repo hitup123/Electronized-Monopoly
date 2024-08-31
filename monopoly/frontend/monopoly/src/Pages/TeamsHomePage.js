@@ -1,5 +1,6 @@
 import React from 'react';
 import './Page.css'
+import { useContext } from 'react';
 
 import car from '../Images/car.webp';
 import horse from '../Images/horse.avif';
@@ -11,7 +12,7 @@ import dustbin from '../Images/dustbin.webp';
 import ship from '../Images/ship.webp';
 import shoe from '../Images/shoe.png';
 import iron from '../Images/iron.png';
-
+import { DataContext } from '../App';
 
 import Team from '../components/Team';
 import TransferButton from '../components/TransferButton';
@@ -29,7 +30,7 @@ const jsonpacket = {
 
 
 
-function TeamObjects()
+function TeamObjects({data})
 {
   const teamsplatter = {
     display: 'flex',
@@ -39,69 +40,75 @@ function TeamObjects()
     padding: '20px'
   }
 
-  const teams = [
-    {
-      player: [
-        {
-          ico: hat
-        },
-        {
-          ico: dog
-        }
-      ],
-      stat: 'playing',
-      balance: '3925',
-      property: [
-        {
-          pro: 'Pall Mall'
-        },
-        {
-          pro: 'Whitehall'
-        },
-        {
-          pro: 'Mayfair'
-        },
-        {
-          pro: 'Vine Street'
-        }
-      ] ,
-    },
-    {
-      player: [
-        {
-          ico: horse
-        },
-        {
-          ico: iron
-        }
-      ],
-      stat: 'jail',
-      balance: '8543',
-      property: [
-        {
-          pro: 'Bow Street'
-        },
-        {
-          pro: 'Euston Road'
-        },
-        {
-          pro: 'Regent Street'
-        }
-      ]
-    }
-  ];
-
-  const teamobj = teams.map((element) => {
-    return (
-      <Team balance={element.balance} status={element.stat} icons={element.player} property={element.property }></Team>
-    )
-  });
+  // const teams = [
+  //   {
+  //     player: [
+  //       {
+  //         ico: hat
+  //       },
+  //       {
+  //         ico: dog
+  //       }
+  //     ],
+  //     stat: 'playing',
+  //     balance: '3925',
+  //     property: [
+  //       {
+  //         pro: 'Pall Mall'
+  //       },
+  //       {
+  //         pro: 'Whitehall'
+  //       },
+  //       {
+  //         pro: 'Mayfair'
+  //       },
+  //       {
+  //         pro: 'Vine Street'
+  //       }
+  //     ] ,
+  //   },
+  //   {
+  //     player: [
+  //       {
+  //         ico: horse
+  //       },
+  //       {
+  //         ico: iron
+  //       }
+  //     ],
+  //     stat: 'jail',
+  //     balance: '8543',
+  //     property: [
+  //       {
+  //         pro: 'Bow Street'
+  //       },
+  //       {
+  //         pro: 'Euston Road'
+  //       },
+  //       {
+  //         pro: 'Regent Street'
+  //       }
+  //     ]
+  //   }
+  // ];
+  const teams = data ? Object.keys(data).filter(key => key.startsWith('team')).map(key => ({
+    player: data[key][0].map(item => ({ ico: require(`../Images/${item}.png`) })),
+    stat: data[key][2],
+    balance: data[key][1],
+    property: [] // You can populate property if needed
+  })) : [];
+  console.log(teams)
+  const teamobj = teams.map((element, index) => (
+    <Team key={index} balance={element.balance} status={element.stat} icons={element.player} property={element.property} />
+  ));
 
   return <div style={teamsplatter}>{teamobj}</div>
 }
 
-function HomePage({jspck}) {
+function HomePage() {
+  const contextData = useContext(DataContext);
 
+  const json_packet = contextData;
   const landingpage = {
     display: 'grid',
     gridTemplateRows: '70% 30%',
@@ -142,7 +149,7 @@ function HomePage({jspck}) {
   return (
     <div id='page' style={landingpage}>
 
-      <TeamObjects></TeamObjects>
+      <TeamObjects data={json_packet}></TeamObjects>
 
     
 
