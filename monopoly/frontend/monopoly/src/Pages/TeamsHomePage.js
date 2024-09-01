@@ -101,7 +101,7 @@ function TeamObjects({data})
 
   const teams = data 
   ? Object.keys(data).filter(key => key.startsWith('team')).map(key => {
-      const players = Array.isArray(data[key][0]) 
+      const players = Array.isArray(data[key][0]) && data[key][0].length > 0
         ? data[key][0].map(item => ({ ico: require(`../Images/${item}.png`) }))
         : [];  // Fallback to an empty array if data[key][0] is not an array
 
@@ -115,10 +115,19 @@ function TeamObjects({data})
   : [];
 
 
-  console.log(teams)
-  const teamobj = teams.map((element, index) => (
-    <Team key={index} balance={element.balance} status={element.stat} icons={element.player} property={element.property} />
+  console.log("teams",teams)
+  const teamobj = teams
+  .filter(element => element.player.length > 0)  // Filter out teams with empty players
+  .map((element, index) => (
+    <Team 
+      key={index} 
+      balance={element.balance} 
+      status={element.stat} 
+      icons={element.player} 
+      property={element.property} 
+    />
   ));
+
 
   return <div style={teamsplatter}>{teamobj}</div>
 }
