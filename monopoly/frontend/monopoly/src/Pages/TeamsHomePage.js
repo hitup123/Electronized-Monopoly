@@ -2,16 +2,16 @@ import React from 'react';
 import './Page.css'
 import { useContext } from 'react';
 
-import car from '../Images/car.webp';
-import horse from '../Images/horse.avif';
-import cannon from '../Images/cannon.png';
-import hat from '../Images/hat.png';
-import dog from '../Images/dog.png';
-import wheelbarrow from '../Images/wheelbarrow.png';
-import dustbin from '../Images/dustbin.webp';
-import ship from '../Images/ship.webp';
-import shoe from '../Images/shoe.png';
-import iron from '../Images/iron.png';
+// import car from '../Images/car.png';
+// import horse from '../Images/horse.png';
+// import cannon from '../Images/cannon.png';
+// import hat from '../Images/hat.png';
+// import dog from '../Images/dog.png';
+// import wheelbarrow from '../Images/wheelbarrow.png';
+// import dustbin from '../Images/dustbin.png';
+// import ship from '../Images/ship.png';
+// import shoe from '../Images/shoe.png';
+// import iron from '../Images/iron.png';
 import { DataContext } from '../App';
 
 import Team from '../components/Team';
@@ -91,12 +91,30 @@ function TeamObjects({data})
   //     ]
   //   }
   // ];
-  const teams = data ? Object.keys(data).filter(key => key.startsWith('team')).map(key => ({
-    player: data[key][0].map(item => ({ ico: require(`../Images/${item}.png`) })),
-    stat: data[key][2],
-    balance: data[key][1],
-    property: [] // You can populate property if needed
-  })) : [];
+  console.log("data ",data)
+  // const teams = data ? Object.keys(data).filter(key => key.startsWith('team')).map(key => ({
+  //   player: data[key][0].map(item => ({ ico: require(`../Images/${item}.png`) })),
+  //   stat: data[key][2],
+  //   balance: data[key][1],
+  //   property: [] // You can populate property if needed
+  // })) : [];
+
+  const teams = data 
+  ? Object.keys(data).filter(key => key.startsWith('team')).map(key => {
+      const players = Array.isArray(data[key][0]) 
+        ? data[key][0].map(item => ({ ico: require(`../Images/${item}.png`) }))
+        : [];  // Fallback to an empty array if data[key][0] is not an array
+
+      return {
+        player: players,
+        stat: data[key][2],
+        balance: data[key][1],
+        property: [] // You can populate property if needed
+      };
+    })
+  : [];
+
+
   console.log(teams)
   const teamobj = teams.map((element, index) => (
     <Team key={index} balance={element.balance} status={element.stat} icons={element.player} property={element.property} />

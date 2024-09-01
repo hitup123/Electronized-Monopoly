@@ -3,14 +3,14 @@ import './Page.css';
 import icon from '../Images/monoplyHeading.png';
 import CharacterPanel from '../components/CharacterPanel';
 
-import car from '../Images/car.webp';
-import horse from '../Images/horse.avif';
+import car from '../Images/car.png';
+import horse from '../Images/horse.png';
 import cannon from '../Images/cannon.png';
 import hat from '../Images/hat.png';
 import dog from '../Images/dog.png';
 import wheelbarrow from '../Images/wheelbarrow.png';
-import dustbin from '../Images/dustbin.webp';
-import ship from '../Images/ship.webp';
+import dustbin from '../Images/dustbin.png';
+import ship from '../Images/ship.png';
 import shoe from '../Images/shoe.png';
 import iron from '../Images/iron.png';
 

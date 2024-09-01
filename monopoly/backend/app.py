@@ -1,6 +1,7 @@
 import logging
 
-import initialize
+
+from backend.initialize import start_teams
 from flask import Flask, send_from_directory, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
@@ -106,7 +107,7 @@ def submit_data():
         print((data))
         if data['GameMode']==1:
             # pass
-            initialize.start_teams(data) #initialize
+            start_teams(data) #initialize
         else:
             pass
             # start_idv(data)
