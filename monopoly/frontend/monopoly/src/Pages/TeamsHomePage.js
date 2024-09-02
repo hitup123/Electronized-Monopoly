@@ -16,6 +16,7 @@ import { DataContext } from '../App';
 import { LogContext } from '../App';
 import Team from '../components/Team';
 import TransferButton from '../components/TransferButton';
+import EventPanel from '../components/EventPanel';
 
 const jsonpacket = {
   'team1': [['cannon', 'car', 'shoe'],1500,'playing'],
@@ -178,6 +179,7 @@ function HomePage() {
     <div id='page' style={landingpage}>
 
       <TeamObjects data={json_packet}></TeamObjects>
+      <EventPanel />
 
     
 
