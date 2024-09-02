@@ -52,12 +52,12 @@ if com_port:
                 count += 1
                
                 cursor.execute(f"insert into currenttransaction values ({order},{result[0]},'{result[1]}' )")
-                cursor.execute(f"insert into log values ({order},{result[0]},'{result[1]}' )")
+                cursor.execute(f"insert into log values ({count},{result[0]},'{result[1]}' )")
                 mydb.commit()
                 cursor.execute("select * from currenttransaction ")
                 print(cursor.fetchall())
                 if order==2:
-                    conditions()
+                    # conditions()
                     print("out")
                     cursor.execute("delete from currenttransaction")
                     mydb.commit()

@@ -9,7 +9,6 @@ from sqlalchemy import inspect
 app = Flask(__name__, static_folder='static')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost/monopoly'
 db = SQLAlchemy(app)
-
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 def get_column_names(table_name):
@@ -35,6 +34,17 @@ def check_db_connection():
         except Exception as e:
             logger.error(f"Database connection failed: {e}")
         return output,icon
+def Logs(txn):
+    with app.app_context():
+        try:
+            
+            x = db.session.execute(text(f'SELECT * FROM logs WHERE txn_order > {txn}'))
+            output = x.fetchall()
+            # logger.info("Database connection successful. OUTPUT:")
+            # print(output)
+        except Exception as e:
+            logger.error(f"Database connection failed: {e}")
+        return output
 @app.route('/Landing')
 def index():
     return send_from_directory(app.static_folder, 'index.html')
@@ -117,7 +127,11 @@ def submit_data():
     else:
         return jsonify({'error': 'Method not allowed'})
     
-
+@app.route('/api/logs')
+def get_logs():
+    data=Logs(txn)
+    txn=data[-1][0]
+    return jsonify(data)
 @app.route('/api/transfer_properties',methods=['POST'])
 def transfer_properties():
     if request.method == 'POST':

@@ -7,6 +7,6 @@ mydb = mysql.connector.connect(
 )
 # [(0,0),(0,0)]
 cursor=mydb.cursor()
-cursor.execute(f"select * from PLAYERS ")
+cursor.execute(f"select * from log ")
 player_id=cursor.fetchall()
 print(player_id)
