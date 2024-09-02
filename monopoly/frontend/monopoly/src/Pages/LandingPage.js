@@ -36,6 +36,8 @@ function sendjson(characterStates) {
     .then(data => console.log(data))
     .catch(error => console.error(error));
   console.log(jsonpacket); // This line is just for testing
+
+  window.location.assign("/Teams");
 }
 
 function LandingPage() {
@@ -129,7 +131,10 @@ function LandingPage() {
     fontStyle: 'normal',
     fontSize: '20px',
     color: '#DEF9C4',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
   };
+
 
   return (
     <div id="page" style={landingcss}>
@@ -170,7 +175,18 @@ function LandingPage() {
         ))}
       </div>
 
-      <button style={playbutton} onClick={() => sendjson(characterStates)}>
+      <button style={playbutton} 
+      
+      onMouseDown={(element) => {
+        element.target.style.transform = 'translateY(2px)';
+      }} 
+      onMouseUp={(element) => {
+        element.target.style.transform = 'translateY(0)';
+      }} 
+      onMouseLeave={(element) => {
+        element.target.style.transform = 'translateY(0)';
+      }}
+      onClick={() => sendjson(characterStates)}>
         PLAY
       </button>
     </div>
