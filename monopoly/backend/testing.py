@@ -1,10 +1,5 @@
-import mysql.connector
-mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="root",
-    database="monopoly"
-)
+from backend.dbConnector import dbconnect
+mydb=dbconnect()
 # [(0,0),(0,0)]
 cursor=mydb.cursor()
 cursor.execute(f"select * from log ")

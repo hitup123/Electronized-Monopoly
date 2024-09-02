@@ -2,13 +2,8 @@ import serial
 import time
 from p1 import conditions
 import serial.tools.list_ports
-import mysql.connector
-mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="root",
-    database="monopoly"
-)
+from backend.dbConnector import dbconnect
+mydb=dbconnect()
 cursor=mydb.cursor()
 def find_com_port(port_name):
     ports = serial.tools.list_ports.comports()

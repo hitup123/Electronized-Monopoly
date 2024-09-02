@@ -1,16 +1,12 @@
 import json
 import mysql.connector
-mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="root",
-    database="monopoly"
-)
+from backend.dbConnector import dbconnect
+mydb=dbconnect()
 cursor=mydb.cursor()
 # mydb.autocommit()
 
 def start_teams(data):
-    #check for number of teams;
+  #check for number of teams;
     characters = data['Characters']
     print(f"data -- {data}")
     print(f"char -- {characters}")

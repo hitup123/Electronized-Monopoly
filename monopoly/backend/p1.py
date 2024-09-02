@@ -1,15 +1,11 @@
 import random
-import mysql.connector
+
 import Constants as c
 
 # Connect to the MySQL database
 
-mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="root",
-    database="monopoly"
-)
+from backend.dbConnector import dbconnect
+mydb=dbconnect()
 cursor=mydb.cursor()
 
 

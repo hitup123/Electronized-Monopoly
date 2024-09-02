@@ -1,11 +1,6 @@
 import json
-import mysql.connector
-mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="root",
-    database="monopoly"
-)
+from backend.dbConnector import dbconnect
+mydb=dbconnect()
 cursor=mydb.cursor()
 def transferproperties(x):
     cursor.execute(f"select id from currentTransaction where type='properties'")
