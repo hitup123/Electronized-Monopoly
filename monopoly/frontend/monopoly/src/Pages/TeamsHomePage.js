@@ -13,7 +13,7 @@ import { useContext } from 'react';
 // import shoe from '../Images/shoe.png';
 // import iron from '../Images/iron.png';
 import { DataContext } from '../App';
-
+import { LogContext } from '../App';
 import Team from '../components/Team';
 import TransferButton from '../components/TransferButton';
 
@@ -134,8 +134,9 @@ function TeamObjects({data})
 
 function HomePage() {
   const contextData = useContext(DataContext);
-
+  const contextLog = useContext(LogContext);
   const json_packet = contextData;
+  const log = contextLog;//NEW LOG
   const landingpage = {
     display: 'grid',
     gridTemplateRows: '70% 30%',
