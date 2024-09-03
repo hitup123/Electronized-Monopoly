@@ -133,11 +133,32 @@ function TeamObjects({data})
   return <div style={teamsplatter}>{teamobj}</div>
 }
 
+const LogScreen = ({ newLog }) => {
+  const [logs, setLogs] = useState([]);
+
+  useEffect(() => {
+    if (newLog) {
+      setLogs(prevLogs => [...prevLogs, newLog]);
+    }
+  }, [newLog]);
+
+  return (
+    <div style={{ backgroundColor: '#f8f8f8', padding: '10px', borderRadius: '5px', overflow: 'scroll' }}>
+      {logs.map((log, index) => (
+        <p key={index}>
+          <span className="material-symbols-outlined">arrow_right</span>
+          {log}
+        </p>
+      ))}
+    </div>
+  );
+};
+
 function HomePage() {
   const contextData = useContext(DataContext);
   const contextLog = useContext(LogContext);
   const json_packet = contextData;
-  const log = contextLog;//NEW LOG
+  const log_json = contextLog;//NEW LOG
   const landingpage = {
     display: 'grid',
     gridTemplateRows: '70% 30%',
@@ -188,12 +209,14 @@ function HomePage() {
       <div style={buttonplate}>
         <TransferButton />      </div>
 
-      <div style={logscreen}>
+      {/* <div style={logscreen}>
         <p><span class="material-symbols-outlined">arrow_right</span>Property Sold to Player 1</p>
         <p><span class="material-symbols-outlined">arrow_right</span>Player 3 is Bankrupt</p>
         <p><span class="material-symbols-outlined">arrow_right</span>Player 2 builds house on Pall Mall</p>
         <p><span class="material-symbols-outlined">arrow_right</span>Player 5 pays rent to Player 2</p>
-      </div>
+      </div> */}
+
+      <LogScreen newLog={log_json}/>
     </div>
       
       
