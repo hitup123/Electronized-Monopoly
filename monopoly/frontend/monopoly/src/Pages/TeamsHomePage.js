@@ -139,6 +139,8 @@ const LogScreen = ({ newLog }) => {
 
   useEffect(() => {
     if (newLog) {
+      console.log("LOG");
+      console.log(newLog);
       setLogs(prevLogs => [...prevLogs, newLog]);
     }
   }, [newLog]);

@@ -8,8 +8,12 @@ from dbConnector import dbconnect
 mydb=dbconnect()
 cursor=mydb.cursor()
 txn=0
-def insertLog(action , team1,team2, money, msg ):
-        pass
+
+def insertLog(count, action , team1,team2, money, msg ):
+        cursor.execute(f"insert into log values ({count}, '{action}', {team1},'{team2}', {money}, '{msg}' )")
+
+
+
 def conditions():
         cursor.execute(f"select type from currentTransaction")
         result = cursor.fetchall()
@@ -60,12 +64,15 @@ def conditions():
                                         print("hi7")
                                         cursor.execute(f"update players set cash = cash - {property_data[3]} where team = {team_id[0]}")
                                         cursor.execute(f"update properties set owner_id = {team_id[0]} where id = {property_id[0]}")
-                                        cursor.execute(f"insert into  log values ({txn}, 'team{team_id} bought {property_data[1]}') ")
+                                        #cursor.execute(f"insert into  log values ({txn}, 'team{team_id} bought {property_data[1]}') ")
+                                        insertLog(txn, 'buy', team_id, None, property_data[3], 'team{team_id} bought {property_data[1]}')
                                         mydb.commit()
                                 else:
                                         #make api for telling it failed
                                         print(player_data[2],property_data[3])
+                                        insertLog(txn, 'buyfailed', team_id, None, 0, 'team{team_id} has insufficient funds to buy {property_data[1]}')
                                         print("Insufficient balance")
+                                        
                         elif(property_data[-4]!=team_id[0]):
                                 print("rent")
                                 cursor.execute(f"select house from properties where id={property_id[0]}")
@@ -76,7 +83,8 @@ def conditions():
                                         cursor.execute(f"update players set cash = cash - {rent} where team = {team_id[0]}")
                                         cursor.execute(f"update players set cash = cash + {rent} where team = {property_data[-4]}")
                                         # mydb.commit()
-                                        cursor.execute(f"insert into  log values ({txn}, 'team{team_id} paid rent on {property_data[1]}') ")
+                                        #cursor.execute(f"insert into  log values ({txn}, 'team{team_id} paid rent on {property_data[1]}') ")
+                                        insertLog(txn, 'rent', team_id, None, rent, 'team{team_id} paid rent on {property_data[1]}')
 
                                 else:
                                         print("Insufficient balance ")

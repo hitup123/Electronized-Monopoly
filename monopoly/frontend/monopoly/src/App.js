@@ -18,9 +18,9 @@ const App = () => {
         const result = await response.json();
         setData(result);
 
-        const responseLogs = await fetch('/api/logs');
-        const logs = await responseLogs.json();
-        setLog(logs);
+         const responseLogs = await fetch('/api/logs');
+         const logs = await responseLogs.json();
+         setLog(logs);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
