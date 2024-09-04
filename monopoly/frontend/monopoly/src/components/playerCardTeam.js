@@ -12,6 +12,8 @@ function PlayerCardTeam({imageUrl}) {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    minWidth: '100px',
+    minHeight: '100px',
 
 
   }

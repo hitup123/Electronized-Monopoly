@@ -1,6 +1,7 @@
 import React from 'react';
 import './Page.css'
 import { useContext } from 'react';
+import { useEffect, useState } from 'react';
 
 // import car from '../Images/car.png';
 // import horse from '../Images/horse.png';
