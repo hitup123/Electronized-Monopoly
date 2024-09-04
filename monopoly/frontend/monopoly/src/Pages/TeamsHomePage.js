@@ -18,8 +18,7 @@ import { LogContext } from '../App';
 import Team from '../components/Team';
 import TransferButton from '../components/TransferButton';
 import EventPanel from '../components/EventPanel';
-import { useState } from 'react';
-import { useEffect } from 'react';
+
 const jsonpacket = {
   'team1': [['cannon', 'car', 'shoe'],1500,'playing'],
   'team2': [['dustbin', 'iron'], 1234, 'jail'],
