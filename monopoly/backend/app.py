@@ -9,6 +9,7 @@ from sqlalchemy import inspect
 app = Flask(__name__, static_folder='static')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost/monopoly'
 db = SQLAlchemy(app)
+txn=0
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 def get_column_names(table_name):
@@ -34,7 +35,7 @@ def check_db_connection():
         except Exception as e:
             logger.error(f"Database connection failed: {e}")
         return output,icon
-def Logs(txn):
+def Logs():
     with app.app_context():
         try:
             
@@ -129,7 +130,7 @@ def submit_data():
     
 @app.route('/api/logs')
 def get_logs():
-    data=Logs(txn)
+    data=Logs()
     txn=data[-1][0]
     jsondata={}
     for item in data:
