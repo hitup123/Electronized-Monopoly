@@ -4,15 +4,20 @@ import Constants as c
 
 # Connect to the MySQL database
 
-from backend.dbConnector import dbconnect
+from dbConnector import dbconnect
 mydb=dbconnect()
 cursor=mydb.cursor()
+txn=0
+def insertLog(action , team1,team2, money, msg ):
+        pass
+def conditions():
+        cursor.execute(f"select type from currentTransaction")
+        result = cursor.fetchall()
+        # print(result)
+        currAction=[]
+        for x in result:
 
-
-
-
-def conditions(currAction):
-        
+                currAction.append(x[0])
 
 
         #print("0hi: ", currAction)
@@ -31,38 +36,50 @@ def conditions(currAction):
 
                 # return
                 if(c.PlayerOnProperty == currAction):
-
+                        print("hi1")
                         #Fetching Data from Database                        
                         cursor.execute(f"select id from currentTransaction where type='properties'")
                         property_id = cursor.fetchone()
-                        cursor.execute(f"select * from properties where id={property_id[0]}")
+                        print(property_id[0])
+                        cursor.execute(f"select * from properties where id ={property_id[0]}")
+                        print("hi2")
                         property_data = cursor.fetchone()
                         cursor.execute(f"select id from currentTransaction where type='players'")
                         player_id = cursor.fetchone()
-                        cursor.execute(f"select * from teams where id={player_id[0]}")
+                        cursor.execute(f"select team from teams where id={player_id[0]}")
+                        print("hi3")
                         team_id=cursor.fetchone()
-                        cursor.execute(f"select * from players where id={team_id[0]}")
+                        print(team_id)
+                        cursor.execute(f"select * from players where team={team_id[0]}")
+                        print("hi5")
                         player_data = cursor.fetchone()
-
-                        if(property_data[len(property_data)-2]=='NULL'):
-                                if(player_data[2]>property_data[3]):
-                                        cursor.execute(f"update players set cash = cash - {property_data[3]} where id = {team_id[0]}")
-                                        cursor.execute(f"update properties set owner_id = {player_data[0]} where id = {property_id[0]}")
-                                        # mydb.commit()
+                        print(player_data)
+                        if(property_data[-4]==None):
+                                print("hi6")
+                                if(player_data[0]>property_data[3]):
+                                        print("hi7")
+                                        cursor.execute(f"update players set cash = cash - {property_data[3]} where team = {team_id[0]}")
+                                        cursor.execute(f"update properties set owner_id = {team_id[0]} where id = {property_id[0]}")
+                                        cursor.execute(f"insert into  log values ({txn}, 'team{team_id} bought {property_data[1]}') ")
+                                        mydb.commit()
                                 else:
                                         #make api for telling it failed
+                                        print(player_data[2],property_data[3])
                                         print("Insufficient balance")
-                        elif(property_data[len(property_data)-2]!=team_id[0]):
+                        elif(property_data[-4]!=team_id[0]):
+                                print("rent")
                                 cursor.execute(f"select house from properties where id={property_id[0]}")
                                 house = cursor.fetchone()[0]
                                 cursor.execute(f"select R{house} from properties where id={property_id[0]}")
                                 rent=cursor.fetchone()[0]
-                                if player_data[2] >= rent:
-                                        cursor.execute(f"update players set cash = cash - {rent} where id = {team_id[0]}")
-                                        cursor.execute(f"update players set cash = cash + {rent} where id = {property_data[len(property_data)-2]}")
+                                if player_data[0] >= rent:
+                                        cursor.execute(f"update players set cash = cash - {rent} where team = {team_id[0]}")
+                                        cursor.execute(f"update players set cash = cash + {rent} where team = {property_data[-4]}")
                                         # mydb.commit()
+                                        cursor.execute(f"insert into  log values ({txn}, 'team{team_id} paid rent on {property_data[1]}') ")
+
                                 else:
-                                        print("Insufficient balance")
+                                        print("Insufficient balance ")
 
                 elif(c.PlayerOnChance == currAction):
 
@@ -72,10 +89,10 @@ def conditions(currAction):
                         team_id=cursor.fetchone()[0]
                         # Draw a random Chance card
                         chance_cards = [
-                                ["Advance to 'Go' (Collect £200)",'''cursor.execute(f"update players set cash = cash + 200 where id = {team_id}")'''],
+                                ["Advance to 'Go' (Collect £200)",'''cursor.execute(f"update players set cash = cash + 200 where team = {team_id}")'''],
                                 ["Advance to Trafalgar Square", ""],
                                 ["Advance to Pall Mall (If you pass Go, collect £200)", ""],
-                                ["Bank pays you dividend of £50", '''cursor.execute(f"update players set cash = cash + 50 where id = {team_id}")'''],
+                                ["Bank pays you dividend of £50", '''cursor.execute(f"update players set cash = cash + 50 where team = {team_id}")'''],
                                 ["Get out of Jail Free (This card may be kept until needed or traded)", ""],
                                 ["Go back 3 spaces",""],
                                 ["Go directly to Jail (Do not pass Go, do not collect £200)", ""],
@@ -85,16 +102,16 @@ def conditions(currAction):
                                 for x in result:
                                         money += (x[0] * 25) + (x[1] * 100)
                                 if player_data[2] >= money:
-                                        cursor.execute(f"update players set cash = cash - {money} where id = {team_id}")
+                                        cursor.execute(f"update players set cash = cash - {money} where team = {team_id}")
                                         mydb.commit()
                                 else:
                                         print("Insufficient balance")'''],
-                                ["Pay poor tax of £15", '''cursor.execute(f"update players set cash = cash - 15 where id = {team_id}")'''],
+                                ["Pay poor tax of £15", '''cursor.execute(f"update players set cash = cash - 15 where team = {team_id}")'''],
                                 ["Take a trip to Marylebone Station (If you pass Go, collect £200)", ""],
                                 ["Advance to King's Cross Station (If you pass Go, collect £200)", ""],
                                 ["Advance to Mayfair", ""],
                                 ["You have been elected Chairman of the Board (Pay each player £50)", ""],
-                                ["Your building loan matures (Collect £150)", '''cursor.execute(f"update players set cash = cash + 150 where id = {team_id}")'''],
+                                ["Your building loan matures (Collect £150)", '''cursor.execute(f"update players set cash = cash + 150 where team = {team_id}")'''],
                                 ["You have won a crossword competition (Collect £100)", '''cursor.execute(f"update players set cash = cash + 100 where id = {team_id}")''']
                         ]
                         selected_card = random.choice(chance_cards)
@@ -109,33 +126,33 @@ def conditions(currAction):
                         # List of British Monopoly Community Chest cards
                         cursor.execute(f"select id from currentTransaction where type='players'")
                         player_id=cursor.fetchone()[0]
-                        cursor.execute(f"select * from teams where id={player_id[0]}")
+                        cursor.execute(f"select * from teams where team={player_id[0]}")
                         team_id=cursor.fetchone()[0]
                         
                         community_chest_cards = [
-                                ["Advance to 'Go' (Collect £200)", '''cursor.execute(f"update players set cash = cash + 200 where id = {team_id}")'''],
-                                ["Bank error in your favor (Collect £200)", '''cursor.execute(f"update players set cash = cash + 200 where id = {team_id}")'''],
-                                ["Doctor's fees (Pay £50)", '''cursor.execute(f"update players set cash = cash - 50 where id = {team_id}")'''],
-                                ["From sale of stock you get £50", '''cursor.execute(f"update players set cash = cash + 50 where id = {team_id}")'''],
+                                ["Advance to 'Go' (Collect £200)", '''cursor.execute(f"update players set cash = cash + 200 where team = {team_id}")'''],
+                                ["Bank error in your favor (Collect £200)", '''cursor.execute(f"update players set cash = cash + 200 where team = {team_id}")'''],
+                                ["Doctor's fees (Pay £50)", '''cursor.execute(f"update players set cash = cash - 50 where team = {team_id}")'''],
+                                ["From sale of stock you get £50", '''cursor.execute(f"update players set cash = cash + 50 where team = {team_id}")'''],
                                 ["Get Out of Jail Free (This card may be kept until needed or traded)", '''cursor.execute(f"update players set get_out_of_jail_free = get_out_of_jail_free + 1 where id = {team_id}")'''],
                                 ["Go to Jail (Go directly to Jail, do not pass Go, do not collect £200)", '''cursor.execute(f"update players set in_jail = 1 where id = {team_id}")'''],
-                                ["Holiday Fund matures (Receive £100)", '''cursor.execute(f"update players set cash = cash + 100 where id = {team_id}")'''],
-                                ["Income tax refund (Collect £20)", '''cursor.execute(f"update players set cash = cash + 20 where id = {team_id}")'''],
-                                ["It is your birthday (Collect £10 from each player)", '''cursor.execute("select id from players")
+                                ["Holiday Fund matures (Receive £100)", '''cursor.execute(f"update players set cash = cash + 100 where team = {team_id}")'''],
+                                ["Income tax refund (Collect £20)", '''cursor.execute(f"update players set cash = cash + 20 where team = {team_id}")'''],
+                                ["It is your birthday (Collect £10 from each player)", '''cursor.execute("select team from players")
                                     all_player_ids = cursor.fetchall()
                                     for pid in all_player_ids:
-                                        cursor.execute(f"update players set cash = cash - 10 where id = {pid[0]}")
-                                    cursor.execute(f"update players set cash = cash + {10 * len(all_player_ids)} where id = {team_id}")'''],
-                                ["Life insurance matures (Collect £100)", '''cursor.execute(f"update players set cash = cash + 100 where id = {team_id}")'''],
-                                ["Pay hospital fees of £100", '''cursor.execute(f"update players set cash = cash - 100 where id = {team_id}")'''],
-                                ["Pay school fees of £150", '''cursor.execute(f"update players set cash = cash - 150 where id = {team_id}")'''],
-                                ["Receive £25 consultancy fee", '''cursor.execute(f"update players set cash = cash + 25 where id = {team_id}")'''],
+                                        cursor.execute(f"update players set cash = cash - 10 where team = {pid[0]}")
+                                    cursor.execute(f"update players set cash = cash + {10 * len(all_player_ids)} where team = {team_id}")'''],
+                                ["Life insurance matures (Collect £100)", '''cursor.execute(f"update players set cash = cash + 100 where team = {team_id}")'''],
+                                ["Pay hospital fees of £100", '''cursor.execute(f"update players set cash = cash - 100 where team = {team_id}")'''],
+                                ["Pay school fees of £150", '''cursor.execute(f"update players set cash = cash - 150 where team = {team_id}")'''],
+                                ["Receive £25 consultancy fee", '''cursor.execute(f"update players set cash = cash + 25 where team = {team_id}")'''],
                                 ["You are assessed for street repairs (£40 per house, £115 per hotel)", '''cursor.execute(f"select house, hotels from properties where owner_id = {team_id}")
                                     result = cursor.fetchall()
                                     repair_cost = 40 * sum([x[0] for x in result]) + 115 * sum([x[1] for x in result])
-                                    cursor.execute(f"update players set cash = cash - {repair_cost} where id = {team_id}")'''],
-                                ["You have won second prize in a beauty contest (Collect £10)", '''cursor.execute(f"update players set cash = cash + 10 where id = {team_id}")'''],
-                                ["You inherit £100", '''cursor.execute(f"update players set cash = cash + 100 where id = {team_id}")''']
+                                    cursor.execute(f"update players set cash = cash - {repair_cost} where team = {team_id}")'''],
+                                ["You have won second prize in a beauty contest (Collect £10)", '''cursor.execute(f"update players set cash = cash + 10 where team = {team_id}")'''],
+                                ["You inherit £100", '''cursor.execute(f"update players set cash = cash + 100 where team = {team_id}")''']
                         ]
 
                         # Randomly select a Community Chest card
@@ -208,7 +225,7 @@ if __name__ == "__main__":
                 currAction.append(x[0])
         print(currAction) 
 
-        conditions(currAction)
+        # conditions()
          
         # Close the database connection
         

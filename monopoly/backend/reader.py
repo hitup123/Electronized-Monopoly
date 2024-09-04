@@ -2,7 +2,7 @@ import serial
 import time
 from p1 import conditions
 import serial.tools.list_ports
-from backend.dbConnector import dbconnect
+from dbConnector import dbconnect
 mydb=dbconnect()
 cursor=mydb.cursor()
 def find_com_port(port_name):
@@ -47,12 +47,12 @@ if com_port:
                 count += 1
                
                 cursor.execute(f"insert into currenttransaction values ({order},{result[0]},'{result[1]}' )")
-                cursor.execute(f"insert into log values ({count},{result[0]},'{result[1]}' )")
+                # cursor.execute(f"insert i/nto log values ({count},{result[0]},'{result[1]}' )")
                 mydb.commit()
                 cursor.execute("select * from currenttransaction ")
                 print(cursor.fetchall())
                 if order==2:
-                    # conditions()
+                    conditions()
                     print("out")
                     cursor.execute("delete from currenttransaction")
                     mydb.commit()

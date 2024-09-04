@@ -131,6 +131,9 @@ def submit_data():
 def get_logs():
     data=Logs(txn)
     txn=data[-1][0]
+    jsondata={}
+    for item in data:
+        jsondata[item[0]]=[item[1],item[2],item[3],item[4],item[5]]
     return jsonify(data)
 @app.route('/api/transfer_properties',methods=['POST'])
 def transfer_properties():

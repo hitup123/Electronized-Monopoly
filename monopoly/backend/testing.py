@@ -1,7 +1,9 @@
-from backend.dbConnector import dbconnect
+from dbConnector import dbconnect
 mydb=dbconnect()
 # [(0,0),(0,0)]
 cursor=mydb.cursor()
-cursor.execute(f"select * from log ")
+property_id=(28,)
+cursor.execute(f"select * from properties where id ={property_id[0]}")
+
 player_id=cursor.fetchall()
 print(player_id)
