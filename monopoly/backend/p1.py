@@ -10,8 +10,8 @@ cursor=mydb.cursor()
 
 
 def insertLog(count, action , team1,team2, money, msg ):
-        cursor.execute(f"insert into log values ({count}, '{action}', '{team1}','{team2}', {money}, {msg} )")
-        #insertLog(txn, 'rent', team_id, None, rent, 'team{team_id} paid rent on {property_data[1]}')
+        cursor.execute(f"insert into log values ({count}, '{action}', '{team1}','{team2}', {money}, '{msg}' )")
+
 
 
 
@@ -61,7 +61,7 @@ def conditions():
                         cursor.execute(f"select team from teams where id={player_id[0]}")
                         print("hi3")
                         team_id=cursor.fetchone()
-                        print(team_id)
+                        print("teamid: ",team_id)
                         cursor.execute(f"select * from players where team={team_id[0]}")
                         print("hi5")
                         player_data = cursor.fetchone()
@@ -73,10 +73,11 @@ def conditions():
                                         cursor.execute(f"update players set cash = cash - {property_data[3]} where team = {team_id[0]}")
                                         cursor.execute(f"update properties set owner_id = {team_id[0]} where id = {property_id[0]}")
                                         #cursor.execute(f"insert into  log values ({txn}, 'team{team_id} bought {property_data[1]}') ")
-                                        insertLog(txn, 'buy', team_id, None, property_data[3], f"team{team_id} bought {property_data[1]}")
+                                        str1 = f"team{team_id} bought {property_data[1]}"
+                                        insertLog(txn, 'buy', team_id, None, property_data[3], str1)
                                         mydb.commit()
                                 else:
-                                        #make api for telling it failed
+                                        #make api for telling it failedf
                                         print(player_data[2],property_data[3])
                                         insertLog(txn, 'buyfailed', team_id, None, 0, f'team{team_id} has insufficient funds to buy {property_data[1]}')
                                         print("Insufficient balance")
@@ -92,7 +93,8 @@ def conditions():
                                         cursor.execute(f"update players set cash = cash + {rent} where team = {property_data[-4]}")
                                         # mydb.commit()
                                         #cursor.execute(f"insert into  log values ({txn}, 'team{team_id} paid rent on {property_data[1]}') ")
-                                        insertLog(txn, 'rent', team_id, None, rent, f'team{team_id} paid rent ({rent}) on {property_data[1]}')
+                                        print("Team id: ",team_id[0])
+                                        insertLog(txn, 'rent', team_id, None, rent, f'team {team_id} paid rent ({rent}) on {property_data[1]}')
 
                                 else:
                                         print("Insufficient balance ")
