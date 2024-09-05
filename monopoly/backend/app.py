@@ -7,8 +7,9 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 from sqlalchemy import inspect
 app = Flask(__name__, static_folder='static')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost/monopoly'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://Yash:root@localhost/monopoly'
 db = SQLAlchemy(app)
+
 txn=0
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -21,6 +22,10 @@ def convert_bytes(value):
         return int.from_bytes(value, byteorder='big')
     return value
 # Example usage:
+
+global prev_id
+prev_id = -1
+
 
 def check_db_connection():
     with app.app_context():
@@ -39,13 +44,17 @@ def Logs():
     with app.app_context():
         try:
             
-            x = db.session.execute(text(f'SELECT * FROM logs WHERE txn_order > {txn}'))
+            # x = db.session.execute(text(f'SELECT * FROM log WHERE txn_order = (SELECT MAX(txn_order) FROM log)'))
+            x = db.session.execute(text(f'SELECT * FROM log WHERE txn_order > {txn}'))
+            
             output = x.fetchall()
+            print("OUTPUT: ",f'SELECT * FROM log WHERE txn_order > {txn}')
             # logger.info("Database connection successful. OUTPUT:")
-            # print(output)
+            #print(output)
         except Exception as e:
             logger.error(f"Database connection failed: {e}")
         return output
+    
 @app.route('/Landing')
 def index():
     return send_from_directory(app.static_folder, 'index.html')
@@ -130,12 +139,34 @@ def submit_data():
     
 @app.route('/api/logs')
 def get_logs():
-    data=Logs()
-    txn=data[-1][0]
-    jsondata={}
-    for item in data:
-        jsondata[item[0]]=[item[1],item[2],item[3],item[4],item[5]]
-    return jsonify(data)
+    
+    data = tuple(Logs())
+
+    jsondata = {}
+
+
+    print("data",data)
+    
+    
+    global txn
+    txn = data[-1][0]
+    print("TXN : ",txn)
+    jsondata = {
+        'txn_order': data[0][0],
+        'action':  data[0][1],
+        'team1': data[0][2],
+        'team2': data[0][3],
+        'money': data[0][4],
+        'msg':  data[0][5]
+    }
+
+    return jsonify(jsondata)
+
+    # for item in data:
+    #     jsondata[item[0]]=[item[1],item[2],item[3],item[4],item[5]]
+    
+
+
 @app.route('/api/transfer_properties',methods=['POST'])
 def transfer_properties():
     if request.method == 'POST':

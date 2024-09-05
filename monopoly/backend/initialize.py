@@ -13,6 +13,8 @@ def start_teams(data):
     # Initialize dictionary to store team members
     teams = {}
 
+    prev_id = -1
+
     # Categorize items by team
     for item in characters:
          if item['isPressed']:  # Only include characters where isPressed is True
@@ -50,6 +52,9 @@ def start_teams(data):
         print(f"{team}: {members}")
     cursor.execute("TRUNCATE TABLE currentTransaction")
     cursor.execute("TRUNCATE TABLE log ")
+    #insertLog(txn, 'buyfailed', team_id, None, 0, 'team{team_id} has insufficient funds to buy {property_data[1]}')
+    cursor.execute("insert into log values (0, 'StartGame', 'None', 'None', 0, 'A new Game has started')")
+
 
     mydb.commit()
     cursor.execute("drop table if exists players")

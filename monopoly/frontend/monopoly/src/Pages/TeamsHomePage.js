@@ -140,17 +140,27 @@ const LogScreen = ({ newLog }) => {
   useEffect(() => {
     if (newLog) {
       console.log("LOG");
-      console.log(newLog);
+      console.log(newLog.msg);
       setLogs(prevLogs => [...prevLogs, newLog]);
     }
   }, [newLog]);
 
+  const logscreen = {
+    gridColumns: '2/3',
+    backgroundColor: 'blue',
+    borderTop: 'inset 5px orangered', 
+    borderLeft: 'ridge 20px grey', 
+    padding: '10px',
+    color: 'white',
+    overflow: 'scroll'
+  }
+
   return (
-    <div style={{ backgroundColor: '#f8f8f8', padding: '10px', borderRadius: '5px', overflow: 'scroll' }}>
+    <div style={logscreen}>
       {logs.map((log, index) => (
         <p key={index}>
           <span className="material-symbols-outlined">arrow_right</span>
-          {log}
+          {log.msg}
         </p>
       ))}
     </div>
@@ -189,21 +199,14 @@ function HomePage() {
     padding: '10px',
   }
 
-  const logscreen = {
-    gridColumns: '2/3',
-    backgroundColor: 'blue',
-    borderTop: 'inset 5px orangered', 
-    borderLeft: 'ridge 20px grey', 
-    padding: '10px',
-    color: 'white',
-  }
+
 
 
   return (
     <div id='page' style={landingpage}>
 
       <TeamObjects data={json_packet}></TeamObjects>
-      <EventPanel />
+      {/* <EventPanel /> */}
 
     
 
