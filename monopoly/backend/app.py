@@ -7,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 from sqlalchemy import inspect
 app = Flask(__name__, static_folder='static')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://Yash:root@localhost/monopoly'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost/monopoly'
 db = SQLAlchemy(app)
 
 txn=0
@@ -43,12 +43,15 @@ def check_db_connection():
 def Logs():
     with app.app_context():
         try:
-            
+            y=db.session.execute(text('SELECT txn_order FROM LOG '))
+            z=y.fetchall()
+
             # x = db.session.execute(text(f'SELECT * FROM log WHERE txn_order = (SELECT MAX(txn_order) FROM log)'))
-            x = db.session.execute(text(f'SELECT * FROM log WHERE txn_order > {txn}'))
+            if(z[-1][0]>txn):
+                x = db.session.execute(text(f'SELECT * FROM log WHERE txn_order > {txn}'))
             
-            output = x.fetchall()
-            print("OUTPUT: ",f'SELECT * FROM log WHERE txn_order > {txn}')
+                output = x.fetchall()
+                print("OUTPUT: ",f'SELECT * FROM log WHERE txn_order > {txn}')
             # logger.info("Database connection successful. OUTPUT:")
             #print(output)
         except Exception as e:
