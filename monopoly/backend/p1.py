@@ -121,20 +121,20 @@ def conditions():
                         logging.debug("Entered  PlayerOnProperty")
 
                         #Fetching Data from Database                        
-                        cursor.execute(f"select id from currentTransaction where type='properties'")
-                        property_id = cursor.fetchone()
+                        # cursor.execute(f"select id from currentTransaction where type='properties'")
+                        # property_id = cursor.fetchone()
              
-                        cursor.execute(f"select * from properties where id ={property_id[0]}")
-                        property_data = cursor.fetchone()
+                        # cursor.execute(f"select * from properties where id ={property_id[0]}")
+                        # property_data = cursor.fetchone()
 
-                        cursor.execute(f"select id from currentTransaction where type='players'")
-                        player_id = cursor.fetchone()
+                        # cursor.execute(f"select id from currentTransaction where type='players'")
+                        # player_id = cursor.fetchone()
 
-                        cursor.execute(f"select team from teams where id={player_id[0]}")
-                        team_id=cursor.fetchone()
+                        # cursor.execute(f"select team from teams where id={player_id[0]}")
+                        # team_id=cursor.fetchone()
    
-                        cursor.execute(f"select * from players where team={team_id[0]}")
-                        player_data = cursor.fetchone()
+                        # cursor.execute(f"select * from players where team={team_id[0]}")
+                        # player_data = cursor.fetchone()
 
                         
 
@@ -142,41 +142,41 @@ def conditions():
                                 
                                 logging.debug("Entered Buy Property")
 
-                                if(player_data[0]>property_data[3]):
+                                if(PlayerData[cash]>PropertyData[cost]):
 
-                                        cursor.execute(f"update players set cash = cash - {property_data[3]} where team = {team_id[0]}")
-                                        cursor.execute(f"update properties set owner_id = {team_id[0]} where id = {property_id[0]}")
+                                        cursor.execute(f"update players set cash = cash - {PropertyData[cost]} where team = {PlayerData[team]}")
+                                        cursor.execute(f"update properties set owner_id = {PlayerData[team]} where id = {PropertyData[id]}")
 
-                                        str1 = f"team{team_id} bought {property_data[1]}"
-                                        insertLog(txn, 'buy', team_id, None, property_data[3], str1)
+                                        str1 = f"team {PlayerData[team]} bought {PropertyData[name]}"
+                                        insertLog(txn, 'buy', PlayerData[team], None, PropertyData[cost], str1)
                                         mydb.commit()
 
                                         logging.debug("Property Bought Successfully")
 
                                 else:
                                         logging.debug("Player does not have enough money to buy the property")
-                                        insertLog(txn, 'buyfailed', team_id, None, 0, f'team{team_id} has insufficient funds to buy {property_data[1]}')
+                                        insertLog(txn, 'buyfailed', PlayerData[team], None, 0, f'team{PlayerData[team]} has insufficient funds to buy {PropertyData[name]}')
                                         
-                        elif(property_data[-4]!=team_id[0]):
+                        elif(PropertyData[owner_id]!= PlayerData[team]):
                                 
                                 logging.debug("Entered  Rent Property")
 
-                                cursor.execute(f"select house from properties where id={property_id[0]}")
+                                cursor.execute(f"select house from properties where id={PropertyData[id]}")
                                 house = cursor.fetchone()[0]
 
-                                cursor.execute(f"select R{house} from properties where id={property_id[0]}")
+                                cursor.execute(f"select R{house} from properties where id={PropertyData[id]}")
                                 rent=cursor.fetchone()[0]
 
-                                if(property_id[0] == 8 or  property_id[0] == 21):  # Utiliy  Property
+                                if(PropertyData[id] == 8 or  PropertyData[id] == 21):  # Utiliy  Property
                                         rent = handleUtilityRent()
-                                elif(property_id[0] == 3 or property_id[0] == 11 or property_id[0] == 18 or property_id[0] == 26):
+                                elif(PropertyData[id] == 3 or PropertyData[id] == 11 or PropertyData[id] == 18 or PropertyData[id] == 26):
                                         rent = handleRailwayRent()
                                 
 
 
 
                                 if(0 == house):
-                                        cursor.execute(f"select color from properties where  id={property_id[0]}")
+                                        cursor.execute(f"select color from properties where  id={PropertyData[id]}")
                                         color = cursor.fetchone()[0]
 
                                         cursor.execute(f"select owner_id, mortgage from properties where color = '{color}'")
@@ -185,16 +185,16 @@ def conditions():
                                         rent = 2*rent
                                         
                                         for i in owners:
-                                                if(i[0] != property_data[-4] and i[1] == 0):
+                                                if(i[0] != PropertyData[owner_id] and i[1] == 0):
 
                                                         rent = rent / 2
 
 
-                                if player_data[0] >= rent:
-                                        cursor.execute(f"update players set cash = cash - {rent} where team = {team_id[0]}")
-                                        cursor.execute(f"update players set cash = cash + {rent} where team = {property_data[-4]}")
+                                if PlayerData[cash] >= rent:
+                                        cursor.execute(f"update players set cash = cash - {rent} where team = {PlayerData[team]}")
+                                        cursor.execute(f"update players set cash = cash + {rent} where team = {PropertyData[owner_id]}")
                                         
-                                        insertLog(txn, 'rent', team_id, None, rent, f'team {team_id} paid rent ({rent}) on {property_data[1]}')
+                                        insertLog(txn, 'rent', team_id, None, rent, f'team {team_id} paid rent ({rent}) on {PropertyData[name]}')
 
                                         logging.debug("Rent has been payed")
 
@@ -206,11 +206,12 @@ def conditions():
 
                         logging.debug("Entered Player on Chance Card")
 
-                        cursor.execute(f"select id from currentTransaction where type='players'")
-                        player_id=cursor.fetchone()[0]
+                        # cursor.execute(f"select id from currentTransaction where type='players'")
+                        # player_id=cursor.fetchone()[0]
 
-                        cursor.execute(f"select * from teams where id={player_id[0]}")
-                        team_id=cursor.fetchone()[0]
+                        # cursor.execute(f"select * from teams where id={player_id[0]}")
+                        # team_id=cursor.fetchone()[0]
+                        team_id = PlayerData[team]
 
                         moneys =  cursor.execute(f"select cash from players where team = {team_id}")
 
@@ -272,11 +273,12 @@ def conditions():
                         
                         logging.debug("Entered Player on Community Chest Card")
 
-                        cursor.execute(f"select id from currentTransaction where type='players'")
-                        player_id=cursor.fetchone()[0]
+                        # cursor.execute(f"select id from currentTransaction where type='players'")
+                        # player_id=cursor.fetchone()[0]
 
-                        cursor.execute(f"select * from teams where team={player_id[0]}")
-                        team_id=cursor.fetchone()[0]
+                        # cursor.execute(f"select * from teams where team={player_id[0]}")
+                        # team_id=cursor.fetchone()[0]
+                        team_id = PlayerData[team]
 
                         moneys = cursor.execute(f"select cash from players where team = {team_id}")
                         
@@ -335,14 +337,14 @@ def conditions():
 
                 elif(c.HouseOnProperty == currAction):
 
-                        cursor.execute(f"select id from currentTransaction where type='properties'")
-                        property_id = cursor.fetchone()
+                        # cursor.execute(f"select id from currentTransaction where type='properties'")
+                        # property_id = cursor.fetchone()
 
-                        cursor.execute(f"select owner_id from properties where id={property_id[0]}")
-                        team_id=cursor.fetchone()[0]
+                        # cursor.execute(f"select owner_id from properties where id={property_id[0]}")
+                        # team_id=cursor.fetchone()[0]
 
-                        cursor.execute(f"select house from properties where id={property_id[0]}")
-                        property_data = cursor.fetchone()
+                        # cursor.execute(f"select house from properties where id={property_id[0]}")
+                        # property_data = cursor.fetchone()
 
                         cursor.execute("select house from properties")
                         result=cursor.fetchall()
@@ -354,10 +356,10 @@ def conditions():
                                 if sum>=32:
                                         canbuild=False
                         
-                        cursor.execute(f"select color from properties where id={property_id[0]}")
-                        property_color = cursor.fetchall()[0]
+                        cursor.execute(f"select color from properties where id={PropertyData[id]}")
+                        property_color = cursor.fetchone()[0]
 
-                        cursor.execute(f"select * from properties where color='{property_color[0]}'")
+                        cursor.execute(f"select * from properties where color='{property_color}'")
                         result=cursor.fetchall()
 
                         houses=[]
@@ -366,14 +368,14 @@ def conditions():
                                         canbuild=False        
                                         houses.append(x[4])
                                 
-                        if canbuild and min(houses)!=property_data[0]:
+                        if canbuild and min(houses)!=PropertyData[id]:
                                 canbuild=False
 
                         if canbuild:
-                                if property_data[0]<4:
+                                if PropertyData[id]<4:
                                         cursor.execute(f"update properties set house = house + 1 where id = {property_id}")
                                         cursor.execute(f"UPDATE players SET cash = cash - (SELECT houseCost FROM properties WHERE id = {property_id}) WHERE team = (SELECT owner_id FROM properties WHERE id = {property_id})")
-                                elif property_data[0]==4:
+                                elif PropertyData[id]==4:
                                         cursor.execute(f"update properties set hotels = hotels + 1 where id = {property_id}")
                                         cursor.execute(f"UPDATE players SET cash = cash - (SELECT houseCost FROM properties WHERE id = {property_id}) WHERE team = (SELECT owner_id FROM properties WHERE id = {property_id})")
 
@@ -382,29 +384,29 @@ def conditions():
 
                         logging.debug("Entered  Mortgage Property")                        
 
-                        cursor.execute(f"select id from currentTransaction where type='properties'")
-                        property_id = cursor.fetchone()[0]
-                        cursor.execute(f"select owner_id from properties where id={property_id}")
-                        team_id=cursor.fetchone()[0]
+                        # cursor.execute(f"select id from currentTransaction where type='properties'")
+                        # property_id = cursor.fetchone()[0]
+                        # cursor.execute(f"select owner_id from properties where id={property_id}")
+                        # team_id=cursor.fetchone()[0]
 
-                        cost =  0.5 * (f"SELECT cost FROM properties WHERE id = {property_id}")
+                        cost =  0.5 * (f"SELECT cost FROM properties WHERE id = {PropertyData[id]}")
 
-                        cursor.execute(f"select mortgage  from properties where id={property_id}")
+                        cursor.execute(f"select mortgage  from properties where id={PropertyData[id]}")
                         mort_status = cursor.fetchone()[0]
 
                         if(mort_status == 0):
 
-                                cursor.execute(f"update players set cash = cash + {cost} where team = {team_id}")
-                                cursor.execute(f"update properties set mortgage = 1 where id = {property_id}")
+                                cursor.execute(f"update players set cash = cash + {cost} where team = {PlayerData[team]}")
+                                cursor.execute(f"update properties set mortgage = 1 where id = {PropertyData[id]}")
 
-                                insertLog(txn, 'mortgage',  property_id, team_id, cost, f"Property {property_id} was Mortgaged by Team {team_id}")
+                                insertLog(txn, 'mortgage',  property_id, PlayerData[team], cost, f"Property {PropertyData[id]} was Mortgaged by Team {PlayerData[team]}")
 
-                                logging.debug(f" Property {property_id} was mortgaged  by Team {team_id}")
+                                logging.debug(f" Property {PropertyData[id]} was mortgaged  by Team {PlayerData[team]}")
                         else:
-                                cursor.execute(f"update players set cash = cash - {cost*1.1} where team = {team_id}")
+                                cursor.execute(f"update players set cash = cash - {cost*1.1} where team = {PlayerData[team]}")
                                 cursor.execute(f"update properties set mortgage = 0 where id = {property_id}")
 
-                                insertLog(txn, 'unmortgage', team_id, None, cost*1.1,  f"Property {property_id} was Unmortgaged by Team {team_id}")
+                                insertLog(txn, 'unmortgage', PlayerData[team], None, cost*1.1,  f"Property {PropertyData[id]} was Unmortgaged by Team {PlayerData[team]}")
 
 
 
@@ -415,18 +417,19 @@ def conditions():
 
         
         # Check for Bankrupt
-        cursor.execute(f"select id from currentTransaction where type='players'")
-        player_id = cursor.fetchone()
 
-        cursor.execute(f"select team from teams where id={player_id[0]}")
-        team_id=cursor.fetchone()
+        # cursor.execute(f"select id from currentTransaction where type='players'")
+        # player_id = cursor.fetchone()
 
-        cursor.execute(f"select  cash from players where team={team_id}")
-        cash = cursor.fetchone()
+        # cursor.execute(f"select team from teams where id={player_id[0]}")
+        # team_id=cursor.fetchone()
 
-        if(cash < 0):
+        # cursor.execute(f"select  cash from players where team={team_id}")
+        # cash = cursor.fetchone()
+
+        if(PlayerData[cash] < 0):
                 logging.debug("Player is Bankrupt")
-                insertLog(txn, 'bankrupt',  player_id, team_id, cash, f"Team {team_id} is Bankrupt. Please sell properties/Houses to pay off debt or Retire from game")
+                insertLog(txn, 'bankrupt',  PlayerData[team], None, cash, f"Team {PlayerData[team]} is Bankrupt. Please sell properties/Houses to pay off debt or Retire from game")
                 
 
 
