@@ -1,10 +1,15 @@
 
 
-PlayerOnProperty = ['properties', 'players']
-PlayerOnChance = ['chance', 'player']
-PlayerOnCommunity = ['comm', 'player']
-HouseOnProperty = ['house', 'properties']
-MortgageProperty = ['mort', 'propertirs']
+PlayerOnProperty = ['properties', 'players']    # Buy Properties, Pay Rent
+PlayerOnChance = ['chance', 'player']   # Chance card
+PlayerOnCommunity = ['comm', 'player']  #  Community Chest card
+HouseOnProperty = ['house', 'properties'] #  Build Houses on a property
+MortgageProperty = ['mort', 'propertirs']  # Mortgage, Unmortgage properties
+SellProperty = ['sell', 'properties'] # Sell properties and Houses
+
+
+
+
 
 
 Actions = [
@@ -12,5 +17,6 @@ Actions = [
         PlayerOnChance,
         PlayerOnCommunity,
         HouseOnProperty,
-        MortgageProperty
+        MortgageProperty,
+        SellProperty
         ]
