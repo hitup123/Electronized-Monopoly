@@ -11,10 +11,7 @@ cursor=mydb.cursor()
 
 def insertLog(count, action , team1,team2, money, msg ):
         cursor.execute(f"insert into log values ({count}, '{action}', '{team1}','{team2}', {money}, '{msg}' )")
-
-
-
-
+        mydb.commit()
 def conditions():
         cursor.execute(f"select type from currentTransaction")
         result = cursor.fetchall()
@@ -56,48 +53,49 @@ def conditions():
                         cursor.execute(f"select * from properties where id ={property_id[0]}")
                         print("hi2")
                         property_data = cursor.fetchone()
-                        cursor.execute(f"select id from currentTransaction where type='players'")
-                        player_id = cursor.fetchone()
-                        cursor.execute(f"select team from teams where id={player_id[0]}")
-                        print("hi3")
-                        team_id=cursor.fetchone()
-                        print("teamid: ",team_id)
-                        cursor.execute(f"select * from players where team={team_id[0]}")
-                        print("hi5")
-                        player_data = cursor.fetchone()
-                        print(player_data)
-                        if(property_data[-4]==None):
-                                print("hi6")
-                                if(player_data[0]>property_data[3]):
-                                        print("hi7")
-                                        cursor.execute(f"update players set cash = cash - {property_data[3]} where team = {team_id[0]}")
-                                        cursor.execute(f"update properties set owner_id = {team_id[0]} where id = {property_id[0]}")
-                                        #cursor.execute(f"insert into  log values ({txn}, 'team{team_id} bought {property_data[1]}') ")
-                                        str1 = f"team{team_id} bought {property_data[1]}"
-                                        insertLog(txn, 'buy', team_id, None, property_data[3], str1)
-                                        mydb.commit()
-                                else:
-                                        #make api for telling it failedf
-                                        print(player_data[2],property_data[3])
-                                        insertLog(txn, 'buyfailed', team_id, None, 0, f'team{team_id} has insufficient funds to buy {property_data[1]}')
-                                        print("Insufficient balance")
+                        if(property_data[-1]==0):
+                                cursor.execute(f"select id from currentTransaction where type='players'")
+                                player_id = cursor.fetchone()
+                                cursor.execute(f"select team from teams where id={player_id[0]}")
+                                print("hi3")
+                                team_id=cursor.fetchone()
+                                print("teamid: ",team_id)
+                                cursor.execute(f"select * from players where team={team_id[0]}")
+                                print("hi5")
+                                player_data = cursor.fetchone()
+                                print(player_data)
+                                if(property_data[-4]==None):
+                                        print("hi6")
+                                        if(player_data[0]>property_data[3]):
+                                                print("hi7")
+                                                cursor.execute(f"update players set cash = cash - {property_data[3]} where team = {team_id[0]}")
+                                                cursor.execute(f"update properties set owner_id = {team_id[0]} where id = {property_id[0]}")
+                                                #cursor.execute(f"insert into  log values ({txn}, 'team{team_id} bought {property_data[1]}') ")
+                                                str1 = f"team{team_id} bought {property_data[1]}"
+                                                insertLog(txn, 'buy', team_id, None, property_data[3], str1)
+                                                mydb.commit()
+                                        else:
+                                                #make api for telling it failedf
+                                                print(player_data[2],property_data[3])
+                                                insertLog(txn, 'buyfailed', team_id, None, 0, f'team{team_id} has insufficient funds to buy {property_data[1]}')
+                                                print("Insufficient balance")
                                         
-                        elif(property_data[-4]!=team_id[0]):
-                                print("rent")
-                                cursor.execute(f"select house from properties where id={property_id[0]}")
-                                house = cursor.fetchone()[0]
-                                cursor.execute(f"select R{house} from properties where id={property_id[0]}")
-                                rent=cursor.fetchone()[0]
-                                if player_data[0] >= rent:
-                                        cursor.execute(f"update players set cash = cash - {rent} where team = {team_id[0]}")
-                                        cursor.execute(f"update players set cash = cash + {rent} where team = {property_data[-4]}")
-                                        # mydb.commit()
-                                        #cursor.execute(f"insert into  log values ({txn}, 'team{team_id} paid rent on {property_data[1]}') ")
-                                        print("Team id: ",team_id[0])
-                                        insertLog(txn, 'rent', team_id, None, rent, f'team {team_id} paid rent ({rent}) on {property_data[1]}')
+                                elif(property_data[-4]!=team_id[0]):
+                                        print("rent")
+                                        cursor.execute(f"select house from properties where id={property_id[0]}")
+                                        house = cursor.fetchone()[0]
+                                        cursor.execute(f"select R{house} from properties where id={property_id[0]}")
+                                        rent=cursor.fetchone()[0]
+                                        if player_data[0] >= rent:
+                                                cursor.execute(f"update players set cash = cash - {rent} where team = {team_id[0]}")
+                                                cursor.execute(f"update players set cash = cash + {rent} where team = {property_data[-4]}")
+                                                # mydb.commit()
+                                                #cursor.execute(f"insert into  log values ({txn}, 'team{team_id} paid rent on {property_data[1]}') ")
+                                                print("Team id: ",team_id[0])
+                                                insertLog(txn, 'rent', team_id, None, rent, f'team {team_id} paid rent ({rent}) on {property_data[1]}')
 
-                                else:
-                                        print("Insufficient balance ")
+                                        else:
+                                                print("Insufficient balance ")
 
                 elif(c.PlayerOnChance == currAction):
 
@@ -189,7 +187,12 @@ def conditions():
                         property_data = cursor.fetchone()
                         cursor.execute("select house from properties")
                         result=cursor.fetchall()
+                        cursor.execute(f"select mortgage from properties where id={property_id[0]}")
+                        mortgage = cursor.fetchone()
+                        
                         canbuild=True
+                        if mortgage:
+                                canbuild=False
                         for x in result:
                                 sum+=x[0]
                                 if sum>=32:
@@ -222,8 +225,8 @@ def conditions():
                         property_id = cursor.fetchone()[0]
                         cursor.execute(f"select owner_id from properties where id={property_id[0]}")
                         team_id=cursor.fetchone()[0]
-                        cursor.execute()
-
+                        cursor.execute(f"update properties set mortgage = 1 where id={property_id}")
+                        cursor.execute(f"update players set cash = (select cost from properties)/2 where team={team_id}")
                 mydb.commit()
         
         else:
