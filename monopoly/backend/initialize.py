@@ -1,6 +1,6 @@
 import json
 import mysql.connector
-from backend.dbConnector import dbconnect
+from  dbConnector import dbconnect
 mydb=dbconnect()
 cursor=mydb.cursor()
 # mydb.autocommit()

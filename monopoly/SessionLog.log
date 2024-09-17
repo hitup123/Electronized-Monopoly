@@ -1,0 +1,282 @@
+23 : 40 : 34 - (DEBUG) :   Building SSL context
+23 : 40 : 35 - (DEBUG) :   Switching to SSL
+23 : 40 : 35 - (DEBUG) :   SSL has been enabled
+23 : 40 : 35 - (DEBUG) :   Starting authorization phase
+23 : 40 : 35 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+23 : 40 : 35 - (INFO) :   package: mysql.connector.plugins
+23 : 40 : 35 - (INFO) :   plugin_name: caching_sha2_password
+23 : 40 : 35 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+23 : 40 : 35 - (DEBUG) :   Exchanging further packets
+23 : 40 : 35 - (DEBUG) :   caching_sha2_password completed succesfully
+23 : 40 : 35 - (DEBUG) :   Using proactor: IocpProactor
+23 : 40 : 35 - (INFO) :     This is p1.py File LOG  
+23 : 40 : 35 - (DEBUG) :   Entered  PlayerOnProperty
+23 : 40 : 35 - (DEBUG) :   Entered  Rent Property
+23 : 42 : 48 - (DEBUG) :   Building SSL context
+23 : 42 : 48 - (DEBUG) :   Switching to SSL
+23 : 42 : 48 - (DEBUG) :   SSL has been enabled
+23 : 42 : 48 - (DEBUG) :   Starting authorization phase
+23 : 42 : 48 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+23 : 42 : 48 - (INFO) :   package: mysql.connector.plugins
+23 : 42 : 48 - (INFO) :   plugin_name: caching_sha2_password
+23 : 42 : 48 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+23 : 42 : 48 - (DEBUG) :   Exchanging further packets
+23 : 42 : 48 - (DEBUG) :   caching_sha2_password completed succesfully
+23 : 42 : 49 - (DEBUG) :   Using proactor: IocpProactor
+23 : 42 : 49 - (INFO) :     This is p1.py File LOG  
+23 : 42 : 49 - (DEBUG) :   Entered  PlayerOnProperty
+23 : 42 : 49 - (DEBUG) :   Entered  Rent Property
+23 : 45 : 05 - (DEBUG) :   Building SSL context
+23 : 45 : 05 - (DEBUG) :   Switching to SSL
+23 : 45 : 05 - (DEBUG) :   SSL has been enabled
+23 : 45 : 05 - (DEBUG) :   Starting authorization phase
+23 : 45 : 05 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+23 : 45 : 05 - (INFO) :   package: mysql.connector.plugins
+23 : 45 : 05 - (INFO) :   plugin_name: caching_sha2_password
+23 : 45 : 05 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+23 : 45 : 05 - (DEBUG) :   Exchanging further packets
+23 : 45 : 05 - (DEBUG) :   caching_sha2_password completed succesfully
+23 : 45 : 05 - (DEBUG) :   Using proactor: IocpProactor
+23 : 45 : 05 - (INFO) :     This is p1.py File LOG  
+23 : 45 : 05 - (DEBUG) :   Entered  PlayerOnProperty
+23 : 45 : 05 - (DEBUG) :   Entered  Rent Property
+23 : 47 : 52 - (DEBUG) :   Building SSL context
+23 : 47 : 52 - (DEBUG) :   Switching to SSL
+23 : 47 : 52 - (DEBUG) :   SSL has been enabled
+23 : 47 : 52 - (DEBUG) :   Starting authorization phase
+23 : 47 : 52 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+23 : 47 : 52 - (INFO) :   package: mysql.connector.plugins
+23 : 47 : 52 - (INFO) :   plugin_name: caching_sha2_password
+23 : 47 : 52 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+23 : 47 : 52 - (DEBUG) :   Exchanging further packets
+23 : 47 : 52 - (DEBUG) :   caching_sha2_password completed succesfully
+23 : 47 : 52 - (DEBUG) :   Using proactor: IocpProactor
+23 : 47 : 52 - (INFO) :     This is p1.py File LOG  
+23 : 47 : 52 - (DEBUG) :   Entered  PlayerOnProperty
+23 : 47 : 52 - (DEBUG) :   Entered  Rent Property
+23 : 50 : 40 - (DEBUG) :   Building SSL context
+23 : 50 : 40 - (DEBUG) :   Switching to SSL
+23 : 50 : 40 - (DEBUG) :   SSL has been enabled
+23 : 50 : 40 - (DEBUG) :   Starting authorization phase
+23 : 50 : 40 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+23 : 50 : 40 - (INFO) :   package: mysql.connector.plugins
+23 : 50 : 40 - (INFO) :   plugin_name: caching_sha2_password
+23 : 50 : 40 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+23 : 50 : 40 - (DEBUG) :   Exchanging further packets
+23 : 50 : 40 - (DEBUG) :   caching_sha2_password completed succesfully
+23 : 50 : 56 - (DEBUG) :   Building SSL context
+23 : 50 : 56 - (DEBUG) :   Switching to SSL
+23 : 50 : 56 - (DEBUG) :   SSL has been enabled
+23 : 50 : 56 - (DEBUG) :   Starting authorization phase
+23 : 50 : 56 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+23 : 50 : 56 - (INFO) :   package: mysql.connector.plugins
+23 : 50 : 56 - (INFO) :   plugin_name: caching_sha2_password
+23 : 50 : 56 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+23 : 50 : 56 - (DEBUG) :   Exchanging further packets
+23 : 50 : 56 - (DEBUG) :   caching_sha2_password completed succesfully
+23 : 50 : 56 - (DEBUG) :   Using proactor: IocpProactor
+23 : 50 : 56 - (INFO) :     This is p1.py File LOG  
+23 : 50 : 56 - (DEBUG) :   Entered  PlayerOnProperty
+23 : 50 : 56 - (DEBUG) :   Entered  Rent Property
+00 : 28 : 38 - (DEBUG) :   Building SSL context
+00 : 28 : 38 - (DEBUG) :   Switching to SSL
+00 : 28 : 38 - (DEBUG) :   SSL has been enabled
+00 : 28 : 38 - (DEBUG) :   Starting authorization phase
+00 : 28 : 38 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+00 : 28 : 38 - (INFO) :   package: mysql.connector.plugins
+00 : 28 : 38 - (INFO) :   plugin_name: caching_sha2_password
+00 : 28 : 38 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+00 : 28 : 38 - (DEBUG) :   Exchanging further packets
+00 : 28 : 38 - (DEBUG) :   caching_sha2_password completed succesfully
+00 : 28 : 38 - (DEBUG) :   Using proactor: IocpProactor
+00 : 28 : 38 - (INFO) :     This is p1.py File LOG  
+00 : 28 : 38 - (DEBUG) :   Entered  PlayerOnProperty
+00 : 28 : 38 - (DEBUG) :   Entered  Rent Property
+00 : 28 : 55 - (DEBUG) :   Building SSL context
+00 : 28 : 55 - (DEBUG) :   Switching to SSL
+00 : 28 : 55 - (DEBUG) :   SSL has been enabled
+00 : 28 : 55 - (DEBUG) :   Starting authorization phase
+00 : 28 : 55 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+00 : 28 : 55 - (INFO) :   package: mysql.connector.plugins
+00 : 28 : 55 - (INFO) :   plugin_name: caching_sha2_password
+00 : 28 : 55 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+00 : 28 : 55 - (DEBUG) :   Exchanging further packets
+00 : 28 : 55 - (DEBUG) :   caching_sha2_password completed succesfully
+00 : 28 : 55 - (DEBUG) :   Using proactor: IocpProactor
+00 : 28 : 55 - (INFO) :     This is p1.py File LOG  
+00 : 28 : 55 - (DEBUG) :   Entered  PlayerOnProperty
+00 : 28 : 55 - (DEBUG) :   Entered  Rent Property
+00 : 29 : 54 - (DEBUG) :   Building SSL context
+00 : 29 : 54 - (DEBUG) :   Switching to SSL
+00 : 29 : 54 - (DEBUG) :   SSL has been enabled
+00 : 29 : 54 - (DEBUG) :   Starting authorization phase
+00 : 29 : 54 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+00 : 29 : 54 - (INFO) :   package: mysql.connector.plugins
+00 : 29 : 54 - (INFO) :   plugin_name: caching_sha2_password
+00 : 29 : 54 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+00 : 29 : 54 - (DEBUG) :   Exchanging further packets
+00 : 29 : 54 - (DEBUG) :   caching_sha2_password completed succesfully
+00 : 29 : 54 - (DEBUG) :   Using proactor: IocpProactor
+00 : 29 : 54 - (INFO) :     This is p1.py File LOG  
+00 : 29 : 54 - (DEBUG) :   Entered  PlayerOnProperty
+00 : 29 : 54 - (DEBUG) :   Entered  Rent Property
+00 : 30 : 09 - (DEBUG) :   Building SSL context
+00 : 30 : 09 - (DEBUG) :   Switching to SSL
+00 : 30 : 09 - (DEBUG) :   SSL has been enabled
+00 : 30 : 09 - (DEBUG) :   Starting authorization phase
+00 : 30 : 09 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+00 : 30 : 09 - (INFO) :   package: mysql.connector.plugins
+00 : 30 : 09 - (INFO) :   plugin_name: caching_sha2_password
+00 : 30 : 09 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+00 : 30 : 09 - (DEBUG) :   Exchanging further packets
+00 : 30 : 09 - (DEBUG) :   caching_sha2_password completed succesfully
+00 : 30 : 09 - (DEBUG) :   Using proactor: IocpProactor
+00 : 30 : 09 - (INFO) :     This is p1.py File LOG  
+00 : 30 : 09 - (DEBUG) :   Entered  PlayerOnProperty
+00 : 30 : 09 - (DEBUG) :   Entered  Rent Property
+00 : 32 : 11 - (DEBUG) :   Building SSL context
+00 : 32 : 11 - (DEBUG) :   Switching to SSL
+00 : 32 : 11 - (DEBUG) :   SSL has been enabled
+00 : 32 : 11 - (DEBUG) :   Starting authorization phase
+00 : 32 : 11 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+00 : 32 : 11 - (INFO) :   package: mysql.connector.plugins
+00 : 32 : 11 - (INFO) :   plugin_name: caching_sha2_password
+00 : 32 : 11 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+00 : 32 : 11 - (DEBUG) :   Exchanging further packets
+00 : 32 : 11 - (DEBUG) :   caching_sha2_password completed succesfully
+00 : 32 : 11 - (DEBUG) :   Using proactor: IocpProactor
+00 : 32 : 11 - (INFO) :     This is p1.py File LOG  
+00 : 32 : 11 - (DEBUG) :   Entered  PlayerOnProperty
+00 : 32 : 11 - (DEBUG) :   Entered  Rent Property
+00 : 33 : 47 - (DEBUG) :   Building SSL context
+00 : 33 : 47 - (DEBUG) :   Switching to SSL
+00 : 33 : 47 - (DEBUG) :   SSL has been enabled
+00 : 33 : 47 - (DEBUG) :   Starting authorization phase
+00 : 33 : 47 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+00 : 33 : 47 - (INFO) :   package: mysql.connector.plugins
+00 : 33 : 47 - (INFO) :   plugin_name: caching_sha2_password
+00 : 33 : 47 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+00 : 33 : 47 - (DEBUG) :   Exchanging further packets
+00 : 33 : 47 - (DEBUG) :   caching_sha2_password completed succesfully
+00 : 33 : 48 - (DEBUG) :   Using proactor: IocpProactor
+00 : 33 : 48 - (INFO) :     This is p1.py File LOG  
+00 : 33 : 48 - (DEBUG) :   Entered  PlayerOnProperty
+00 : 33 : 48 - (DEBUG) :   Entered  Rent Property
+00 : 34 : 46 - (DEBUG) :   Building SSL context
+00 : 34 : 46 - (DEBUG) :   Switching to SSL
+00 : 34 : 46 - (DEBUG) :   SSL has been enabled
+00 : 34 : 46 - (DEBUG) :   Starting authorization phase
+00 : 34 : 46 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+00 : 34 : 46 - (INFO) :   package: mysql.connector.plugins
+00 : 34 : 46 - (INFO) :   plugin_name: caching_sha2_password
+00 : 34 : 46 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+00 : 34 : 46 - (DEBUG) :   Exchanging further packets
+00 : 34 : 46 - (DEBUG) :   caching_sha2_password completed succesfully
+00 : 34 : 46 - (DEBUG) :   Using proactor: IocpProactor
+00 : 34 : 46 - (INFO) :     This is p1.py File LOG  
+00 : 34 : 46 - (DEBUG) :   Entered  PlayerOnProperty
+00 : 34 : 46 - (DEBUG) :   Entered  Rent Property
+00 : 35 : 06 - (DEBUG) :   Rent has been payed
+22 : 12 : 37 - (DEBUG) :   Building SSL context
+22 : 12 : 37 - (DEBUG) :   Switching to SSL
+22 : 12 : 37 - (DEBUG) :   SSL has been enabled
+22 : 12 : 37 - (DEBUG) :   Starting authorization phase
+22 : 12 : 37 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+22 : 12 : 37 - (INFO) :   package: mysql.connector.plugins
+22 : 12 : 37 - (INFO) :   plugin_name: caching_sha2_password
+22 : 12 : 37 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+22 : 12 : 37 - (DEBUG) :   Exchanging further packets
+22 : 12 : 37 - (DEBUG) :   caching_sha2_password completed succesfully
+22 : 12 : 38 - (DEBUG) :   Using proactor: IocpProactor
+22 : 12 : 38 - (INFO) :     This is p1.py File LOG  
+22 : 12 : 38 - (DEBUG) :   Entered  PlayerOnProperty
+22 : 12 : 38 - (DEBUG) :   Entered  Rent Property
+22 : 14 : 22 - (DEBUG) :   Building SSL context
+22 : 14 : 22 - (DEBUG) :   Switching to SSL
+22 : 14 : 22 - (DEBUG) :   SSL has been enabled
+22 : 14 : 22 - (DEBUG) :   Starting authorization phase
+22 : 14 : 22 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+22 : 14 : 22 - (INFO) :   package: mysql.connector.plugins
+22 : 14 : 22 - (INFO) :   plugin_name: caching_sha2_password
+22 : 14 : 22 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+22 : 14 : 22 - (DEBUG) :   Exchanging further packets
+22 : 14 : 22 - (DEBUG) :   caching_sha2_password completed succesfully
+22 : 14 : 22 - (DEBUG) :   Using proactor: IocpProactor
+22 : 14 : 22 - (INFO) :     This is p1.py File LOG  
+22 : 14 : 22 - (DEBUG) :   Entered  PlayerOnProperty
+22 : 14 : 22 - (DEBUG) :   Entered  Rent Property
+22 : 15 : 56 - (DEBUG) :   Building SSL context
+22 : 15 : 56 - (DEBUG) :   Switching to SSL
+22 : 15 : 56 - (DEBUG) :   SSL has been enabled
+22 : 15 : 56 - (DEBUG) :   Starting authorization phase
+22 : 15 : 56 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+22 : 15 : 56 - (INFO) :   package: mysql.connector.plugins
+22 : 15 : 56 - (INFO) :   plugin_name: caching_sha2_password
+22 : 15 : 56 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+22 : 15 : 56 - (DEBUG) :   Exchanging further packets
+22 : 15 : 56 - (DEBUG) :   caching_sha2_password completed succesfully
+22 : 15 : 56 - (DEBUG) :   Using proactor: IocpProactor
+22 : 15 : 56 - (INFO) :     This is p1.py File LOG  
+22 : 15 : 56 - (DEBUG) :   Entered  PlayerOnProperty
+22 : 15 : 56 - (DEBUG) :   Entered  Rent Property
+22 : 16 : 06 - (DEBUG) :   Rent has been payed
+22 : 17 : 56 - (DEBUG) :   Building SSL context
+22 : 17 : 56 - (DEBUG) :   Switching to SSL
+22 : 17 : 56 - (DEBUG) :   SSL has been enabled
+22 : 17 : 56 - (DEBUG) :   Starting authorization phase
+22 : 17 : 56 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+22 : 17 : 56 - (INFO) :   package: mysql.connector.plugins
+22 : 17 : 56 - (INFO) :   plugin_name: caching_sha2_password
+22 : 17 : 56 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+22 : 17 : 56 - (DEBUG) :   Exchanging further packets
+22 : 17 : 56 - (DEBUG) :   caching_sha2_password completed succesfully
+22 : 17 : 57 - (DEBUG) :   Using proactor: IocpProactor
+22 : 17 : 57 - (INFO) :     This is p1.py File LOG  
+22 : 17 : 57 - (DEBUG) :   Entered  PlayerOnProperty
+22 : 17 : 57 - (DEBUG) :   Entered  Rent Property
+22 : 18 : 07 - (DEBUG) :   Rent has been payed
+22 : 21 : 26 - (DEBUG) :   Building SSL context
+22 : 21 : 26 - (DEBUG) :   Switching to SSL
+22 : 21 : 26 - (DEBUG) :   SSL has been enabled
+22 : 21 : 26 - (DEBUG) :   Starting authorization phase
+22 : 21 : 26 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+22 : 21 : 26 - (INFO) :   package: mysql.connector.plugins
+22 : 21 : 26 - (INFO) :   plugin_name: caching_sha2_password
+22 : 21 : 26 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+22 : 21 : 26 - (DEBUG) :   Exchanging further packets
+22 : 21 : 26 - (DEBUG) :   caching_sha2_password completed succesfully
+22 : 21 : 26 - (DEBUG) :   Using proactor: IocpProactor
+22 : 21 : 26 - (INFO) :     This is p1.py File LOG  
+22 : 21 : 26 - (DEBUG) :   Entered  PlayerOnProperty
+22 : 21 : 26 - (DEBUG) :   Entered  Rent Property
+22 : 21 : 36 - (DEBUG) :   Rent has been payed
+22 : 22 : 33 - (DEBUG) :   Building SSL context
+22 : 22 : 33 - (DEBUG) :   Switching to SSL
+22 : 22 : 33 - (DEBUG) :   SSL has been enabled
+22 : 22 : 33 - (DEBUG) :   Starting authorization phase
+22 : 22 : 33 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+22 : 22 : 33 - (INFO) :   package: mysql.connector.plugins
+22 : 22 : 33 - (INFO) :   plugin_name: caching_sha2_password
+22 : 22 : 33 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+22 : 22 : 33 - (DEBUG) :   Exchanging further packets
+22 : 22 : 33 - (DEBUG) :   caching_sha2_password completed succesfully
+22 : 22 : 33 - (DEBUG) :   Using proactor: IocpProactor
+22 : 22 : 33 - (INFO) :     This is p1.py File LOG  
+22 : 22 : 33 - (DEBUG) :   Entered  PlayerOnProperty
+22 : 22 : 33 - (DEBUG) :   Entered  Rent Property
+22 : 22 : 43 - (DEBUG) :   Rent has been payed
+22 : 24 : 45 - (DEBUG) :   Building SSL context
+22 : 24 : 45 - (DEBUG) :   Switching to SSL
+22 : 24 : 45 - (DEBUG) :   SSL has been enabled
+22 : 24 : 45 - (DEBUG) :   Starting authorization phase
+22 : 24 : 45 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+22 : 24 : 45 - (INFO) :   package: mysql.connector.plugins
+22 : 24 : 45 - (INFO) :   plugin_name: caching_sha2_password
+22 : 24 : 45 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+22 : 24 : 45 - (DEBUG) :   Exchanging further packets
+22 : 24 : 45 - (DEBUG) :   caching_sha2_password completed succesfully
+22 : 24 : 45 - (DEBUG) :   Using proactor: IocpProactor
+22 : 24 : 45 - (INFO) :     This is p1.py File LOG  
+22 : 24 : 45 - (DEBUG) :   Entered  PlayerOnProperty
+22 : 24 : 45 - (DEBUG) :   Entered  Rent Property
+22 : 24 : 55 - (DEBUG) :   Rent has been payed

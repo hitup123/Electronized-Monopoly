@@ -1,25 +1,95 @@
 # Imports 
 import random
 import Constants as c
-from dbConnector import getFromDB, FetchTypes
+# from  dbConnector import getFromDB, FetchTypes
+from dbConnector import dbconnect
 import logging
+
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Logging Config
 logging.basicConfig(filename='SessionLog.log', level=logging.DEBUG, format='%(asctime)s - (%(levelname)s) :   %(message)s', datefmt='%H : %M : %S')
 
 
 # Connect to the MySQL database
-from dbConnector import dbconnect
+# from dbConnector import dbconnect
+import asyncio
 mydb=dbconnect()
 cursor=mydb.cursor()
+idk=0
+from flask import Blueprint, jsonify, request
+import time
+bp = Blueprint('p1', __name__)
+@bp.route('/api/input', methods=['POST'])
+def input():
+        data=request.json
+        global idk
+        idk=data
+        print("input data: ",data)
 
-# Function to Insert Log into Log Table 
+        tempfunc(data)
+        return jsonify({"received_data": data, "message": "POST request received!"})
+async def handleUtilityRent():
+        data = await asyncio.wait_for(input(), timeout=10000)
+        return (data)
 def insertLog(count, action , team1,team2, money, msg ):
         cursor.execute(f"insert into log values ({count}, '{action}', '{team1}','{team2}', {money}, '{msg}' )")
+def tempfunc(data):
+        print(data)
+        if data['message']!=None:
+                cursor.execute("delete from flags")
+                mydb.commit()
+                spaces=data['message']
+                print(int(spaces))
+                
+                #hfix this 
+                cursor.execute(f"select MAX(txn_order) from log")
+                temp = cursor.fetchone()
 
-def handleUtilityRent():
-        # Need to have an API to get number of spaces moved from frontend
-        return 100
+                if(len(temp) == 0):
+                        txn = 1
+                else:
+                        txn = temp[0] + 1
+                cursor.execute(f"select id from currentTransaction where type='players'")
+                player_id = cursor.fetchone()
+                print(player_id)
+                cursor.execute(f"select team from teams where id ={player_id[0]}")
+                team_id= cursor.fetchone()
+                
+                print(team_id)
+                cursor.execute(f"select * from players where team ={team_id[0]}")
+                PlayerData = cursor.fetchone()
+                print(PlayerData)
+                cursor.execute(f"select id from currentTransaction where type='properties'")
+                property_id = cursor.fetchone()
+                
+                cursor.execute(f"select * from properties where id ={property_id[0]}")
+                PropertyData = cursor.fetchone()
+                
+                cursor.execute(f"select owner_id from properties where color='Utility'")
+                owners = cursor.fetchall()
+                # rent=PropertyData[R0]
+                rent=0
+                
+                if owners[0][0]==owners[1][0]:
+                        rent = 10*int(spaces)
+                else:
+                        rent = 4 *int( spaces)
+                print(rent)
+                if PlayerData[cash] >= rent:
+                                        print("inside")
+                                        cursor.execute(f"update players set cash = cash - {rent} where team = {PlayerData[team]}")
+                                        cursor.execute(f"update players set cash = cash + {rent} where team = {PropertyData[owner_id]}")
+                                        
+                                        insertLog(txn, 'rent', team_id, None, rent, f'team {team_id} paid rent ({rent}) on {PropertyData[name]}')
+
+                                        logging.debug("Rent has been payed")
+
+                else:
+                                        logging.debug("Player cannot pay rent")
+                mydb.commit()
 
 def handleRailwayRent(owner_id):
 
@@ -65,16 +135,19 @@ team = 5
 ################################################
 
 
-
+def test():
+        print("gi")
 
 def conditions():
 
-        logging.info("  This is p1.py File LOG  ")
-
+        # logging.info("  This is p1.py File LOG  ")
+        print("hi")
         cursor.execute(f"select type from currentTransaction")
         result = cursor.fetchall()
 
-        result = getFromDB(f"select type from currentTransaction")
+        # result = getFromDB(f"select type from currentTransaction")
+        cursor.execute(f"select type from currentTransaction")
+        result = cursor.fetchall()
         currAction=[]
         for x in result:
                 currAction.append(x[0])
@@ -86,12 +159,12 @@ def conditions():
                 
                 cursor.execute(f"select MAX(txn_order) from log")
                 temp = cursor.fetchone()
-
-                if(len(temp) == 0):
+                print(temp)
+                if(len(temp) == 0 or temp[0]==None):
                         txn = 1
                 else:
                         txn = temp[0] + 1
-
+                # print("passed")
                 cursor.execute(f"select type  from currentTransaction")
                 types  = cursor.fetchall()
                 type_values = [t[0] for t in types]
@@ -105,13 +178,18 @@ def conditions():
                         cursor.execute(f"select * from properties where id ={property_id[0]}")
 
                         PropertyData = cursor.fetchone()
-                
+                print("passes properties")
                 if 'players' in  type_values:
                         cursor.execute(f"select id from currentTransaction where type='players'")
                         player_id = cursor.fetchone()
-                        cursor.execute(f"select * from players where id ={player_id[0]}")
-
+                        cursor.execute(f"select team from teams where id ={player_id[0]}")
+                        team_id= cursor.fetchone()
+                        print(team_id)
+                        cursor.execute(f"select * from players where team ={team_id[0]}")
                         PlayerData = cursor.fetchone()
+
+                print("passes players")
+                
 
 
 
@@ -138,7 +216,7 @@ def conditions():
 
                         
 
-                        if(property_data[-4]==None):
+                        if(PropertyData[owner_id]==None):
                                 
                                 logging.debug("Entered Buy Property")
 
@@ -166,14 +244,28 @@ def conditions():
 
                                 cursor.execute(f"select R{house} from properties where id={PropertyData[id]}")
                                 rent=cursor.fetchone()[0]
-
+                                # rent=1
                                 if(PropertyData[id] == 8 or  PropertyData[id] == 21):  # Utiliy  Property
-                                        rent = handleUtilityRent()
+                                        cursor.execute(f"insert into flags values('util')")
+                                        mydb.commit()
+                                        print("flag planted")
+                                        time.sleep(10)
+                                        return
+                                        # print(idk)
+                                        # spaces=0
+                                        # spaces = await handleUtilityRent()
+                                        # cursor.execute(f"select owner_id from properties where color='Utility'")
+                                        # owners = cursor.fetchall()
+                                        # if owners[0][0]==owners[1][0]:
+                                        #         rent = 10*spaces
+                                        # else:
+                                        #         rent = 4 * spaces
+                                        rent=idk
+                                        if(rent==0):
+                                                print("rent is 0")
+                                        
                                 elif(PropertyData[id] == 3 or PropertyData[id] == 11 or PropertyData[id] == 18 or PropertyData[id] == 26):
                                         rent = handleRailwayRent()
-                                
-
-
 
                                 if(0 == house):
                                         cursor.execute(f"select color from properties where  id={PropertyData[id]}")
@@ -205,7 +297,7 @@ def conditions():
                 elif(c.PlayerOnChance == currAction):
 
                         logging.debug("Entered Player on Chance Card")
-
+                        print("ENtered")
                         # cursor.execute(f"select id from currentTransaction where type='players'")
                         # player_id=cursor.fetchone()[0]
 
@@ -447,16 +539,16 @@ def conditions():
 
 if __name__ == "__main__":
         
-        cursor.execute(f"select type from currentTransaction")
-        result = cursor.fetchall()
+        # cursor.execute(f"select type from currentTransaction")
+        # result = cursor.fetchall()
         # print(result)
         currAction=[]
-        for x in result:
+        # for x in result:
 
-                currAction.append(x[0])
-        print(currAction) 
+        #         currAction.append(x[0])
+        # print(currAction) 
 
-        # conditions()
+        # asyncio.run(conditions())
          
         # Close the database connection
         

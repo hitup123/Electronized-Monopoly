@@ -17,7 +17,11 @@ const App = () => {
         const response = await fetch('/api/data');
         const result = await response.json();
         setData(result);
-
+        if (result['flag']==='util' ){
+          console.log("flag seen");
+          const x=prompt("ENTER SPACES");
+          sendInput(x)
+        }
          const responseLogs = await fetch('/api/logs');
          const logs = await responseLogs.json();
          setLog(logs);
@@ -32,6 +36,19 @@ const App = () => {
     return () => clearInterval(intervalId);
   }, []);
 
+  const sendInput = (x) => {
+    const payload={message:x};
+    fetch('/api/input',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error(error));
+  };
   const sendDataToBackend = () => {
     const payload = { message: 'Hello from the frontend!' };
 

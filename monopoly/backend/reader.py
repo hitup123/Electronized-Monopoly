@@ -12,7 +12,7 @@ def find_com_port(port_name):
             return port.device
     return None
 
-com_port = find_com_port('COM9')
+com_port = find_com_port('COM4')
 if com_port:
     try:
         ser = serial.Serial(

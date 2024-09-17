@@ -1,5 +1,5 @@
 import json
-from backend.dbConnector import dbconnect
+from  dbConnector import dbconnect
 mydb=dbconnect()
 cursor=mydb.cursor()
 def transferproperties(x):

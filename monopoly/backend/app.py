@@ -1,12 +1,14 @@
 import logging
 
 
-from backend.initialize import start_teams
+from  initialize import start_teams
 from flask import Flask, send_from_directory, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 from sqlalchemy import inspect
 app = Flask(__name__, static_folder='static')
+from  p1 import bp 
+app.register_blueprint(bp)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost/monopoly'
 db = SQLAlchemy(app)
 
@@ -24,9 +26,6 @@ def convert_bytes(value):
     return value
 # Example usage:
 
-global prev_id
-prev_id = -1
-
 
 def check_db_connection():
     with app.app_context():
@@ -36,19 +35,24 @@ def check_db_connection():
             output = x.fetchall()
             x = db.session.execute(text('SELECT * from teams'))
             icon = x.fetchall()
+            x=db.session.execute(text('SELECT flag from flags'))
+            y=x.fetchone()
+            flag=True
+            if y==None:
+                flag=False
             # logger.info("Database connection successful. OUTPUT:")
             # print(output)
         except Exception as e:
             logger.error(f"Database connection failed: {e}")
-        return output,icon
+        return flag,output,icon
 def Logs():
     with app.app_context():
         try:
             y=db.session.execute(text('SELECT txn_order FROM LOG '))
             z=y.fetchall()
             
-            print("last txn_order value ", z[-1][0])
-            print("txn value ", txn)
+            # print("last txn_order value ", z[-1][0])
+            # print("txn value ", txn)
 
 
             # x = db.session.execute(text(f'SELECT * FROM log WHERE txn_order = (SELECT MAX(txn_order) FROM log)'))
@@ -56,7 +60,7 @@ def Logs():
                 x = db.session.execute(text(f'SELECT * FROM log WHERE txn_order > {txn}'))
             
                 output = x.fetchall()
-                print("OUTPUT: ",f'SELECT * FROM log WHERE txn_order > {txn}')
+                # print("OUTPUT: ",f'SELECT * FROM log WHERE txn_order > {txn}')
                 return output
             else:
                 print("No new Log")
@@ -85,7 +89,7 @@ def get_data():
     column_names=get_column_names('players')
     # print(column_names)
    # Data from the tables
-    player_data,icon_data =check_db_connection()
+    flag,player_data,icon_data =check_db_connection()
 
 # Create JSON packet
     json_packet = {
@@ -96,8 +100,11 @@ def get_data():
     'team5': [],
     'team6': [],
     'team7': [],
-    'log': 'I am Bankrupt'
+    'log': '',
+    'flag': ''
 }
+    if flag:
+        json_packet['flag']='util'
 
 # Process player_data
     for player in player_data:
@@ -122,7 +129,7 @@ def get_data():
     # data = [dict(zip(column_names, item)) for item in converted_data]
     # data = {column: value for column, value in zip(column_names, x)}
 
-    print((json_packet))
+    # print((json_packet))
     return jsonify(json_packet)
 # @app.route('/api/update')
 # def update_data():
@@ -169,7 +176,8 @@ def get_logs():
         'team1': data[0][2],
         'team2': data[0][3],
         'money': data[0][4],
-        'msg':  data[0][5]
+        'msg':  data[0][5],
+        
     }
 
     return jsonify(jsondata)
