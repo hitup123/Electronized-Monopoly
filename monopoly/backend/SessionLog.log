@@ -5414,3 +5414,10 @@ Traceback (most recent call last):
            ^^^^^^^^^^^^^
 TypeError: 'NoneType' object is not iterable
 14 : 51 : 01 - (INFO) :   127.0.0.1 - - [17/Sep/2024 14:51:01] "[35m[1mGET /api/logs HTTP/1.1[0m" 500 -
+00 : 36 : 54 - (DEBUG) :   Building SSL context
+00 : 36 : 54 - (DEBUG) :   Switching to SSL
+00 : 36 : 54 - (DEBUG) :   SSL has been enabled
+00 : 36 : 54 - (DEBUG) :   Starting authorization phase
+00 : 36 : 54 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+00 : 36 : 54 - (DEBUG) :   Exchanging further packets
+00 : 36 : 54 - (DEBUG) :   caching_sha2_password completed succesfully

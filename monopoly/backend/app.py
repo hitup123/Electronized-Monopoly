@@ -1,14 +1,12 @@
 import logging
-
-
 from  initialize import start_teams
 from flask import Flask, send_from_directory, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 from sqlalchemy import inspect
 app = Flask(__name__, static_folder='static')
-from  p1 import bp 
-app.register_blueprint(bp)
+# from  p1 import bp 
+# app.register_blueprint(bp)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost/monopoly'
 db = SQLAlchemy(app)
 
@@ -26,6 +24,92 @@ def convert_bytes(value):
     return value
 # Example usage:
 
+# from sqlalchemy import text
+def insertLog(count, action , team1,team2, money, msg ):
+            print("log")
+            db.session.execute(text(f"insert into log values ({count}, '{action}', '{team1}','{team2}', {money}, '{msg}' )"))
+            db.session.commit()
+
+def tempfunc(data):
+    with app.app_context():
+        try:
+            print(data)
+            
+            # If message is not None
+            if data['message'] is not None:
+                # Deleting from 'flags' table
+                db.session.execute(text("DELETE FROM flags"))
+                db.session.commit()
+
+                spaces = data['message']
+                print(int(spaces))
+
+                # Getting max transaction order from 'log'
+                result = db.session.execute(text("SELECT MAX(txn_order) FROM log"))
+                temp = result.fetchone()
+                print(temp)
+                # Determining transaction number
+                if temp == None or len(temp) == 0 or temp[0]==None:
+                    txn = 1
+                else:
+                    txn=temp[0] + 1
+                print("passes txn")
+                # Fetching player_id from 'currentTransaction' where type is 'players'
+                result = db.session.execute(text("SELECT id FROM currentTransaction WHERE type='players'"))
+                player_id = result.fetchone()
+                print("playerid:",player_id)
+
+                # Fetching team_id from 'teams' where id matches player_id
+                result = db.session.execute(text(f"SELECT team FROM teams WHERE id = {player_id[0]}"))
+                team_id = result.fetchone()
+                print(team_id)
+
+                # Fetching player data from 'players' where team matches team_id
+                result = db.session.execute(text(f"SELECT * FROM players WHERE team = {team_id[0]}"))
+                PlayerData = result.fetchone()
+                print(PlayerData)
+
+                # Fetching property_id from 'currentTransaction' where type is 'properties'
+                result = db.session.execute(text("SELECT id FROM currentTransaction WHERE type='properties'"))
+                property_id = result.fetchone()
+
+                # Fetching property data from 'properties' where id matches property_id
+                result = db.session.execute(text(f"SELECT * FROM properties WHERE id = {property_id[0]}"))
+                PropertyData = result.fetchone()
+
+                # Fetching owners of properties where color is 'Utility'
+                result = db.session.execute(text("SELECT owner_id FROM properties WHERE color='Utility'"))
+                owners = result.fetchall()
+
+                # Calculating rent
+                rent = 0
+                if owners[0][0] == owners[1][0]:
+                    rent = 10 * int(spaces)
+                else:
+                    rent = 4 * int(spaces)
+                print(rent)
+
+                # Checking if player has enough cash to pay rent
+                if PlayerData[0] >= rent:
+                    print("inside")
+
+                    # Updating player's cash after paying rent
+                    db.session.execute(text(f"UPDATE players SET cash = cash - {rent} WHERE team = {PlayerData[5]}"))
+                    db.session.execute(text(f"UPDATE players SET cash = cash + {rent} WHERE team = {PropertyData[11]}"))
+                    db.session.commit()
+                    #   Insert log entry
+                    print("did tran")
+                    insertLog(txn, 'rent', team_id, None, rent, f"team {team_id[0]} paid rent ({rent}) on {PropertyData[1]}")
+                    logging.debug("Rent has been paid")
+                else:
+                    logging.debug("Player cannot pay rent")
+
+                # Committing the changes to the database
+                db.session.commit()
+
+        except Exception as e:
+            logger.error(f"Database operation failed: {e}")
+            db.session.rollback()
 
 def check_db_connection():
     with app.app_context():
@@ -139,6 +223,16 @@ def get_data():
 #     data = {column: value for column, value in zip(column_names, x)}
 #     print(jsonify(data))
 #     return jsonify(data)
+
+@app.route('/api/input', methods=['POST'])
+def input():
+        data=request.json
+        
+        print("input data: ",data)
+
+        tempfunc(data)
+        return jsonify({"received_data": data, "message": "POST request received!"})
+
 @app.route('/api/submit', methods=['POST'])
 def submit_data():
     if request.method == 'POST':

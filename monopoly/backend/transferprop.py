@@ -1,8 +1,10 @@
 import json
+import time
 from  dbConnector import dbconnect
 mydb=dbconnect()
 cursor=mydb.cursor()
 def transferproperties(x):
+    
     cursor.execute(f"select id from currentTransaction where type='properties'")
     property_id = cursor.fetchone()#property being bought
     cursor.execute(f"select * from properties where id={property_id[0]}")

@@ -21,75 +21,21 @@ cursor=mydb.cursor()
 idk=0
 from flask import Blueprint, jsonify, request
 import time
-bp = Blueprint('p1', __name__)
-@bp.route('/api/input', methods=['POST'])
-def input():
-        data=request.json
-        global idk
-        idk=data
-        print("input data: ",data)
+# bp = Blueprint('p1', __name__)
+# @bp.route('/api/input', methods=['POST'])
+# def input():
+#         data=request.json
+#         global idk
+#         idk=data
+#         print("input data: ",data)
 
-        tempfunc(data)
-        return jsonify({"received_data": data, "message": "POST request received!"})
+#         tempfunc(data)
+#         return jsonify({"received_data": data, "message": "POST request received!"})
 async def handleUtilityRent():
         data = await asyncio.wait_for(input(), timeout=10000)
         return (data)
 def insertLog(count, action , team1,team2, money, msg ):
         cursor.execute(f"insert into log values ({count}, '{action}', '{team1}','{team2}', {money}, '{msg}' )")
-def tempfunc(data):
-        print(data)
-        if data['message']!=None:
-                cursor.execute("delete from flags")
-                mydb.commit()
-                spaces=data['message']
-                print(int(spaces))
-                
-                #hfix this 
-                cursor.execute(f"select MAX(txn_order) from log")
-                temp = cursor.fetchone()
-
-                if(len(temp) == 0):
-                        txn = 1
-                else:
-                        txn = temp[0] + 1
-                cursor.execute(f"select id from currentTransaction where type='players'")
-                player_id = cursor.fetchone()
-                print(player_id)
-                cursor.execute(f"select team from teams where id ={player_id[0]}")
-                team_id= cursor.fetchone()
-                
-                print(team_id)
-                cursor.execute(f"select * from players where team ={team_id[0]}")
-                PlayerData = cursor.fetchone()
-                print(PlayerData)
-                cursor.execute(f"select id from currentTransaction where type='properties'")
-                property_id = cursor.fetchone()
-                
-                cursor.execute(f"select * from properties where id ={property_id[0]}")
-                PropertyData = cursor.fetchone()
-                
-                cursor.execute(f"select owner_id from properties where color='Utility'")
-                owners = cursor.fetchall()
-                # rent=PropertyData[R0]
-                rent=0
-                
-                if owners[0][0]==owners[1][0]:
-                        rent = 10*int(spaces)
-                else:
-                        rent = 4 *int( spaces)
-                print(rent)
-                if PlayerData[cash] >= rent:
-                                        print("inside")
-                                        cursor.execute(f"update players set cash = cash - {rent} where team = {PlayerData[team]}")
-                                        cursor.execute(f"update players set cash = cash + {rent} where team = {PropertyData[owner_id]}")
-                                        
-                                        insertLog(txn, 'rent', team_id, None, rent, f'team {team_id} paid rent ({rent}) on {PropertyData[name]}')
-
-                                        logging.debug("Rent has been payed")
-
-                else:
-                                        logging.debug("Player cannot pay rent")
-                mydb.commit()
 
 def handleRailwayRent(owner_id):
 
@@ -249,7 +195,7 @@ def conditions():
                                         cursor.execute(f"insert into flags values('util')")
                                         mydb.commit()
                                         print("flag planted")
-                                        time.sleep(10)
+                                        time.sleep(100)
                                         return
                                         # print(idk)
                                         # spaces=0
