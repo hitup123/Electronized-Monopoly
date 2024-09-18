@@ -33,7 +33,7 @@ def insertLog(count, action , team1,team2, money, msg ):
 def tempfunc(data):
     with app.app_context():
         try:
-            print(data)
+            # print(data)
             
             # If message is not None
             if data['message'] is not None:
@@ -42,32 +42,32 @@ def tempfunc(data):
                 db.session.commit()
 
                 spaces = data['message']
-                print(int(spaces))
+                # print(int(spaces))
 
                 # Getting max transaction order from 'log'
                 result = db.session.execute(text("SELECT MAX(txn_order) FROM log"))
                 temp = result.fetchone()
-                print(temp)
+                # print(temp)
                 # Determining transaction number
                 if temp == None or len(temp) == 0 or temp[0]==None:
                     txn = 1
                 else:
                     txn=temp[0] + 1
-                print("passes txn")
+                # print("passes txn")
                 # Fetching player_id from 'currentTransaction' where type is 'players'
                 result = db.session.execute(text("SELECT id FROM currentTransaction WHERE type='players'"))
                 player_id = result.fetchone()
-                print("playerid:",player_id)
+                # print("playerid:",player_id)
 
                 # Fetching team_id from 'teams' where id matches player_id
                 result = db.session.execute(text(f"SELECT team FROM teams WHERE id = {player_id[0]}"))
                 team_id = result.fetchone()
-                print(team_id)
+                # print(team_id)
 
                 # Fetching player data from 'players' where team matches team_id
                 result = db.session.execute(text(f"SELECT * FROM players WHERE team = {team_id[0]}"))
                 PlayerData = result.fetchone()
-                print(PlayerData)
+                # print(PlayerData)
 
                 # Fetching property_id from 'currentTransaction' where type is 'properties'
                 result = db.session.execute(text("SELECT id FROM currentTransaction WHERE type='properties'"))
@@ -87,18 +87,18 @@ def tempfunc(data):
                     rent = 10 * int(spaces)
                 else:
                     rent = 4 * int(spaces)
-                print(rent)
+                # print(rent)
 
                 # Checking if player has enough cash to pay rent
                 if PlayerData[0] >= rent:
-                    print("inside")
+                    # print("inside")
 
                     # Updating player's cash after paying rent
                     db.session.execute(text(f"UPDATE players SET cash = cash - {rent} WHERE team = {PlayerData[5]}"))
                     db.session.execute(text(f"UPDATE players SET cash = cash + {rent} WHERE team = {PropertyData[11]}"))
                     db.session.commit()
                     #   Insert log entry
-                    print("did tran")
+                    # print("did tran")
                     insertLog(txn, 'rent', team_id, None, rent, f"team {team_id[0]} paid rent ({rent}) on {PropertyData[1]}")
                     logging.debug("Rent has been paid")
                 else:
@@ -194,42 +194,24 @@ def get_data():
     for player in player_data:
         cash, in_jail, jail_free_cards, propertiesOwned, bankrupt, team = player
         team_key = f"team{team}"
+        # print(bankrupt)
         if team_key in json_packet:
         # Filter icons for the current team
             icons = [icon[2] for icon in icon_data if icon[1] == team]
             json_packet[team_key] = [
             icons,
             cash,
-            'playing' if bankrupt == 0 else 'bankrupt',
+            'playing' if bankrupt == b'\x00' else 'bankrupt',
             'NULL' if in_jail == 0 else 'in jail',
             propertiesOwned if propertiesOwned is not None else 'NULL'
         ]
 
-# print(json_packet)
-
-    # data=[dict(zip(column_names,item )) for item in converted_data]
-
-
-    # data = [dict(zip(column_names, item)) for item in converted_data]
-    # data = {column: value for column, value in zip(column_names, x)}
-
-    # print((json_packet))
     return jsonify(json_packet)
-# @app.route('/api/update')
-# def update_data():
-#     column_names = get_column_names('properties')
-#     # print(column_names)
-#     x=check_db_connection()
-#     data = {column: value for column, value in zip(column_names, x)}
-#     print(jsonify(data))
-#     return jsonify(data)
 
 @app.route('/api/input', methods=['POST'])
 def input():
-        data=request.json
-        
-        print("input data: ",data)
-
+        data=request.json  
+        # print("input data: ",data)
         tempfunc(data)
         return jsonify({"received_data": data, "message": "POST request received!"})
 
@@ -251,16 +233,10 @@ def submit_data():
         return jsonify({'error': 'Method not allowed'})
     
 @app.route('/api/logs')
-def get_logs():
-    
+def get_logs():    
     data = tuple(Logs())
-
     jsondata = {}
-
-
     print("data",data)
-    
-    
     global txn
     txn = data[-1][0]
     print("TXN : ",txn)
@@ -275,11 +251,6 @@ def get_logs():
     }
 
     return jsonify(jsondata)
-
-    # for item in data:
-    #     jsondata[item[0]]=[item[1],item[2],item[3],item[4],item[5]]
-    
-
 
 @app.route('/api/transfer_properties',methods=['POST'])
 def transfer_properties():

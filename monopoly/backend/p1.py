@@ -174,7 +174,7 @@ def conditions():
                                         str1 = f"team {PlayerData[team]} bought {PropertyData[name]}"
                                         insertLog(txn, 'buy', PlayerData[team], None, PropertyData[cost], str1)
                                         mydb.commit()
-
+                                        cursor.execute(f"update players set propertiesOwned=(select propertiesOwned from players where team={team_id})|| ' ' ||{PropertyData[name]} where team={team_id} )")
                                         logging.debug("Property Bought Successfully")
 
                                 else:
