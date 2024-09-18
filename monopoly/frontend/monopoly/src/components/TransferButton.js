@@ -1,6 +1,19 @@
 import React, { useState } from 'react';
 
+const sendValue = (x) => {
+    const payload = { value: x };
 
+    fetch('/api/transfer_properties', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+  };
 function TransferPanel()
 {
     return <>
@@ -37,7 +50,8 @@ function TransferButton() {
 
     const transferprotocol = () => {
         var value = prompt();
-        alert(value);
+        // alert(value);
+        sendValue(value)
     };
 
     return (

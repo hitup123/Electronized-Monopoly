@@ -23,7 +23,15 @@ def convert_bytes(value):
         return int.from_bytes(value, byteorder='big')
     return value
 # Example usage:
-
+def insertflag(data):
+    with app.app_context():
+        try:
+            # print(data)
+            db.session.execute(text(f"insert into flags values ({data['flag']})"))
+            db.session.commit()
+        except Exception as e:
+            logger.error(f"Database operation failed: {e}")
+            db.session.rollback()
 # from sqlalchemy import text
 def insertLog(count, action , team1,team2, money, msg ):
             print("log")
@@ -257,7 +265,7 @@ def transfer_properties():
     if request.method == 'POST':
         data = request.get_json()
         print((data))
-        
+        insertflag(data)
         #transferproperties()
         return jsonify({'message': 'Data submitted successfully'})
     else:

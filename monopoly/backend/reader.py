@@ -3,6 +3,7 @@ import time
 from p1 import conditions
 import serial.tools.list_ports
 from dbConnector import dbconnect
+from transferprop import transferproperties
 mydb=dbconnect()
 cursor=mydb.cursor()
 def find_com_port(port_name):
@@ -36,8 +37,12 @@ if com_port:
                 print(f"{count}: {uid}")
                 # cursor.execute(f"update cards set cardID='{uid}' where id = 7 ")
                 cursor.execute(f"select id , type from cards where cardID='{uid}'")
+
                 result = cursor.fetchone()
+                cursor.execute("select flag from flags")
+                flag = cursor.fetchone()[0]
                 if order % 2 == 0:
+
                     order = 1
                 else:
                     order = 2
@@ -52,7 +57,13 @@ if com_port:
                 cursor.execute("select * from currenttransaction ")
                 print(cursor.fetchall())
                 if order==2:
-                    conditions()
+                    if not isinstance(flag, int):
+                        conditions()
+                    else:
+                        cursor.execute("delete from flags")
+                        mydb.commit()
+                        transferproperties(flag)
+                        
                     print("out")
                     cursor.execute("delete from currenttransaction")
                     mydb.commit()
