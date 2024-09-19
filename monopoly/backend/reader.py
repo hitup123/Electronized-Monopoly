@@ -40,7 +40,8 @@ if com_port:
 
                 result = cursor.fetchone()
                 cursor.execute("select flag from flags")
-                flag = cursor.fetchone()[0]
+                flag = cursor.fetchone()
+                print(flag)
                 if order % 2 == 0:
 
                     order = 1
@@ -57,7 +58,7 @@ if com_port:
                 cursor.execute("select * from currenttransaction ")
                 print(cursor.fetchall())
                 if order==2:
-                    if not isinstance(flag, int):
+                    if not isinstance(flag, int) or flag==None:
                         conditions()
                     else:
                         cursor.execute("delete from flags")

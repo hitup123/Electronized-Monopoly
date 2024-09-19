@@ -85,7 +85,27 @@ def test():
         print("gi")
 
 def conditions():
-
+        id = 0
+        name = 1
+        color = 2
+        cost = 3
+        house = 4
+        R0 = 5
+        R1 = 6
+        R2 = 7
+        R3 = 8
+        R4 = 9
+        R5 = 10
+        owner_id = 11
+        houses = 12
+        hotels = 13
+        mortgaged = 14
+        cash = 0
+        in_jail = 1
+        jail_free_cards = 2
+        propertiesOwned = 3
+        bankrupt = 4
+        team = 5
         # logging.info("  This is p1.py File LOG  ")
         print("hi")
         cursor.execute(f"select type from currentTransaction")
@@ -95,14 +115,15 @@ def conditions():
         cursor.execute(f"select type from currentTransaction")
         result = cursor.fetchall()
         currAction=[]
+        
         for x in result:
                 currAction.append(x[0])
 
 
-
-              
+        print("hi out")
+        print(currAction)
         if currAction in c.Actions:
-                
+                print("hi in actions")
                 cursor.execute(f"select MAX(txn_order) from log")
                 temp = cursor.fetchone()
                 print(temp)
@@ -114,7 +135,7 @@ def conditions():
                 cursor.execute(f"select type  from currentTransaction")
                 types  = cursor.fetchall()
                 type_values = [t[0] for t in types]
-
+                print(type_values)
                 PropertyData = ()
                 PlayerData = ()
 
@@ -143,7 +164,7 @@ def conditions():
 
                 if(c.PlayerOnProperty == currAction):
                         logging.debug("Entered  PlayerOnProperty")
-
+                        print("player on property")
                         #Fetching Data from Database                        
                         # cursor.execute(f"select id from currentTransaction where type='properties'")
                         # property_id = cursor.fetchone()
@@ -163,9 +184,10 @@ def conditions():
                         
 
                         if(PropertyData[owner_id]==None):
+                                print("buy property")
                                 
                                 logging.debug("Entered Buy Property")
-
+                                print(cost)
                                 if(PlayerData[cash]>PropertyData[cost]):
 
                                         cursor.execute(f"update players set cash = cash - {PropertyData[cost]} where team = {PlayerData[team]}")
@@ -174,7 +196,7 @@ def conditions():
                                         str1 = f"team {PlayerData[team]} bought {PropertyData[name]}"
                                         insertLog(txn, 'buy', PlayerData[team], None, PropertyData[cost], str1)
                                         mydb.commit()
-                                        cursor.execute(f"update players set propertiesOwned=(select propertiesOwned from players where team={team_id})|| ' ' ||{PropertyData[name]} where team={team_id} )")
+                                        # cursor.execute(f"update players set propertiesOwned='(select propertiesOwned from players where team={team_id})|| \' \' ||{PropertyData[name]}' where team={team_id} )")
                                         logging.debug("Property Bought Successfully")
 
                                 else:
@@ -224,9 +246,9 @@ def conditions():
                                         
                                         for i in owners:
                                                 if(i[0] != PropertyData[owner_id] and i[1] == 0):
-
+                                                        print("not all props owned ", rent)
                                                         rent = rent / 2
-
+                                                        break
 
                                 if PlayerData[cash] >= rent:
                                         cursor.execute(f"update players set cash = cash - {rent} where team = {PlayerData[team]}")
@@ -249,11 +271,14 @@ def conditions():
 
                         # cursor.execute(f"select * from teams where id={player_id[0]}")
                         # team_id=cursor.fetchone()[0]
+                        cursor.execute("select count(*) from teams")
+                        num_teams=cursor.fetchone()[0]
                         team_id = PlayerData[team]
-
-                        moneys =  cursor.execute(f"select cash from players where team = {team_id}")
-
-                             
+                        print(team_id)
+                        cursor.execute(f"select cash from players where team = {team_id}")
+                        # print(moneys)
+                        moneys =  cursor.fetchone()[0]  
+                        print(moneys)
                         chance_cards = [
                                 ["Advance to 'Go' (Collect £200)",'''cursor.execute(f"update players set cash = cash + 200 where team = {team_id}")'''],
 
@@ -286,7 +311,7 @@ def conditions():
 
                                 ["Advance to Mayfair", ""],
 
-                                ["You have been elected Chairman of the Board (Pay each player £50)", '''cursor.execute(f"update players set cash = cash - 50 where team = {team_id}")
+                                ["You have been elected Chairman of the Board (Pay each player £50)", '''cursor.execute(f"update players set cash = cash - 50*{num_teams} where team = {team_id}")
                                  cursor.execute(f"update players set cash = cash + 50 where team <> {team_id}") '''],
 
                                 ["Your building loan matures (Collect £150)", '''cursor.execute(f"update players set cash = cash + 150 where team = {team_id}")'''],
@@ -294,11 +319,12 @@ def conditions():
                                 ["You have won a crossword competition (Collect £100)", '''cursor.execute(f"update players set cash = cash + 100 where id = {team_id}")''']
                         ]
                         selected_card = random.choice(chance_cards)
-
+                        print("before exec",selected_card[1])
                         exec(selected_card[1])
-
-                        moneys = moneys - cursor.execute(f"select cash from players where team = {team_id}")
-
+                        print("after exec")
+                        cursor.execute(f"select cash from players where team = {team_id}")
+                        res=cursor.fetchone()[0]
+                        moneys=moneys-res
                         insertLog(txn, 'chance', team_id, None, moneys, selected_card[0])
 
                         logging.debug("Chance Card \" %s \" was executed,\n Code: %s ",  selected_card[0],  selected_card[1])
@@ -366,8 +392,8 @@ def conditions():
 
                         exec(selected_card[1])
 
-                        moneys = moneys - cursor.execute(f"select cash from players where team = {team_id}")
-
+                        resul = cursor.execute(f"select cash from players where team = {team_id}")
+                        moneys=moneys-resul
                         insertLog(txn, 'community', team_id, None, moneys, selected_card[0])
 
                         logging.debug("Community Card \" %s \" was executed,\n Code: %s ",  selected_card[0],  selected_card[1])

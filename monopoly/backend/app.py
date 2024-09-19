@@ -142,7 +142,7 @@ def Logs():
         try:
             y=db.session.execute(text('SELECT txn_order FROM LOG '))
             z=y.fetchall()
-            
+            print(z)
             # print("last txn_order value ", z[-1][0])
             # print("txn value ", txn)
 
@@ -150,7 +150,7 @@ def Logs():
             # x = db.session.execute(text(f'SELECT * FROM log WHERE txn_order = (SELECT MAX(txn_order) FROM log)'))
             if(z[-1][0]>txn):
                 x = db.session.execute(text(f'SELECT * FROM log WHERE txn_order > {txn}'))
-            
+                
                 output = x.fetchall()
                 # print("OUTPUT: ",f'SELECT * FROM log WHERE txn_order > {txn}')
                 return output

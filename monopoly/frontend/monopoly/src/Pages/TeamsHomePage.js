@@ -13,7 +13,7 @@ const TeamObjects = ({ data }) => {
     gap: '20px',
     padding: '20px'
   };
-
+  console.log("data:",data);
   const teams = data 
   ? Object.keys(data).filter(key => key.startsWith('team')).map(key => {
       const players = Array.isArray(data[key][0]) && data[key][0].length > 0
