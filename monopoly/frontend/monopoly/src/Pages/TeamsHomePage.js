@@ -24,11 +24,11 @@ const TeamObjects = ({ data }) => {
         player: players,
         stat: data[key][2],
         balance: data[key][1],
-        property: [] // You can populate property if needed
+        property: data[key][4] // You can populate property if needed
       };
     })
   : [];
-
+    console.log("teams",teams)
   const teamobj = teams
   .filter(element => element.player.length > 0)  // Filter out teams with empty players
   .map((element, index) => (
@@ -37,7 +37,17 @@ const TeamObjects = ({ data }) => {
       balance={element.balance} 
       status={element.stat} 
       icons={element.player} 
-      property={element.property} 
+      property={[
+        {
+            pro : 'Vine Street'
+        },
+        {
+            pro : 'Strand'
+        },
+        {
+          pro: 'Whitehall'
+        }
+    ]/*element.property*/} 
     />
   ));
 

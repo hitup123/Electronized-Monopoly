@@ -32,7 +32,7 @@ const App = () => {
 
     fetchData();
 
-    const intervalId = setInterval(fetchData, 10000);
+    const intervalId = setInterval(fetchData, 3000);
     return () => clearInterval(intervalId);
   }, []);
 

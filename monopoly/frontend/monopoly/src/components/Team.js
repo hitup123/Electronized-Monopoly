@@ -37,7 +37,7 @@ function PropertyObject({property})
         padding: '5px',
     }
 
-    console.log(property);
+    console.log("This is  obj"+property.pro);
 
     const propobj = property.map((element) => {
         return (<>
@@ -61,8 +61,6 @@ function Team({balance, status, icons, property})
         borderRadius: '5px', 
     }
 
-    
-
     const moneyplate= {
         gridRows: '2/3',
         width: '100%',
@@ -83,7 +81,6 @@ function Team({balance, status, icons, property})
         fontWeight: '700',  
 
     }
-    console.log(icons);
 
     return (
         <div style={teamplate}>
