@@ -496,11 +496,29 @@ def conditions():
                                 cursor.execute(f"update properties set mortgage = 0 where id = {property_id}")
 
                                 insertLog(txn, 'unmortgage', PlayerData[team], None, cost*1.1,  f"Property {PropertyData[id]} was Unmortgaged by Team {PlayerData[team]}")
+                
+                elif(c.SellProperty == currAction):
+                        logging.debug("Entered Sell Property")
+                        
+                        if(PropertyData[house] > 0):
+                                # Give money  to the player who sold the property
+                                cursor.execute(f"SELECT houseCost FROM properties WHERE id =  {PropertyData[id]}")
+                                hcost = cursor.fetchone()[0]
 
+                                cursor.execute(f"select team from teams where id = {PropertyData[owner_id]}")
+                                owner_team = cursor.fetchone()[0]
 
+                                cursor.execute(f"update players set cash = cash + {hcost}*0.5 WHERE team = {owner_team}")
+
+                                # Making property as unsold
+                                cursor.execute(f"update properties set owner_id = NULL where id = {PropertyData[id]}")
+
+                                insertLog(txn, 'sell', PlayerData[team], None, hcost*0.5,  f"Property {PropertyData[id]} was sold by Team {owner_team}")
+                        else:
+                                insertLog(txn, 'sell', PlayerData[team], None, hcost*0.5,  f"Property {PropertyData[id]} does not have any houses/hotels to be sold")
+                                
 
                 mydb.commit()
-        
         else:
                 logging.error(" Invalid action")
 

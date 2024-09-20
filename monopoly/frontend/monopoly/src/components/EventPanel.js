@@ -24,7 +24,7 @@ function EventPanel({ eventType, msg, teamname, money }) { // eventType is recei
     {
         content = "CHANCE CARD";
     }
-    else if(eventType == 'buy')
+    else if(eventType == 'buy' || eventType == "buyingfailed")
     {
         content = "BUYING PROPERTY";
     }
@@ -43,6 +43,14 @@ function EventPanel({ eventType, msg, teamname, money }) { // eventType is recei
     else if(eventType == "rent")
     {
         content = "RENT";
+    }
+    else if(eventType == "mortgage" || eventType == "unmortgage")
+    {
+        content = "MORTGAGE";
+    }
+    else if(eventType == "bankrupt")
+    {
+        content = "BANKRUPTCY";
     }
     else
     {
