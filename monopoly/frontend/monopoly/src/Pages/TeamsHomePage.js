@@ -76,7 +76,7 @@ const EventPop = ({ newLog }) => {
   return (
     <>
       {Pops.map(log => (
-        <EventPanel key={log.id} eventType={log.action} one={log.msg} two={log.team1} three={log.money} />
+        <EventPanel key={log.id} eventType={log.action} msg={log.msg} teamname={log.team1} money={log.money} />
       ))}
     </>
   );
