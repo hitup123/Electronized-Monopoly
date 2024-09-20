@@ -196,6 +196,17 @@ def conditions():
                                         str1 = f"team {PlayerData[team]} bought {PropertyData[name]}"
                                         insertLog(txn, 'buy', PlayerData[team], None, PropertyData[cost], str1)
                                         mydb.commit()
+                                        cursor.execute(f"SELECT propertiesOwned FROM players WHERE team = {PlayerData[team]} ")
+                                        result=cursor.fetchone()
+                                        print("Properties Owned: ",result)
+                                        if(result[0]!=None):
+                                                s=result[0]+"_"+PropertyData
+                                        else:
+                                                s=PropertyData
+                                        cursor.execute(f"""
+                                        UPDATE players 
+                                        SET propertiesOwned ='{s}'
+                                        """)
                                         # cursor.execute(f"update players set propertiesOwned='(select propertiesOwned from players where team={team_id})|| \' \' ||{PropertyData[name]}' where team={team_id} )")
                                         logging.debug("Property Bought Successfully")
 

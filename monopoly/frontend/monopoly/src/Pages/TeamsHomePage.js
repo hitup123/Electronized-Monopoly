@@ -36,18 +36,19 @@ const TeamObjects = ({ data }) => {
       key={index} 
       balance={element.balance} 
       status={element.stat} 
-      icons={element.player} 
-      property={[
-        {
-            pro : 'Vine Street'
-        },
-        {
-            pro : 'Strand'
-        },
-        {
-          pro: 'Whitehall'
-        }
-    ]/*element.property*/} 
+      icons={element.player}
+      property={element.property.split("_").map(pro => ({ pro }))} 
+      // property={[
+      //   {
+      //       pro : 'Vine Street'
+      //   },
+      //   {
+      //       pro : 'Strand'
+      //   },
+      //   {
+      //     pro: 'Whitehall'
+      //   }
+    // ]/*element.property*/} 
     />
   ));
 
