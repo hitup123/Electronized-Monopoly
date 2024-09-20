@@ -155,9 +155,9 @@ def conditions():
                         cursor.execute(f"select * from players where team ={team_id[0]}")
                         PlayerData = cursor.fetchone()
 
-                print("passes players")
+                print("passes players",PlayerData)
                 
-
+                print("x")
 
 
 
@@ -200,9 +200,9 @@ def conditions():
                                         result=cursor.fetchone()
                                         print("Properties Owned: ",result)
                                         if(result[0]!=None):
-                                                s=result[0]+"_"+PropertyData
+                                                s=result[0]+"_"+PropertyData[name]
                                         else:
-                                                s=PropertyData
+                                                s=PropertyData[name]
                                         cursor.execute(f"""
                                         UPDATE players 
                                         SET propertiesOwned ='{s}'
@@ -427,20 +427,22 @@ def conditions():
 
                         cursor.execute(f"select mortgage from properties where id={PropertyData[id]}")
                         mortgage = cursor.fetchone()
-                        
+                        print(mortgage)
                         canbuild=True
 
-                        if mortgage:    # Check if  the property is mortgaged
+                        if mortgage[0]:    # Check if  the property is mortgaged
                                 canbuild=False
+                        print(canbuild)
 
-                        if(PropertyData[hotels]): # Check if Property already has a Hotel on it
-                                canbuild=False
+                        # if(PropertyData[hotels]): # Check if Property already has a Hotel on it
+                        #         canbuild=False
 
                         cursor.execute(f"select sum(house) from properties") # Check if there are houses remaining for purchase
                         total_houses_used=cursor.fetchall()[0]
-                        if(total_houses_used >=  32):
+                        print(total_houses_used[0])
+                        if(total_houses_used[0] >=  32):
                                 canbuild = False
-
+                        print(canbuild)
                         
                         # cursor.execute(f"select color from properties where id={PropertyData[id]}")
                         # property_color = cursor.fetchone()[0]
@@ -451,18 +453,26 @@ def conditions():
                         cursor.execute(f"select * from properties where color = (select color from properties where id = {PropertyData[id]})")
                         sameColorHouses = cursor.fetchall()     # Check if all houses of same colour are owned by same Team 
                         housesBuilt=[]
+                        print(sameColorHouses)
                         for prop in sameColorHouses:
                                 housesBuilt.append(prop[house])
                                 if(prop[owner_id]!=PropertyData[owner_id]):
                                         canbuild=False     
-                                        # houses.append(prop[4])
-                                
-                        if canbuild and min(houses)!=PropertyData[id]:
+                                        # houses.append(prop[4]
+                        
+                        print("passes same color check",canbuild)    
+                        if canbuild and min(housesBuilt)!=PropertyData[house]:
                                 canbuild=False
-
+                        print("x",canbuild)
                         if canbuild:
-                                cursor.execute(f"UPDATE players SET cash = cash - (SELECT houseCost FROM properties WHERE id = {PropertyData[id]}) WHERE team = {PlayerData[team]}")
+                                cursor.execute(f"SELECT houseCost FROM properties WHERE id = {PropertyData[id]}")
+                                r=cursor.fetchone()
+                                # print(PlayerData)
+                                cursor.execute(f"UPDATE players SET cash = cash - {r[0]} WHERE team = {PropertyData[owner_id]}")
+                                mydb.commit()
+                                print(PropertyData[house])
                                 if PropertyData[house]<4:
+                                        print("less then 4 houses")
                                         cursor.execute(f"update properties set house = house + 1 where id = {PropertyData[id]}")
                                 elif PropertyData[house]==4:
                                         cursor.execute(f"update properties set house = house + 1 where id = {PropertyData[id]}")
