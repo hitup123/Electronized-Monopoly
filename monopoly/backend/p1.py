@@ -437,7 +437,7 @@ def conditions():
                                 canbuild=False
 
                         cursor.execute(f"select sum(house) from properties") # Check if there are houses remaining for purchase
-                        total_houses_used=cursor.fetchall()
+                        total_houses_used=cursor.fetchall()[0]
                         if(total_houses_used >=  32):
                                 canbuild = False
 

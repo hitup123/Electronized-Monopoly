@@ -28,9 +28,11 @@ if com_port:
         
         count = 0
         order = 2
+        cursor.execute("delete from currenttransaction")
+        mydb.commit()
         while True:
             # print("hi")
-          
+
             line = ser.readline().decode('utf-8').strip()
             if line.startswith("Card UID:"):
                 uid = line[len("Card UID:"):].strip()
