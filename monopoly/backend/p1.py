@@ -97,9 +97,10 @@ def conditions():
         R4 = 9
         R5 = 10
         owner_id = 11
-        houses = 12
+        houseCost = 12
         hotels = 13
         mortgaged = 14
+
         cash = 0
         in_jail = 1
         jail_free_cards = 2
@@ -582,6 +583,8 @@ def conditions():
 
                         if mortgage[0]:    # Check if  the property is mortgaged
                                 canbuild=False
+                                insertLog(txn, 'build', 0, None, PropertyData[houseCost], "Cannot Build Houses,  Property is Mortgaged")
+
                         print(canbuild)
 
                         # if(PropertyData[hotels]): # Check if Property already has a Hotel on it
@@ -592,6 +595,7 @@ def conditions():
                         print(total_houses_used[0])
                         if(total_houses_used[0] >=  32):
                                 canbuild = False
+                                insertLog(txn, 'build', 0, None, PropertyData[houseCost], "No Houses left")
                         print(canbuild)
                         
                         # cursor.execute(f"select color from properties where id={PropertyData[id]}")
@@ -607,26 +611,32 @@ def conditions():
                         for prop in sameColorHouses:
                                 housesBuilt.append(prop[house])
                                 if(prop[owner_id]!=PropertyData[owner_id]):
-                                        canbuild=False     
+                                        canbuild=False   
+                                        insertLog(txn, 'build', 0, None, PropertyData[houseCost], "Player does not own all Properties of the same color")  
                                         # houses.append(prop[4]
                         
                         print("passes same color check",canbuild)    
                         if canbuild and min(housesBuilt)!=PropertyData[house]:
+                                insertLog(txn, 'build', 0, None, PropertyData[houseCost], "Please build houses on the lowest house number")  
                                 canbuild=False
-                        print("x",canbuild)
+                        print("Canbuild ",canbuild)
                         if canbuild:
-                                cursor.execute(f"SELECT houseCost FROM properties WHERE id = {PropertyData[id]}")
-                                r=cursor.fetchone()
+                                # cursor.execute(f"SELECT houseCost FROM properties WHERE id = {PropertyData[id]}")
+                                # r=cursor.fetchone()
                                 # print(PlayerData)
-                                cursor.execute(f"UPDATE players SET cash = cash - {r[0]} WHERE team = {PropertyData[owner_id]}")
+                                cursor.execute(f"UPDATE players SET cash = cash - {PropertyData[houseCost]} WHERE team = {PropertyData[owner_id]}")
                                 mydb.commit()
                                 print(PropertyData[house])
                                 if PropertyData[house]<4:
                                         print("less then 4 houses")
                                         cursor.execute(f"update properties set house = house + 1 where id = {PropertyData[id]}")
+                                        insertLog(txn, 'build', 0, None, PropertyData[houseCost], f"House Built on Property {PropertyData[name]}") 
                                 elif PropertyData[house]==4:
                                         cursor.execute(f"update properties set house = house + 1 where id = {PropertyData[id]}")
                                         cursor.execute(f"update properties set hotels = 1 where id = {PropertyData[id]}")
+                                        insertLog(txn, 'build', 0, None, PropertyData[houseCost], f"Hotel Built on Property {PropertyData[name]}")
+                        
+                        print("House building done")
 
         
                 elif(c.MortgageProperty == currAction): 
@@ -679,6 +689,7 @@ def conditions():
                                 
 
                 mydb.commit()
+
         else:
                 logging.error(" Invalid action")
 
@@ -693,10 +704,10 @@ def conditions():
 
         # cursor.execute(f"select  cash from players where team={team_id}")
         # cash = cursor.fetchone()
-
-        if(PlayerData[cash] < 0):
-                logging.debug("Player is Bankrupt")
-                insertLog(txn, 'bankrupt',  PlayerData[team], None, cash, f"Team {PlayerData[team]} is Bankrupt. Please sell properties/Houses to pay off debt or Retire from game")
+        if 'players' in  type_values:
+                if(PlayerData[cash] < 0 ):
+                        logging.debug("Player is Bankrupt")
+                        insertLog(txn, 'bankrupt',  PlayerData[team], None, cash, f"Team {PlayerData[team]} is Bankrupt. Please sell properties/Houses to pay off debt or Retire from game")
                 
 
 

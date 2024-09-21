@@ -27,7 +27,9 @@ def insertflag(data):
     with app.app_context():
         try:
             # print(data)
-            db.session.execute(text(f"insert into flags values ({data['flag']})"))
+            flagData=data['value']
+            print(flagData)
+            db.session.execute(text(f"insert into flags values ('{flagData}')"))
             db.session.commit()
         except Exception as e:
             logger.error(f"Database operation failed: {e}")
@@ -130,13 +132,12 @@ def check_db_connection():
             x=db.session.execute(text('SELECT flag from flags'))
             y=x.fetchone()
             flag=True
-            if y==None:
-                flag=False
+            
             # logger.info("Database connection successful. OUTPUT:")
             # print(output)
         except Exception as e:
             logger.error(f"Database connection failed: {e}")
-        return flag,output,icon
+        return y,output,icon
 def Logs():
     with app.app_context():
         try:
@@ -195,7 +196,8 @@ def get_data():
     'log': '',
     'flag': ''
 }
-    if flag:
+    print(flag)
+    if flag!=None and flag[0]=='util':
         json_packet['flag']='util'
 
 # Process player_data

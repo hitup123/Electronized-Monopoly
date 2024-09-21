@@ -11,9 +11,11 @@ def transferproperties(x):
     property_data = cursor.fetchone()
     cursor.execute(f"select id from currentTransaction where type='players'")
     player_id = cursor.fetchone()#person buying the property
-    cursor.execute(f"select * from team where id={player_id[0]}")
-    team_id = cursor.fetchone()
-    cursor.execute(f"update players cash = cash - {x} where team = {team_id[0]}")
-    cursor.execute(f"update players cash = cash + {x} where team = {property_data[len(property_data)-2]}")
+    cursor.execute(f"select team from teams where id={player_id[0]}")
+    team_id = cursor.fetchone()#id of the team buying
+    print(team_id) 
+    cursor.execute(f"update players set cash = cash - {x} where team = {team_id[0]}")
+    cursor.execute(f"update players set cash = cash + {x} where team = {property_data[len(property_data)-2]}")
     cursor.execute(f"update properties set owner_id = {team_id[0]} where id = {property_id[0]}")
+    #update properties owned according to this thanks
     mydb.commit()

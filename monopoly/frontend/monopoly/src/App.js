@@ -17,15 +17,15 @@ const App = () => {
         const response = await fetch('/api/data');
         const result = await response.json();
         setData(result);
-        if (result['flag']==='util' ){
-          console.log("flag seen");
+        if (result.flag==='util' ){
+          console.log("flag seen",result.flag);
           const x=prompt("ENTER SPACES");
           sendInput(x)
         }
          const responseLogs = await fetch('/api/logs');
          const logs = await responseLogs.json();
 
-         console.log("PRE VALUE: "+ responseLogs.pre);
+         console.log("PRE VALUE: "+ logs.pre);
 
         if(logs.pre == 0)
         {

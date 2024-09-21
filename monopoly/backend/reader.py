@@ -13,7 +13,7 @@ def find_com_port(port_name):
             return port.device
     return None
 
-com_port = find_com_port('COM4')
+com_port = find_com_port('COM9')
 if com_port:
     try:
         ser = serial.Serial(
@@ -43,7 +43,10 @@ if com_port:
                 result = cursor.fetchone()
                 cursor.execute("select flag from flags")
                 flag = cursor.fetchone()
-                print(flag)
+                fl=0
+                print("flag",flag)
+                if flag!=None:
+                    fl=int(flag[0])
                 if order % 2 == 0:
 
                     order = 1
@@ -60,14 +63,18 @@ if com_port:
                 cursor.execute("select * from currenttransaction ")
                 print(cursor.fetchall())
                 if order==2:
-                    if not isinstance(flag, int) or flag==None:
-                        conditions()
+                    if not isinstance(fl, int) or flag==None:
+                        try:
+                            conditions()
+                        except Exception as e:
+                            print(e)    
+                        print("out")
+
                     else:
                         cursor.execute("delete from flags")
                         mydb.commit()
-                        transferproperties(flag)
+                        transferproperties(fl)
                         
-                    print("out")
                     cursor.execute("delete from currenttransaction")
                     mydb.commit()
                 #     # test()
