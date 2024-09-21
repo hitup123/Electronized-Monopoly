@@ -7,7 +7,7 @@ from sqlalchemy import inspect
 app = Flask(__name__, static_folder='static')
 # from  p1 import bp 
 # app.register_blueprint(bp)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost/monopoly'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://Yash:root@localhost/monopoly'
 db = SQLAlchemy(app)
 
 txn=0
@@ -246,19 +246,27 @@ def get_logs():
     jsondata = {}
     print("data",data)
     global txn
-    txn = data[-1][0]
-    print("TXN : ",txn)
-    jsondata = {
-        'txn_order': data[0][0],
-        'action':  data[0][1],
-        'team1': data[0][2],
-        'team2': data[0][3],
-        'money': data[0][4],
-        'msg':  data[0][5],
-        
-    }
 
-    return jsonify(jsondata)
+    if(data != ()):
+        txn = data[-1][0]
+        print("TXN : ",txn)
+        jsondata = {
+            'txn_order': data[0][0],
+            'action':  data[0][1],
+            'team1': data[0][2],
+            'team2': data[0][3],
+            'money': data[0][4],
+            'msg':  data[0][5],
+            "pre": 1
+            
+        }
+        print("Sending a LOG")
+        return jsonify(jsondata)
+    else:
+        print("Sending empty LOG")
+        return jsonify({
+            "pre": 0
+        })
 
 @app.route('/api/transfer_properties',methods=['POST'])
 def transfer_properties():

@@ -24,7 +24,19 @@ const App = () => {
         }
          const responseLogs = await fetch('/api/logs');
          const logs = await responseLogs.json();
-         setLog(logs);
+
+         console.log("PRE VALUE: "+ responseLogs.pre);
+
+        if(logs.pre == 0)
+        {
+          console.log("resposneLogs", responseLogs["pre"]);
+          console.log("no logs");
+        }
+        else
+        {
+          console.log("there is a  log");
+          setLog(logs);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }

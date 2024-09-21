@@ -206,6 +206,7 @@ def conditions():
                                         cursor.execute(f"""
                                         UPDATE players 
                                         SET propertiesOwned ='{s}'
+                                        WHERE team = {PlayerData[team]}
                                         """)
                                         # cursor.execute(f"update players set propertiesOwned='(select propertiesOwned from players where team={team_id})|| \' \' ||{PropertyData[name]}' where team={team_id} )")
                                         logging.debug("Property Bought Successfully")
@@ -290,55 +291,121 @@ def conditions():
                         # print(moneys)
                         moneys =  cursor.fetchone()[0]  
                         print(moneys)
-                        chance_cards = [
-                                ["Advance to 'Go' (Collect £200)",'''cursor.execute(f"update players set cash = cash + 200 where team = {team_id}")'''],
+                        # chance_cards = [
+                        #         ["Advance to 'Go' (Collect £200)",'''cursor.execute(f"update players set cash = cash + 200 where team = {team_id}")'''],
 
-                                ["Advance to Trafalgar Square", ""],
+                        #         ["Advance to Trafalgar Square", ""],
 
-                                ["Advance to Pall Mall (If you pass Go, collect £200)", ""],
+                        #         ["Advance to Pall Mall (If you pass Go, collect £200)", ""],
 
-                                ["Bank pays you dividend of £50", '''cursor.execute(f"update players set cash = cash + 50 where team = {team_id}")'''],
+                        #         ["Bank pays you dividend of £50", '''cursor.execute(f"update players set cash = cash + 50 where team = {team_id}")'''],
 
-                                ["Get out of Jail Free (This card may be kept until needed or traded)", '''cursor.execute(f"update players set jail_free_cards = jail_free_cards + 1 where team = {team_id}")'''],
+                        #         ["Get out of Jail Free (This card may be kept until needed or traded)", '''cursor.execute(f"update players set jail_free_cards = jail_free_cards + 1 where team = {team_id}")'''],
 
-                                ["Go back 3 spaces",""],
+                        #         ["Go back 3 spaces",""],
                                 
-                                ["Go directly to Jail (Do not pass Go, do not collect £200)", '''cursor.execute(f"update players set in_jail = b'1' where team = {team_id}")'''],
+                        #         ["Go directly to Jail (Do not pass Go, do not collect £200)", '''cursor.execute(f"update players set in_jail = b'1' where team = {team_id}")'''],
 
-                                ["Make general repairs on all your property (For each house pay £25, For each hotel £100)", '''cursor.execute(f"select houses,hotel from properties where owner_id = {team_id}")
-                                result=cursor.fetchall()
-                                money=0
+                        #         ["Make general repairs on all your property (For each house pay £25, For each hotel £100)", '''cursor.execute(f"select houses,hotel from properties where owner_id = {team_id}")
+                        #         result=cursor.fetchall()
+                        #         money=0
+                        #         for x in result:
+                        #                 money += (x[0] * 25) + (x[1] * 100)
+                        #         if player_data[2] >= money:
+                        #                 cursor.execute(f"update players set cash = cash - {money} where team = {team_id}")
+                        #                 mydb.commit()'''],
+
+                        #         ["Pay poor tax of £15", '''cursor.execute(f"update players set cash = cash - 15 where team = {team_id}")'''],
+
+                        #         ["Take a trip to Marylebone Station (If you pass Go, collect £200)", ""],
+
+                        #         ["Advance to King's Cross Station (If you pass Go, collect £200)", ""],
+
+                        #         ["Advance to Mayfair", ""],
+
+                        #         ["You have been elected Chairman of the Board (Pay each player £50)", '''cursor.execute(f"update players set cash = cash - 50*{num_teams} where team = {team_id}")
+                        #          cursor.execute(f"update players set cash = cash + 50 where team <> {team_id}") '''],
+
+                        #         ["Your building loan matures (Collect £150)", '''cursor.execute(f"update players set cash = cash + 150 where team = {team_id}")'''],
+
+                        #         ["You have won a crossword competition (Collect £100)", '''cursor.execute(f"update players set cash = cash + 100 where id = {team_id}")''']
+                        # ]
+                        # selected_card = random.choice(chance_cards)
+                        # print("before exec",selected_card[1])
+                        # exec(selected_card[1])
+                        # print("after exec")
+
+                        choice = random.randint(1, 15)
+
+                        chance_msg = ""
+
+                        if choice == 1:
+                                chance_msg = "Advance to 'Go' (Collect £200)"
+                                cursor.execute(f"update players set cash = cash + 200 where team = {team_id}")
+
+                        elif choice == 2:
+                                chance_msg = "Advance to Trafalgar Square"
+
+                        elif choice == 3:
+                                chance_msg = "Advance to Pall Mall (If you pass Go, collect £200)"
+
+                        elif choice == 4:
+                                chance_msg = "Bank pays you dividend of £50"
+                                cursor.execute(f"update players set cash = cash + 50 where team = {team_id}")
+
+                        elif choice == 5:
+                                chance_msg = "Get out of Jail Free (This card may be kept until needed or traded)"
+                                cursor.execute(f"update players set jail_free_cards = jail_free_cards + 1 where team = {team_id}")
+
+                        elif choice == 6:
+                                chance_msg = "Go back 3 spaces"
+
+                        elif choice == 7:
+                                chance_msg = "Go directly to Jail (Do not pass Go, do not collect £200)"
+                                cursor.execute(f"update players set in_jail = 1 where team = {team_id}")
+
+                        elif choice == 8:
+                                chance_msg = "Make general repairs on all your property (For each house pay £25, For each hotel £100)"
+                                cursor.execute(f"select houses, hotel from properties where owner_id = {team_id}")
+                                result = cursor.fetchall()
+                                money = 0
                                 for x in result:
                                         money += (x[0] * 25) + (x[1] * 100)
-                                if player_data[2] >= money:
-                                        cursor.execute(f"update players set cash = cash - {money} where team = {team_id}")
-                                        mydb.commit()'''],
+                                cursor.execute(f"update players set cash = cash - {money} where team = {team_id}")
+                                mydb.commit()
 
-                                ["Pay poor tax of £15", '''cursor.execute(f"update players set cash = cash - 15 where team = {team_id}")'''],
+                        elif choice == 9:
+                                chance_msg = "Pay poor tax of £15"
+                                cursor.execute(f"update players set cash = cash - 15 where team = {team_id}")
 
-                                ["Take a trip to Marylebone Station (If you pass Go, collect £200)", ""],
+                        elif choice == 10:
+                                chance_msg = "Take a trip to Marylebone Station (If you pass Go, collect £200)"
 
-                                ["Advance to King's Cross Station (If you pass Go, collect £200)", ""],
+                        elif choice == 11:
+                                chance_msg = "Advance to King's Cross Station (If you pass Go, collect £200)"
 
-                                ["Advance to Mayfair", ""],
+                        elif choice == 12:
+                                chance_msg = "Advance to Mayfair"
 
-                                ["You have been elected Chairman of the Board (Pay each player £50)", '''cursor.execute(f"update players set cash = cash - 50*{num_teams} where team = {team_id}")
-                                 cursor.execute(f"update players set cash = cash + 50 where team <> {team_id}") '''],
+                        elif choice == 13:
+                                chance_msg = "You have been elected Chairman of the Board (Pay each player £50)"
+                                cursor.execute(f"update players set cash = cash - 50 * {num_teams} where team = {team_id}")
+                                cursor.execute(f"update players set cash = cash + 50 where team <> {team_id}")
 
-                                ["Your building loan matures (Collect £150)", '''cursor.execute(f"update players set cash = cash + 150 where team = {team_id}")'''],
+                        elif choice == 14:
+                                chance_msg = "Your building loan matures (Collect £150)"
+                                cursor.execute(f"update players set cash = cash + 150 where team = {team_id}")
 
-                                ["You have won a crossword competition (Collect £100)", '''cursor.execute(f"update players set cash = cash + 100 where id = {team_id}")''']
-                        ]
-                        selected_card = random.choice(chance_cards)
-                        print("before exec",selected_card[1])
-                        exec(selected_card[1])
-                        print("after exec")
+                        elif choice == 15:
+                                chance_msg = "You have won a crossword competition (Collect £100)"
+                                cursor.execute(f"update players set cash = cash + 100 where team = {team_id}")
+
                         cursor.execute(f"select cash from players where team = {team_id}")
                         res=cursor.fetchone()[0]
                         moneys=moneys-res
-                        insertLog(txn, 'chance', team_id, None, moneys, selected_card[0])
+                        insertLog(txn, 'chance', team_id, None, moneys, chance_msg)
 
-                        logging.debug("Chance Card \" %s \" was executed,\n Code: %s ",  selected_card[0],  selected_card[1])
+                        logging.debug("Chance Card \" %s \" was executed,\n Code: %s ",  chance_msg,  chance_msg)
 
 
 
@@ -355,59 +422,142 @@ def conditions():
                         # team_id=cursor.fetchone()[0]
                         team_id = PlayerData[team]
 
-                        moneys = cursor.execute(f"select cash from players where team = {team_id}")
+                        cursor.execute(f"select cash from players where team = {team_id}")
+                        moneys = cursor.fetchone()[0]
                         
-                        community_chest_cards = [
-                                ["Advance to 'Go' (Collect £200)", ""],
+                        # community_chest_cards = [
+                        #         ["Advance to 'Go' (Collect £200)", ""],
 
-                                ["Bank error in your favor (Collect £200)", '''cursor.execute(f"update players set cash = cash + 200 where team = {team_id}")'''],
+                        #         ["Bank error in your favor (Collect £200)", '''cursor.execute(f"update players set cash = cash + 200 where team = {team_id}")'''],
 
-                                ["Doctor's fees (Pay £50)", '''cursor.execute(f"update players set cash = cash - 50 where team = {team_id}")'''],
+                        #         ["Doctor's fees (Pay £50)", '''cursor.execute(f"update players set cash = cash - 50 where team = {team_id}")'''],
 
-                                ["From sale of stock you get £50", '''cursor.execute(f"update players set cash = cash + 50 where team = {team_id}")'''],
+                        #         ["From sale of stock you get £50", '''cursor.execute(f"update players set cash = cash + 50 where team = {team_id}")'''],
 
-                                ["Get Out of Jail Free (This card may be kept until needed or traded)", '''cursor.execute(f"update players set jail_free_cards = jail_free_cards + 1 where id = {team_id}")'''],
+                        #         ["Get Out of Jail Free (This card may be kept until needed or traded)", '''cursor.execute(f"update players set jail_free_cards = jail_free_cards + 1 where id = {team_id}")'''],
 
-                                ["Go to Jail (Go directly to Jail, do not pass Go, do not collect £200)", '''cursor.execute(f"update players set in_jail = b'1' where id = {team_id}")'''],
+                        #         ["Go to Jail (Go directly to Jail, do not pass Go, do not collect £200)", '''cursor.execute(f"update players set in_jail = b'1' where id = {team_id}")'''],
 
-                                ["Holiday Fund matures (Receive £100)", '''cursor.execute(f"update players set cash = cash + 100 where team = {team_id}")'''],
+                        #         ["Holiday Fund matures (Receive £100)", '''cursor.execute(f"update players set cash = cash + 100 where team = {team_id}")'''],
 
-                                ["Income tax refund (Collect £20)", '''cursor.execute(f"update players set cash = cash + 20 where team = {team_id}")'''],
+                        #         ["Income tax refund (Collect £20)", '''cursor.execute(f"update players set cash = cash + 20 where team = {team_id}")'''],
 
-                                ["It is your birthday (Collect £10 from each player)", '''cursor.execute("select team from players")
-                                    all_player_ids = cursor.fetchall()
-                                    for pid in all_player_ids:
-                                        cursor.execute(f"update players set cash = cash - 10 where team = {pid[0]}")
-                                    cursor.execute(f"update players set cash = cash + {10 * len(all_player_ids)} where team = {team_id}")'''],
+                        #         ["It is your birthday (Collect £10 from each player)", '''cursor.execute("select team from players")
+                        #             all_player_ids = cursor.fetchall()
+                        #             for pid in all_player_ids:
+                        #                 cursor.execute(f"update players set cash = cash - 10 where team = {pid[0]}")
+                        #             cursor.execute(f"update players set cash = cash + {10 * len(all_player_ids)} where team = {team_id}")'''],
 
-                                ["Life insurance matures (Collect £100)", '''cursor.execute(f"update players set cash = cash + 100 where team = {team_id}")'''],
+                        #         ["Life insurance matures (Collect £100)", '''cursor.execute(f"update players set cash = cash + 100 where team = {team_id}")'''],
 
-                                ["Pay hospital fees of £100", '''cursor.execute(f"update players set cash = cash - 100 where team = {team_id}")'''],
+                        #         ["Pay hospital fees of £100", '''cursor.execute(f"update players set cash = cash - 100 where team = {team_id}")'''],
 
-                                ["Pay school fees of £150", '''cursor.execute(f"update players set cash = cash - 150 where team = {team_id}")'''],
+                        #         ["Pay school fees of £150", '''cursor.execute(f"update players set cash = cash - 150 where team = {team_id}")'''],
 
-                                ["Receive £25 consultancy fee", '''cursor.execute(f"update players set cash = cash + 25 where team = {team_id}")'''],
+                        #         ["Receive £25 consultancy fee", '''cursor.execute(f"update players set cash = cash + 25 where team = {team_id}")'''],
 
-                                ["You are assessed for street repairs (£40 per house, £115 per hotel)", '''cursor.execute(f"select house, hotels from properties where owner_id = {team_id}")
-                                    result = cursor.fetchall()
-                                    repair_cost = 40 * sum([x[0] for x in result]) + 115 * sum([x[1] for x in result])
-                                    cursor.execute(f"update players set cash = cash - {repair_cost} where team = {team_id}")'''],
+                        #         ["You are assessed for street repairs (£40 per house, £115 per hotel)", '''cursor.execute(f"select house, hotels from properties where owner_id = {team_id}")
+                        #             result = cursor.fetchall()
+                        #             repair_cost = 40 * sum([x[0] for x in result]) + 115 * sum([x[1] for x in result])
+                        #             cursor.execute(f"update players set cash = cash - {repair_cost} where team = {team_id}")'''],
 
-                                ["You have won second prize in a beauty contest (Collect £10)", '''cursor.execute(f"update players set cash = cash + 10 where team = {team_id}")'''],
+                        #         ["You have won second prize in a beauty contest (Collect £10)", '''cursor.execute(f"update players set cash = cash + 10 where team = {team_id}")'''],
 
-                                ["You inherit £100", '''cursor.execute(f"update players set cash = cash + 100 where team = {team_id}")''']
-                        ]
+                        #         ["You inherit £100", '''cursor.execute(f"update players set cash = cash + 100 where team = {team_id}")''']
+                        # ]
 
                         # Randomly select a Community Chest card
-                        selected_card = random.choice(community_chest_cards)
+                        # selected_card = random.choice(community_chest_cards)
 
-                        exec(selected_card[1])
+                        # print("Comm Card ",  selected_card[0])
+                        # print("exec: ",selected_card[1])
 
-                        resul = cursor.execute(f"select cash from players where team = {team_id}")
+                        choice = random.randint(1, 16)
+
+                        print("Community started ", choice)
+
+                        comm_msg = ""
+
+                        if choice == 1:
+                                comm_msg = "Advance to 'Go' (Collect £200)"
+                                cursor.execute(f"update players set cash = cash + 200 where team = {team_id}")
+
+                        elif choice == 2:
+                                comm_msg = "Bank error in your favor (Collect £200)"
+                                cursor.execute(f"update players set cash = cash + 200 where team = {team_id}")
+
+                        elif choice == 3:
+                                comm_msg = "Doctor's fees (Pay £50)"
+                                cursor.execute(f"update players set cash = cash - 50 where team = {team_id}")
+
+                        elif choice == 4:
+                                comm_msg = "From sale of stock you get £50"
+                                cursor.execute(f"update players set cash = cash + 50 where team = {team_id}")
+
+                        elif choice == 5:
+                                comm_msg = "Get Out of Jail Free (This card may be kept until needed or traded)"
+                                cursor.execute(f"update players set jail_free_cards = jail_free_cards + 1 where team = {team_id}")
+
+                        elif choice == 6:
+                                comm_msg = "Go to Jail (Go directly to Jail, do not pass Go, do not collect £200)"
+                                cursor.execute(f"update players set in_jail = 1 where team = {team_id}")
+
+                        elif choice == 7:
+                                comm_msg = "Holiday Fund matures (Receive £100)"
+                                cursor.execute(f"update players set cash = cash + 100 where team = {team_id}")
+
+                        elif choice == 8:
+                                comm_msg = "Income tax refund (Collect £20)"
+                                cursor.execute(f"update players set cash = cash + 20 where team = {team_id}")
+
+                        elif choice == 9:
+                                comm_msg = "It is your birthday (Collect £10 from each player)"
+                                cursor.execute("select team from players")
+                                all_player_ids = cursor.fetchall()
+                                for pid in all_player_ids:
+                                        cursor.execute(f"update players set cash = cash - 10 where team = {pid[0]}")
+                                cursor.execute(f"update players set cash = cash + {10 * len(all_player_ids)} where team = {team_id}")
+
+                        elif choice == 10:
+                                comm_msg = "Life insurance matures (Collect £100)"
+                                cursor.execute(f"update players set cash = cash + 100 where team = {team_id}")
+
+                        elif choice == 11:
+                                comm_msg = "Pay hospital fees of £100"
+                                cursor.execute(f"update players set cash = cash - 100 where team = {team_id}")
+
+                        elif choice == 12:
+                                comm_msg = "Pay school fees of £150"
+                                cursor.execute(f"update players set cash = cash - 150 where team = {team_id}")
+
+                        elif choice == 13:
+                                comm_msg = "Receive £25 consultancy fee"
+                                cursor.execute(f"update players set cash = cash + 25 where team = {team_id}")
+
+                        elif choice == 14:
+                                comm_msg = "You are assessed for street repairs (£40 per house, £115 per hotel)"
+                                cursor.execute(f"select house, hotels from properties where owner_id = {team_id}")
+                                result = cursor.fetchall()
+                                repair_cost = 40 * sum([x[0] for x in result]) + 115 * sum([x[1] for x in result])
+                                cursor.execute(f"update players set cash = cash - {repair_cost} where team = {team_id}")
+
+                        elif choice == 15:
+                                comm_msg = "You have won second prize in a beauty contest (Collect £10)"
+                                cursor.execute(f"update players set cash = cash + 10 where team = {team_id}")
+
+                        elif choice == 16:
+                                comm_msg = "You inherit £100"
+                                cursor.execute(f"update players set cash = cash + 100 where team = {team_id}")
+
+                        print(comm_msg)
+
+
+                        cursor.execute(f"select cash from players where team = {team_id}")
+                        resul = cursor.fetchone()[0]
                         moneys=moneys-resul
-                        insertLog(txn, 'community', team_id, None, moneys, selected_card[0])
+                        insertLog(txn, 'community', team_id, None, moneys, comm_msg)
 
-                        logging.debug("Community Card \" %s \" was executed,\n Code: %s ",  selected_card[0],  selected_card[1])
+                        logging.debug("Community Card \" %s \" was executed,\n Code: %s ",  comm_msg,  comm_msg)   
 
 
                 elif(c.HouseOnProperty == currAction):
