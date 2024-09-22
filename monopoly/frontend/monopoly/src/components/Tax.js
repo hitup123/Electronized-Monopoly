@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 
-const sendValue = (x) => {
-    const payload = { value: x };
+const sendValue = (te, amt) => {
+    const payload = { team: te,
+        amount: amt
+     };
 
-    fetch('/api/transfer_properties', {
+    fetch('/api/get_tax', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -14,20 +16,10 @@ const sendValue = (x) => {
       .then(data => console.log(data))
       .catch(error => console.error(error));
   };
-function TransferPanel()
-{
-    return <>
-        <div>
-            <label for="amount">Amount</label>
-            <input type="number" name="amount"></input>
-
-            <button>Confir</button>
-        </div>
-    </>
-}
 
 
-function TransferButton() {
+
+function GetTax() {
     const [hovered, setHovered] = useState(false);
 
     const transfer = {
@@ -48,22 +40,23 @@ function TransferButton() {
         setHovered(false);
     };
 
-    const transferprotocol = () => {
-        var value = prompt("Enter the Amount: ");
+    const Taxprotocol = () => {
+        var amount = prompt("Enter the Tax Amount");
+        var team = prompt("Enter the Team Number");
         // alert(value);
-        sendValue(value)
+        sendValue(team, amount);
     };
 
     return (
        <button
            style={transfer}
-           onClick={transferprotocol}
+           onClick={Taxprotocol}
            onMouseEnter={handleMouseEnter}
            onMouseLeave={handleMouseLeave}
        >
-           Transfer
+           Tax
        </button>
     );
 }
 
-export default TransferButton;
+export default GetTax;

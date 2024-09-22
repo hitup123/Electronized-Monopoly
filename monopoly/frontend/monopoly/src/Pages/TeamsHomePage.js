@@ -3,6 +3,8 @@ import './Page.css';
 import Team from '../components/Team';
 import TransferButton from '../components/TransferButton';
 import EventPanel from '../components/EventPanel';
+import GoToJail from '../components/Jail';
+import GetTax from '../components/Tax';
 import { DataContext, LogContext } from '../App';
 
 const TeamObjects = ({ data }) => {
@@ -13,7 +15,7 @@ const TeamObjects = ({ data }) => {
     gap: '20px',
     padding: '20px'
   };
-  console.log("data:",data);
+  // console.log("data:",data);
   const teams = data 
   ? Object.keys(data).filter(key => key.startsWith('team')).map(key => {
       const players = Array.isArray(data[key][0]) && data[key][0].length > 0
@@ -28,7 +30,7 @@ const TeamObjects = ({ data }) => {
       };
     })
   : [];
-    console.log("teams",teams)
+    // console.log("teams",teams)
   const teamobj = teams
   .filter(element => element.player.length > 0)  // Filter out teams with empty players
   .map((element, index) => (
@@ -87,8 +89,8 @@ const LogScreen = ({ newLog }) => {
 
   useEffect(() => {
     if (newLog) {
-      console.log("LOG");
-      console.log(newLog.msg);
+      // console.log("LOG");
+      // console.log(newLog.msg);
       setLogs(prevLogs => [...prevLogs, newLog]);
     }
   }, [newLog]);
@@ -156,6 +158,8 @@ function HomePage() {
       <div style={userinterface}>
         <div style={buttonplate}>
           <TransferButton />
+          <GoToJail />
+          <GetTax />
         </div>
         <LogScreen newLog={log_json} />
       </div>

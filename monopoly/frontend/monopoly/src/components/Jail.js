@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const sendValue = (x) => {
     const payload = { value: x };
 
-    fetch('/api/transfer_properties', {
+    fetch('/api/go_jail', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -14,20 +14,10 @@ const sendValue = (x) => {
       .then(data => console.log(data))
       .catch(error => console.error(error));
   };
-function TransferPanel()
-{
-    return <>
-        <div>
-            <label for="amount">Amount</label>
-            <input type="number" name="amount"></input>
-
-            <button>Confir</button>
-        </div>
-    </>
-}
 
 
-function TransferButton() {
+
+function GoToJail() {
     const [hovered, setHovered] = useState(false);
 
     const transfer = {
@@ -48,8 +38,8 @@ function TransferButton() {
         setHovered(false);
     };
 
-    const transferprotocol = () => {
-        var value = prompt("Enter the Amount: ");
+    const jailprotocol = () => {
+        var value = prompt("Enter the Team Number");
         // alert(value);
         sendValue(value)
     };
@@ -57,13 +47,13 @@ function TransferButton() {
     return (
        <button
            style={transfer}
-           onClick={transferprotocol}
+           onClick={jailprotocol}
            onMouseEnter={handleMouseEnter}
            onMouseLeave={handleMouseLeave}
        >
-           Transfer
+           Go To Jail
        </button>
     );
 }
 
-export default TransferButton;
+export default GoToJail;
