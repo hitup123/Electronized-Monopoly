@@ -280,6 +280,60 @@ def transfer_properties():
         return jsonify({'message': 'Data submitted successfully'})
     else:
         return jsonify({'error': 'Method not allowed'})
+    
+@app.route('/api/get_tax',methods=['POST'])
+def get_tax():
+    if request.method == 'POST':
+        data = request.get_json()
+        # print("TAX !!!!!:  ",(data['team']))
+
+        team = data['team']
+        amt = data['amount']
+
+        db.session.execute(text(f"update players set cash = cash - {amt}  where team = {team}"))
+        db.session.commit()
+        
+        #transferproperties()
+        return jsonify({'message': 'Data submitted successfully'})
+    else:
+        return jsonify({'error': 'Method not allowed'})
+    
+
+@app.route('/api/admin_addmoney',methods=['POST'])
+def admin_addmoney():
+    if request.method == 'POST':
+        data = request.get_json()
+        # print("TAX !!!!!:  ",(data['team']))
+
+        team = data['team']
+        amt = data['amount']
+
+        db.session.execute(text(f"update players set cash = cash + {amt}  where team = {team}"))
+        db.session.commit()
+        
+        #transferproperties()
+        return jsonify({'message': 'Data submitted successfully'})
+    else:
+        return jsonify({'error': 'Method not allowed'})
+    
+@app.route('/api/admin_submoney',methods=['POST'])
+def admin_submoney():
+    if request.method == 'POST':
+        data = request.get_json()
+        print("ADD !!!!!:  ",(data['amount']))
+
+        team = data['team']
+        amt = data['amount']
+
+        db.session.execute(text(f"update players set cash = cash - {amt}  where team = {team}"))
+        db.session.commit()
+        
+        #transferproperties()
+        return jsonify({'message': 'Data submitted successfully'})
+    else:
+        return jsonify({'error': 'Method not allowed'})
+
+
 if __name__ == '__main__':
     
     app.run(debug=True)

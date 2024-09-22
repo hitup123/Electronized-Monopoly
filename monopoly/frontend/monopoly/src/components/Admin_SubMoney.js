@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-const sendValue = (te, amt) => {
+const sendValue = (te, mon) => {
     const payload = { 
         team: te,
-        amount: amt
+        amount: mon
      };
 
-    fetch('/api/get_tax', {
+    fetch('/api/admin_submoney', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -20,13 +20,13 @@ const sendValue = (te, amt) => {
 
 
 
-function GetTax() {
+function Admin_SubMoney() {
     const [hovered, setHovered] = useState(false);
 
     const transfer = {
         color: 'white',
         backgroundColor: hovered ? 'orangered' : 'orange',
-        border: hovered ? 'outset 10px white' : 'outset 10px orangered',
+        border: hovered ? 'double 10px white' : 'outset 10px orangered',
         height: '70px',
         width: '200px',
         fontSize: '40px',
@@ -41,8 +41,8 @@ function GetTax() {
         setHovered(false);
     };
 
-    const Taxprotocol = () => {
-        var amount = prompt("Enter the Tax Amount");
+    const submoneyprotocol = () => {
+        var amount = prompt("Enter the Amount");
         var team = prompt("Enter the Team Number");
         // alert(value);
         sendValue(team, amount);
@@ -51,13 +51,13 @@ function GetTax() {
     return (
        <button
            style={transfer}
-           onClick={Taxprotocol}
+           onClick={submoneyprotocol}
            onMouseEnter={handleMouseEnter}
            onMouseLeave={handleMouseLeave}
        >
-           Tax
+           Subtract
        </button>
     );
 }
 
-export default GetTax;
+export default Admin_SubMoney;

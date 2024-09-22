@@ -5,6 +5,9 @@ import TransferButton from '../components/TransferButton';
 import EventPanel from '../components/EventPanel';
 import GoToJail from '../components/Jail';
 import GetTax from '../components/Tax';
+import Admin_AddMoney from '../components/Admin_AddMoney';
+import Admin_SubMoney from '../components/Admin_SubMoney';
+
 import { DataContext, LogContext } from '../App';
 
 const TeamObjects = ({ data }) => {
@@ -160,6 +163,8 @@ function HomePage() {
           <TransferButton />
           <GoToJail />
           <GetTax />
+          <Admin_AddMoney />
+          <Admin_SubMoney />  
         </div>
         <LogScreen newLog={log_json} />
       </div>
