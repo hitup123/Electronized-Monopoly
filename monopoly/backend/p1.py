@@ -2,7 +2,7 @@
 import random
 import Constants as c
 # from  dbConnector import getFromDB, FetchTypes
-from dbConnector import dbconnect
+from dbConnector import cursor, mydb
 import logging
 
 import sys
@@ -16,8 +16,8 @@ logging.basicConfig(filename='SessionLog.log', level=logging.DEBUG, format='%(as
 # Connect to the MySQL database
 # from dbConnector import dbconnect
 import asyncio
-mydb=dbconnect()
-cursor=mydb.cursor()
+# mydb=dbconnect()
+# cursor=mydb.cursor()
 idk=0
 from flask import Blueprint, jsonify, request
 import time
