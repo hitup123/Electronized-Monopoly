@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const sendValue = (x) => {
     const payload = { value: x };
 
-    fetch('/api/forfeit', {
+    fetch('/api/bankrupted', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -49,8 +49,7 @@ function Forfeit() {
            style={transfer}
            onClick={forfeitprotocol}
            onMouseEnter={handleMouseEnter}
-           onMouseLeave={handleMouseLeave}
-       >
+           onMouseLeave={handleMouseLeave}>
            Forfeit
        </button>
     );

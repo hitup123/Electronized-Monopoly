@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const sendValue = (x) => {
     const payload = { value: x };
 
-    fetch('/api/go_jail', {
+    fetch('/api/gojail', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -49,9 +49,8 @@ function GoToJail() {
            style={transfer}
            onClick={jailprotocol}
            onMouseEnter={handleMouseEnter}
-           onMouseLeave={handleMouseLeave}
-       >
-           Toggle Jail
+           onMouseLeave={handleMouseLeave}>
+           Jail
        </button>
     );
 }

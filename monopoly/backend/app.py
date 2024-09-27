@@ -211,7 +211,7 @@ def get_data():
             json_packet[team_key] = [
             icons,
             cash,
-            'playing' if bankrupt == b'\x00' else 'bankrupt',
+            'playing' if bankrupt == 0 else 'bankrupt',
             'NULL' if in_jail == 0 else 'in jail',
             propertiesOwned if propertiesOwned is not None else 'NULL'
         ]
@@ -277,6 +277,7 @@ def transfer_properties():
         print((data))
         insertflag(data)
         #transferproperties()
+        insertLog("transfer",None,None,data['value'],"property transfered sex idk what else to put  ")
         return jsonify({'message': 'Data submitted successfully'})
     else:
         return jsonify({'error': 'Method not allowed'})
@@ -333,10 +334,10 @@ def admin_submoney():
     else:
         return jsonify({'error': 'Method not allowed'})
 
-from dbConnector import cursor, mydb
 
-@app.route('/api/go_jail' ,methods=['POST'])
-def go_jail():
+
+@app.route('/api/gojail' ,methods=['POST'])
+def gojail():
     if request.method == 'POST':
         data = request.get_json()
 
@@ -344,55 +345,66 @@ def go_jail():
 
         team = data['value']
 
-        cursor.execute(f"select in_jail from players where team = {team}")
-        jailstats = cursor.fetchone()[0]
+        result=db.session.execute(text(f"select in_jail from players where team = {team}"))
+        jailstats = result.fetchone()[0]
 
         if( 1 == jailstats):
 
-            cursor.execute(f"select jail_free_cards from players where team = {team}")
-            jailfree = cursor.fetchone()[0]
+            result=db.session.execute(text(f"select jail_free_cards from players where team = {team}"))
+            jailfree = result.fetchone()[0]
 
             if(jailfree > 0):
-                cursor.execute(f"update players set jail_free_cards = jail_free_cards - 1 where team = {team}")
-                mydb.commit()
+                db.session.execute(text(f"update players set jail_free_cards = jail_free_cards - 1 where team = {team}"))
+                # mydb.commit()
             else:
-                cursor.execute(f"update players set cash = cash - 50 where team = {team}")
-                mydb.commit()
+                db.session.execute(text(f"update players set cash = cash - 50 where team = {team}"))
+                # mydb.commit()
                 
-            cursor.execute(f"update players set in_jail = 0 where team = {team}")
-            mydb.commit()
+            db.session.execute(text(f"update players set in_jail = 0 where team = {team}"))
+            # mydb.commit()
 
         else:
-            cursor.execute(f"update players set in_jail = 1 where team = {team}")
-            mydb.commit()
+            db.session.execute(text(f"update players set in_jail = 1 where team = {team}"))
+            # mydb.commit()
+        db.session.commit()
     
     return jsonify({'message': 'Jail toggled successfully'})
 
-@app.route('/api/forfeit' ,methods=['POST'])
+@app.route('/api/bankrupted', methods=['POST'])
 def forfeit():
     if request.method == 'POST':
         data = request.get_json()
 
         team = data['value']
+        print(team)
 
-        cursor.execute(f"update properties set 
-                       house = 0,
-                       owner_id = NULL,
-                       hotels = 0,
-                       mortgage = 0
-                       
-                       where team = {team}")
-        mydb.commit()
+        # Fetch properties owned by the team
+        propid = db.session.execute(text("SELECT id FROM properties WHERE owner_id = :team"), {'team': team})
+        propid = propid.fetchall()
+        print(propid)
 
-        cursor.execute(f"update players set 
-                       cash = 0,
-                       in_jail = 0,
-                       propertiesOwned = NULL,
-                       bankrupt = 1,
-                    
-                       where team = {team}")
-        
-        mydb.commit()
+        # Update properties
+        for i in propid:
+            db.session.execute(text("""
+                UPDATE properties 
+                SET house = 0, owner_id = :owner_id, hotels = 0, mortgage = 0 
+                WHERE id = :propid
+            """), {'owner_id': None, 'propid': i[0]})
+
+        db.session.commit()
+
+        # Update player details
+        db.session.execute(text("""
+            UPDATE players 
+            SET cash = 0, in_jail = 0, propertiesOwned = :propertiesOwned, bankrupt = 1 
+            WHERE team = :team
+        """), {'propertiesOwned': None, 'team': team})
+
+        db.session.commit()
+
+        return {"status": "success", "message": "Team has forfeited"}
+
+
 
 
         

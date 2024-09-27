@@ -2272,3 +2272,41 @@
 16 : 51 : 47 - (DEBUG) :   Exchanging further packets
 16 : 51 : 47 - (DEBUG) :   caching_sha2_password completed succesfully
 16 : 56 : 01 - (DEBUG) :   Entered Sell Property
+20 : 59 : 11 - (DEBUG) :   Building SSL context
+20 : 59 : 11 - (DEBUG) :   Switching to SSL
+20 : 59 : 11 - (DEBUG) :   SSL has been enabled
+20 : 59 : 11 - (DEBUG) :   Starting authorization phase
+20 : 59 : 11 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+20 : 59 : 11 - (DEBUG) :   Exchanging further packets
+20 : 59 : 11 - (DEBUG) :   caching_sha2_password completed succesfully
+20 : 59 : 11 - (DEBUG) :   Building SSL context
+20 : 59 : 12 - (DEBUG) :   Switching to SSL
+20 : 59 : 12 - (DEBUG) :   SSL has been enabled
+20 : 59 : 12 - (DEBUG) :   Starting authorization phase
+20 : 59 : 12 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+20 : 59 : 12 - (DEBUG) :   Exchanging further packets
+20 : 59 : 12 - (DEBUG) :   caching_sha2_password completed succesfully
+21 : 01 : 32 - (ERROR) :    Invalid action
+21 : 01 : 44 - (ERROR) :    Invalid action
+21 : 03 : 28 - (ERROR) :    Invalid action
+21 : 03 : 48 - (ERROR) :    Invalid action
+21 : 05 : 08 - (ERROR) :    Invalid action
+21 : 05 : 16 - (ERROR) :    Invalid action
+21 : 06 : 58 - (DEBUG) :   Building SSL context
+21 : 06 : 58 - (DEBUG) :   Switching to SSL
+21 : 06 : 58 - (DEBUG) :   SSL has been enabled
+21 : 06 : 58 - (DEBUG) :   Starting authorization phase
+21 : 06 : 58 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+21 : 06 : 58 - (DEBUG) :   Exchanging further packets
+21 : 06 : 58 - (DEBUG) :   caching_sha2_password completed succesfully
+21 : 06 : 58 - (DEBUG) :   Building SSL context
+21 : 06 : 58 - (DEBUG) :   Switching to SSL
+21 : 06 : 58 - (DEBUG) :   SSL has been enabled
+21 : 06 : 58 - (DEBUG) :   Starting authorization phase
+21 : 06 : 58 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+21 : 06 : 58 - (DEBUG) :   Exchanging further packets
+21 : 06 : 58 - (DEBUG) :   caching_sha2_password completed succesfully
+21 : 10 : 49 - (ERROR) :    Invalid action
+21 : 11 : 09 - (ERROR) :    Invalid action
+21 : 11 : 15 - (ERROR) :    Invalid action
+21 : 11 : 44 - (ERROR) :    Invalid action
