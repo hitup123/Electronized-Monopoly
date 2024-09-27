@@ -7,3 +7,6 @@ def dbconnect():
         database="monopoly"
     )  
     return mydb
+
+mydb = dbconnect()
+cursor = mydb.cursor()

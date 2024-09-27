@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const sendValue = (x) => {
     const payload = { value: x };
 
-    fetch('/api/go_jail', {
+    fetch('/api/forfeit', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -17,7 +17,7 @@ const sendValue = (x) => {
 
 
 
-function GoToJail() {
+function Forfeit() {
     const [hovered, setHovered] = useState(false);
 
     const transfer = {
@@ -38,7 +38,7 @@ function GoToJail() {
         setHovered(false);
     };
 
-    const jailprotocol = () => {
+    const forfeitprotocol = () => {
         var value = prompt("Enter the Team Number");
         // alert(value);
         sendValue(value)
@@ -47,13 +47,13 @@ function GoToJail() {
     return (
        <button
            style={transfer}
-           onClick={jailprotocol}
+           onClick={forfeitprotocol}
            onMouseEnter={handleMouseEnter}
            onMouseLeave={handleMouseLeave}
        >
-           Toggle Jail
+           Forfeit
        </button>
     );
 }
 
-export default GoToJail;
+export default Forfeit;

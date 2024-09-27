@@ -7,6 +7,7 @@ import GoToJail from '../components/Jail';
 import GetTax from '../components/Tax';
 import Admin_AddMoney from '../components/Admin_AddMoney';
 import Admin_SubMoney from '../components/Admin_SubMoney';
+import Forfeit from '../components/Forfeit';
 
 import { DataContext, LogContext } from '../App';
 
@@ -165,6 +166,7 @@ function HomePage() {
           <GetTax />
           <Admin_AddMoney />
           <Admin_SubMoney />  
+          <Forfeit />
         </div>
         <LogScreen newLog={log_json} />
       </div>

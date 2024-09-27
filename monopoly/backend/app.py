@@ -333,6 +333,69 @@ def admin_submoney():
     else:
         return jsonify({'error': 'Method not allowed'})
 
+from dbConnector import cursor, mydb
+
+@app.route('/api/go_jail' ,methods=['POST'])
+def go_jail():
+    if request.method == 'POST':
+        data = request.get_json()
+
+        print("JAIL: ",data['value'])
+
+        team = data['value']
+
+        cursor.execute(f"select in_jail from players where team = {team}")
+        jailstats = cursor.fetchone()[0]
+
+        if( 1 == jailstats):
+
+            cursor.execute(f"select jail_free_cards from players where team = {team}")
+            jailfree = cursor.fetchone()[0]
+
+            if(jailfree > 0):
+                cursor.execute(f"update players set jail_free_cards = jail_free_cards - 1 where team = {team}")
+                mydb.commit()
+            else:
+                cursor.execute(f"update players set cash = cash - 50 where team = {team}")
+                mydb.commit()
+                
+            cursor.execute(f"update players set in_jail = 0 where team = {team}")
+            mydb.commit()
+
+        else:
+            cursor.execute(f"update players set in_jail = 1 where team = {team}")
+            mydb.commit()
+    
+    return jsonify({'message': 'Jail toggled successfully'})
+
+@app.route('/api/forfeit' ,methods=['POST'])
+def forfeit():
+    if request.method == 'POST':
+        data = request.get_json()
+
+        team = data['value']
+
+        cursor.execute(f"update properties set 
+                       house = 0,
+                       owner_id = NULL,
+                       hotels = 0,
+                       mortgage = 0
+                       
+                       where team = {team}")
+        mydb.commit()
+
+        cursor.execute(f"update players set 
+                       cash = 0,
+                       in_jail = 0,
+                       propertiesOwned = NULL,
+                       bankrupt = 1,
+                    
+                       where team = {team}")
+        
+        mydb.commit()
+
+
+        
 
 if __name__ == '__main__':
     
