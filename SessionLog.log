@@ -2026,3 +2026,249 @@
 22 : 14 : 06 - (DEBUG) :   The provided initial strategy is caching_sha2_password
 22 : 14 : 06 - (DEBUG) :   Exchanging further packets
 22 : 14 : 06 - (DEBUG) :   caching_sha2_password completed succesfully
+15 : 41 : 35 - (DEBUG) :   Building SSL context
+15 : 41 : 35 - (DEBUG) :   Switching to SSL
+15 : 41 : 35 - (DEBUG) :   SSL has been enabled
+15 : 41 : 35 - (DEBUG) :   Starting authorization phase
+15 : 41 : 35 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+15 : 41 : 35 - (INFO) :   package: mysql.connector.plugins
+15 : 41 : 35 - (INFO) :   plugin_name: caching_sha2_password
+15 : 41 : 35 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+15 : 41 : 35 - (DEBUG) :   Exchanging further packets
+15 : 41 : 35 - (DEBUG) :   caching_sha2_password completed succesfully
+15 : 41 : 36 - (DEBUG) :   Building SSL context
+15 : 41 : 36 - (DEBUG) :   Switching to SSL
+15 : 41 : 36 - (DEBUG) :   SSL has been enabled
+15 : 41 : 36 - (DEBUG) :   Starting authorization phase
+15 : 41 : 36 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+15 : 41 : 36 - (DEBUG) :   Exchanging further packets
+15 : 41 : 36 - (DEBUG) :   caching_sha2_password completed succesfully
+15 : 41 : 36 - (DEBUG) :   Building SSL context
+15 : 41 : 37 - (DEBUG) :   Switching to SSL
+15 : 41 : 37 - (DEBUG) :   SSL has been enabled
+15 : 41 : 37 - (DEBUG) :   Starting authorization phase
+15 : 41 : 37 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+15 : 41 : 37 - (DEBUG) :   Exchanging further packets
+15 : 41 : 37 - (DEBUG) :   caching_sha2_password completed succesfully
+15 : 41 : 47 - (DEBUG) :   Building SSL context
+15 : 41 : 47 - (DEBUG) :   Switching to SSL
+15 : 41 : 47 - (DEBUG) :   SSL has been enabled
+15 : 41 : 47 - (DEBUG) :   Starting authorization phase
+15 : 41 : 47 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+15 : 41 : 47 - (INFO) :   package: mysql.connector.plugins
+15 : 41 : 47 - (INFO) :   plugin_name: caching_sha2_password
+15 : 41 : 47 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+15 : 41 : 47 - (DEBUG) :   Exchanging further packets
+15 : 41 : 47 - (DEBUG) :   caching_sha2_password completed succesfully
+15 : 41 : 47 - (DEBUG) :   Building SSL context
+15 : 41 : 47 - (DEBUG) :   Switching to SSL
+15 : 41 : 47 - (DEBUG) :   SSL has been enabled
+15 : 41 : 47 - (DEBUG) :   Starting authorization phase
+15 : 41 : 47 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+15 : 41 : 47 - (DEBUG) :   Exchanging further packets
+15 : 41 : 47 - (DEBUG) :   caching_sha2_password completed succesfully
+15 : 41 : 47 - (DEBUG) :   Building SSL context
+15 : 41 : 47 - (DEBUG) :   Switching to SSL
+15 : 41 : 47 - (DEBUG) :   SSL has been enabled
+15 : 41 : 47 - (DEBUG) :   Starting authorization phase
+15 : 41 : 47 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+15 : 41 : 47 - (DEBUG) :   Exchanging further packets
+15 : 41 : 47 - (DEBUG) :   caching_sha2_password completed succesfully
+15 : 58 : 35 - (DEBUG) :   Building SSL context
+15 : 58 : 35 - (DEBUG) :   Switching to SSL
+15 : 58 : 35 - (DEBUG) :   SSL has been enabled
+15 : 58 : 35 - (DEBUG) :   Starting authorization phase
+15 : 58 : 35 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+15 : 58 : 35 - (INFO) :   package: mysql.connector.plugins
+15 : 58 : 35 - (INFO) :   plugin_name: caching_sha2_password
+15 : 58 : 35 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+15 : 58 : 35 - (DEBUG) :   Exchanging further packets
+15 : 58 : 35 - (DEBUG) :   caching_sha2_password completed succesfully
+15 : 58 : 36 - (DEBUG) :   Building SSL context
+15 : 58 : 36 - (DEBUG) :   Switching to SSL
+15 : 58 : 36 - (DEBUG) :   SSL has been enabled
+15 : 58 : 36 - (DEBUG) :   Starting authorization phase
+15 : 58 : 36 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+15 : 58 : 36 - (DEBUG) :   Exchanging further packets
+15 : 58 : 36 - (DEBUG) :   caching_sha2_password completed succesfully
+15 : 58 : 36 - (DEBUG) :   Building SSL context
+15 : 58 : 36 - (DEBUG) :   Switching to SSL
+15 : 58 : 36 - (DEBUG) :   SSL has been enabled
+15 : 58 : 36 - (DEBUG) :   Starting authorization phase
+15 : 58 : 36 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+15 : 58 : 36 - (DEBUG) :   Exchanging further packets
+15 : 58 : 36 - (DEBUG) :   caching_sha2_password completed succesfully
+16 : 12 : 35 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 12 : 35 - (DEBUG) :   Entered Buy Property
+16 : 12 : 35 - (DEBUG) :   Property Bought Successfully
+16 : 13 : 57 - (DEBUG) :   Entered Player on Chance Card
+16 : 13 : 57 - (DEBUG) :   Chance Card " Advance to Mayfair " was executed,
+ Code: Advance to Mayfair 
+16 : 14 : 39 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 14 : 39 - (DEBUG) :   Entered Buy Property
+16 : 14 : 39 - (DEBUG) :   Property Bought Successfully
+16 : 15 : 42 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 15 : 42 - (DEBUG) :   Entered Buy Property
+16 : 15 : 42 - (DEBUG) :   Property Bought Successfully
+16 : 16 : 40 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 16 : 40 - (DEBUG) :   Entered  Rent Property
+16 : 16 : 40 - (DEBUG) :   Rent has been payed
+16 : 17 : 26 - (DEBUG) :   Entered Player on Chance Card
+16 : 17 : 26 - (DEBUG) :   Chance Card " Get out of Jail Free (This card may be kept until needed or traded) " was executed,
+ Code: Get out of Jail Free (This card may be kept until needed or traded) 
+16 : 19 : 10 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 19 : 10 - (DEBUG) :   Entered Buy Property
+16 : 19 : 10 - (DEBUG) :   Property Bought Successfully
+16 : 20 : 31 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 20 : 31 - (DEBUG) :   Entered  Rent Property
+16 : 20 : 31 - (DEBUG) :   Rent has been payed
+16 : 21 : 37 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 21 : 37 - (DEBUG) :   Entered Buy Property
+16 : 21 : 37 - (DEBUG) :   Property Bought Successfully
+16 : 22 : 31 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 22 : 31 - (DEBUG) :   Entered Buy Property
+16 : 22 : 31 - (DEBUG) :   Property Bought Successfully
+16 : 23 : 01 - (DEBUG) :   Entered Player on Community Chest Card
+16 : 23 : 01 - (DEBUG) :   Community Card " Get Out of Jail Free (This card may be kept until needed or traded) " was executed,
+ Code: Get Out of Jail Free (This card may be kept until needed or traded) 
+16 : 24 : 31 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 24 : 31 - (DEBUG) :   Entered Buy Property
+16 : 24 : 31 - (DEBUG) :   Property Bought Successfully
+16 : 25 : 32 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 25 : 32 - (DEBUG) :   Entered Buy Property
+16 : 25 : 32 - (DEBUG) :   Property Bought Successfully
+16 : 25 : 56 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 25 : 56 - (DEBUG) :   Entered  Rent Property
+16 : 25 : 56 - (DEBUG) :   Rent has been payed
+16 : 27 : 02 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 27 : 02 - (DEBUG) :   Entered Buy Property
+16 : 27 : 02 - (DEBUG) :   Property Bought Successfully
+16 : 27 : 23 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 27 : 23 - (DEBUG) :   Entered  Rent Property
+16 : 27 : 23 - (DEBUG) :   Rent has been payed
+16 : 28 : 19 - (DEBUG) :   Entered Player on Chance Card
+16 : 28 : 19 - (DEBUG) :   Chance Card " Your building loan matures (Collect £150) " was executed,
+ Code: Your building loan matures (Collect £150) 
+16 : 29 : 07 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 29 : 07 - (DEBUG) :   Entered Buy Property
+16 : 29 : 07 - (DEBUG) :   Property Bought Successfully
+16 : 30 : 20 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 30 : 20 - (DEBUG) :   Entered Buy Property
+16 : 30 : 20 - (DEBUG) :   Property Bought Successfully
+16 : 34 : 25 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 34 : 25 - (DEBUG) :   Entered  Rent Property
+16 : 34 : 25 - (DEBUG) :   Rent has been payed
+16 : 35 : 06 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 35 : 06 - (DEBUG) :   Entered Buy Property
+16 : 35 : 06 - (DEBUG) :   Property Bought Successfully
+16 : 36 : 27 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 36 : 27 - (DEBUG) :   Entered  Rent Property
+16 : 36 : 27 - (DEBUG) :   Rent has been payed
+16 : 38 : 17 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 38 : 17 - (DEBUG) :   Entered Buy Property
+16 : 38 : 17 - (DEBUG) :   Property Bought Successfully
+16 : 39 : 32 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 39 : 32 - (DEBUG) :   Entered  Rent Property
+16 : 39 : 32 - (DEBUG) :   Rent has been payed
+16 : 40 : 01 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 40 : 01 - (DEBUG) :   Entered Buy Property
+16 : 40 : 01 - (DEBUG) :   Property Bought Successfully
+16 : 40 : 14 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 40 : 14 - (DEBUG) :   Entered  Rent Property
+16 : 42 : 47 - (DEBUG) :   Building SSL context
+16 : 42 : 47 - (DEBUG) :   Switching to SSL
+16 : 42 : 47 - (DEBUG) :   SSL has been enabled
+16 : 42 : 47 - (DEBUG) :   Starting authorization phase
+16 : 42 : 47 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+16 : 42 : 47 - (INFO) :   package: mysql.connector.plugins
+16 : 42 : 47 - (INFO) :   plugin_name: caching_sha2_password
+16 : 42 : 47 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+16 : 42 : 47 - (DEBUG) :   Exchanging further packets
+16 : 42 : 47 - (DEBUG) :   caching_sha2_password completed succesfully
+16 : 42 : 47 - (DEBUG) :   Building SSL context
+16 : 42 : 47 - (DEBUG) :   Switching to SSL
+16 : 42 : 47 - (DEBUG) :   SSL has been enabled
+16 : 42 : 47 - (DEBUG) :   Starting authorization phase
+16 : 42 : 47 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+16 : 42 : 47 - (DEBUG) :   Exchanging further packets
+16 : 42 : 47 - (DEBUG) :   caching_sha2_password completed succesfully
+16 : 42 : 47 - (DEBUG) :   Building SSL context
+16 : 42 : 47 - (DEBUG) :   Switching to SSL
+16 : 42 : 47 - (DEBUG) :   SSL has been enabled
+16 : 42 : 47 - (DEBUG) :   Starting authorization phase
+16 : 42 : 47 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+16 : 42 : 47 - (DEBUG) :   Exchanging further packets
+16 : 42 : 47 - (DEBUG) :   caching_sha2_password completed succesfully
+16 : 42 : 56 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 42 : 56 - (DEBUG) :   Entered  Rent Property
+16 : 42 : 56 - (DEBUG) :   Rent has been payed
+16 : 45 : 45 - (DEBUG) :   Building SSL context
+16 : 45 : 45 - (DEBUG) :   Switching to SSL
+16 : 45 : 45 - (DEBUG) :   SSL has been enabled
+16 : 45 : 45 - (DEBUG) :   Starting authorization phase
+16 : 45 : 45 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+16 : 45 : 45 - (INFO) :   package: mysql.connector.plugins
+16 : 45 : 45 - (INFO) :   plugin_name: caching_sha2_password
+16 : 45 : 45 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+16 : 45 : 45 - (DEBUG) :   Exchanging further packets
+16 : 45 : 45 - (DEBUG) :   caching_sha2_password completed succesfully
+16 : 45 : 49 - (DEBUG) :   Building SSL context
+16 : 45 : 49 - (DEBUG) :   Switching to SSL
+16 : 45 : 49 - (DEBUG) :   SSL has been enabled
+16 : 45 : 49 - (DEBUG) :   Starting authorization phase
+16 : 45 : 49 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+16 : 45 : 49 - (INFO) :   package: mysql.connector.plugins
+16 : 45 : 49 - (INFO) :   plugin_name: caching_sha2_password
+16 : 45 : 49 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+16 : 45 : 49 - (DEBUG) :   Exchanging further packets
+16 : 45 : 49 - (DEBUG) :   caching_sha2_password completed succesfully
+16 : 45 : 49 - (DEBUG) :   Building SSL context
+16 : 45 : 49 - (DEBUG) :   Switching to SSL
+16 : 45 : 49 - (DEBUG) :   SSL has been enabled
+16 : 45 : 49 - (DEBUG) :   Starting authorization phase
+16 : 45 : 49 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+16 : 45 : 49 - (DEBUG) :   Exchanging further packets
+16 : 45 : 49 - (DEBUG) :   caching_sha2_password completed succesfully
+16 : 45 : 49 - (DEBUG) :   Building SSL context
+16 : 45 : 49 - (DEBUG) :   Switching to SSL
+16 : 45 : 49 - (DEBUG) :   SSL has been enabled
+16 : 45 : 49 - (DEBUG) :   Starting authorization phase
+16 : 45 : 49 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+16 : 45 : 49 - (DEBUG) :   Exchanging further packets
+16 : 45 : 49 - (DEBUG) :   caching_sha2_password completed succesfully
+16 : 45 : 56 - (DEBUG) :   Entered  PlayerOnProperty
+16 : 45 : 56 - (DEBUG) :   Entered  Rent Property
+16 : 45 : 56 - (DEBUG) :   Rent has been payed
+16 : 48 : 28 - (ERROR) :    Invalid action
+16 : 48 : 33 - (ERROR) :    Invalid action
+16 : 48 : 43 - (ERROR) :    Invalid action
+16 : 48 : 51 - (ERROR) :    Invalid action
+16 : 49 : 05 - (ERROR) :    Invalid action
+16 : 50 : 06 - (ERROR) :    Invalid action
+16 : 50 : 34 - (ERROR) :    Invalid action
+16 : 51 : 24 - (ERROR) :    Invalid action
+16 : 51 : 47 - (DEBUG) :   Building SSL context
+16 : 51 : 47 - (DEBUG) :   Switching to SSL
+16 : 51 : 47 - (DEBUG) :   SSL has been enabled
+16 : 51 : 47 - (DEBUG) :   Starting authorization phase
+16 : 51 : 47 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+16 : 51 : 47 - (INFO) :   package: mysql.connector.plugins
+16 : 51 : 47 - (INFO) :   plugin_name: caching_sha2_password
+16 : 51 : 47 - (INFO) :   AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+16 : 51 : 47 - (DEBUG) :   Exchanging further packets
+16 : 51 : 47 - (DEBUG) :   caching_sha2_password completed succesfully
+16 : 51 : 47 - (DEBUG) :   Building SSL context
+16 : 51 : 47 - (DEBUG) :   Switching to SSL
+16 : 51 : 47 - (DEBUG) :   SSL has been enabled
+16 : 51 : 47 - (DEBUG) :   Starting authorization phase
+16 : 51 : 47 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+16 : 51 : 47 - (DEBUG) :   Exchanging further packets
+16 : 51 : 47 - (DEBUG) :   caching_sha2_password completed succesfully
+16 : 51 : 47 - (DEBUG) :   Building SSL context
+16 : 51 : 47 - (DEBUG) :   Switching to SSL
+16 : 51 : 47 - (DEBUG) :   SSL has been enabled
+16 : 51 : 47 - (DEBUG) :   Starting authorization phase
+16 : 51 : 47 - (DEBUG) :   The provided initial strategy is caching_sha2_password
+16 : 51 : 47 - (DEBUG) :   Exchanging further packets
+16 : 51 : 47 - (DEBUG) :   caching_sha2_password completed succesfully
+16 : 56 : 01 - (DEBUG) :   Entered Sell Property

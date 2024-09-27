@@ -7,7 +7,7 @@ from sqlalchemy import inspect
 app = Flask(__name__, static_folder='static')
 # from  p1 import bp 
 # app.register_blueprint(bp)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://Yash:root@localhost/monopoly'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost/monopoly'
 db = SQLAlchemy(app)
 
 txn=0

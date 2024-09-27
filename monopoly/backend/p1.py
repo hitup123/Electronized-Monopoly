@@ -40,9 +40,9 @@ def insertLog(count, action , team1,team2, money, msg ):
 def handleRailwayRent(owner_id):
 
         cursor.execute(f"select owner_id from properties where color='Railroad'")
-        owners = cursor.fetchall()
-
-        mul = 1
+        owners = cursor.fetchall()#[(4,),(4,),(None,),(None,)]
+        print(owners)
+        mul = 0.5
         for i in  owners:
                 if(i[0] == owner_id):
                         mul = mul*2
@@ -246,7 +246,8 @@ def conditions():
                                                 print("rent is 0")
                                         
                                 elif(PropertyData[id] == 3 or PropertyData[id] == 11 or PropertyData[id] == 18 or PropertyData[id] == 26):
-                                        rent = handleRailwayRent()
+                                        rent = handleRailwayRent(PropertyData[owner_id])
+
 
                                 if(0 == house):
                                         cursor.execute(f"select color from properties where  id={PropertyData[id]}")
@@ -590,7 +591,8 @@ def conditions():
                         # if(PropertyData[hotels]): # Check if Property already has a Hotel on it
                         #         canbuild=False
 
-                        cursor.execute(f"select sum(house) from properties") # Check if there are houses remaining for purchase
+                        cursor.execute(f"select sum(house) from properties where house <> 5") # Check if there are houses remaining for purchase
+
                         total_houses_used=cursor.fetchall()[0]
                         print(total_houses_used[0])
                         if(total_houses_used[0] >=  32):
@@ -672,20 +674,47 @@ def conditions():
                         
                         if(PropertyData[house] > 0):
                                 # Give money  to the player who sold the property
-                                cursor.execute(f"SELECT houseCost FROM properties WHERE id =  {PropertyData[id]}")
-                                hcost = cursor.fetchone()[0]
+                                # cursor.execute(f"SELECT houseCost FROM properties WHERE id =  {PropertyData[id]}")
+                                # hcost = cursor.fetchone()[0]
 
-                                cursor.execute(f"select team from teams where id = {PropertyData[owner_id]}")
-                                owner_team = cursor.fetchone()[0]
 
-                                cursor.execute(f"update players set cash = cash + {hcost}*0.5 WHERE team = {owner_team}")
+
+                                # cursor.execute(f"select team from teams where id = {PropertyData[owner_id]}")
+                                # owner_team = cursor.fetchone()[0]
+                                owner_team=PropertyData[owner_id]
+                                hcost = PropertyData[houseCost] * 0.5
+                                
+                                cursor.execute(f"select hotels from properties where id = {PropertyData[id]}")
+                                has_hotels = cursor.fetchone()[0]
+
+                                
+                                if(1 == has_hotels):
+  
+                                        cursor.execute(f"select sum(house) from properties where house <> 5")
+                                        total = cursor.fetchone()[0]
+                                        remaining = 32 - total
+                                        if(remaining<4):
+                                                # hcost=5*PropertyData[houseCost]
+                                                insertLog(txn, 'sell', PlayerData[team], None, hcost,  f"Hotel on Property {PropertyData[id]} cannot be sold due to insufficient houses")
+                                                return
+
+                                                
+
+                                        cursor.execute(f"update properties set house = 4 where id = {PropertyData[id]}")
+
+                                        cursor.execute(f"update properties set hotels = 0 where owner_id = {PropertyData[id]}")
+
+                                else:
+                                        cursor.execute(f"update properties set house = house - 1 where id = {PropertyData[id]}")
+
+                                cursor.execute(f"update players set cash = cash + {hcost} WHERE team = {owner_team}")
 
                                 # Making property as unsold
-                                cursor.execute(f"update properties set owner_id = NULL where id = {PropertyData[id]}")
+                                # cursor.execute(f"update properties set owner_id = NULL where id = {PropertyData[id]}")
 
-                                insertLog(txn, 'sell', PlayerData[team], None, hcost*0.5,  f"Property {PropertyData[id]} was sold by Team {owner_team}")
+                                insertLog(txn, 'sell', PlayerData[team], None, hcost,  f"House/Hotel on Property {PropertyData[id]} was sold by Team {owner_team}")
                         else:
-                                insertLog(txn, 'sell', PlayerData[team], None, hcost*0.5,  f"Property {PropertyData[id]} does not have any houses/hotels to be sold")
+                                insertLog(txn, 'sell', PlayerData[team], None, hcost,  f"Property {PropertyData[id]} does not have any houses/hotels to be sold")
                                 
 
                 mydb.commit()

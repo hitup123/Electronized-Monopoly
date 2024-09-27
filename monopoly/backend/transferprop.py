@@ -17,5 +17,18 @@ def transferproperties(x):
     cursor.execute(f"update players set cash = cash - {x} where team = {team_id[0]}")
     cursor.execute(f"update players set cash = cash + {x} where team = {property_data[len(property_data)-2]}")
     cursor.execute(f"update properties set owner_id = {team_id[0]} where id = {property_id[0]}")
+    cursor.execute("SELECT team FROM teams")
+    teams = cursor.fetchall()
+    for t in teams:
+        team_id = t[0]
+        str1 = ""
+        cursor.execute("SELECT name FROM properties WHERE owner_id = %s", (team_id,))
+        result = cursor.fetchall()
+        for prop in result:
+            str1 += f"_{prop[0]}"
+        if str1 == "":
+            str1 = None
+        cursor.execute("UPDATE players SET propertiesOwned = %s WHERE team = %s", (str1, team_id))
+        mydb.commit()
     #update properties owned according to this thanks
     mydb.commit()

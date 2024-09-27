@@ -71,7 +71,7 @@ const EventPop = ({ newLog }) => {
       // Set a timeout to remove the log after 2 seconds
       const timer = setTimeout(() => {
         setPops(prevPops => prevPops.filter(pop => pop.id !== id));
-      }, 5000);
+      }, 3501);
 
       // Cleanup the timeout
       return () => clearTimeout(timer);
